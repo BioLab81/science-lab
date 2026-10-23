@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="마른콩과 발아콩의 이산화 탄소 농도 및 온도 변화를 비교하며 물질대사와 에너지대사를 체험하는 고등학교 생명과학 가상 실험실">
+  <title>발아콩의 물질대사와 에너지대사 | 가상 실험실</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2311473a'/%3E%3Cpath d='M33 48V28c0-9 7-15 17-15 0 10-5 18-17 18M31 39c-9 0-16-5-16-15 10 0 16 5 16 15Z' fill='%23b9ee63' stroke='%23fff' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <style>
+    :root{--ink:#17221f;--muted:#64716d;--green:#155c49;--green2:#23856a;--lime:#b9ee63;--aqua:#d9f3ed;--cream:#f7f5ed;--paper:#fff;--line:#dbe4df;--orange:#e7833e;--blue:#2d79b7;--shadow:0 16px 40px rgba(23,66,55,.10);font-family:"Pretendard","Noto Sans KR",system-ui,-apple-system,sans-serif;color:var(--ink)}
+    *{box-sizing:border-box} body{margin:0;background:linear-gradient(135deg,#f5f7ef 0,#eff8f5 54%,#f8fbfa 100%);min-height:100vh} button,input{font:inherit} button{cursor:pointer}
+    .shell{max-width:1440px;margin:auto;padding:22px clamp(16px,3vw,44px) 48px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:18px}.brand{display:flex;gap:13px;align-items:center}.brand-mark{width:46px;height:46px;border-radius:15px;background:var(--green);display:grid;place-items:center;box-shadow:0 7px 16px rgba(21,92,73,.22)}.brand-mark svg{width:29px}.eyebrow{font-weight:800;color:var(--green2);font-size:.78rem;letter-spacing:.12em}.brand h1{font-size:clamp(1.23rem,2vw,1.8rem);margin:3px 0 0;letter-spacing:-.04em}.head-note{color:var(--muted);font-size:.87rem;text-align:right}.head-note strong{color:var(--green)}
+    .stepper{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}.step{position:relative;display:flex;align-items:center;gap:10px;padding:11px 14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.72);color:#72807b;font-weight:750}.step b{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#edf1ef;font-size:.85rem}.step.active{background:var(--green);color:#fff;border-color:var(--green);box-shadow:0 8px 22px rgba(21,92,73,.2)}.step.active b{background:var(--lime);color:#143d32}.step.done{border-color:#8fc9b8;color:var(--green)}.step.done b{background:#dcf4e9;color:var(--green)}
+    .workspace{display:grid;grid-template-columns:minmax(390px,.78fr) minmax(510px,1.22fr);gap:16px;align-items:stretch}.card{background:rgba(255,255,255,.93);border:1px solid rgba(207,222,215,.9);border-radius:22px;box-shadow:var(--shadow)}
+    .lab{padding:20px;display:flex;flex-direction:column;min-height:655px}.section-top{display:flex;align-items:start;justify-content:space-between;gap:15px}.kicker{margin:0 0 5px;color:var(--green2);font-size:.76rem;font-weight:850;letter-spacing:.08em}.section-top h2{margin:0;font-size:1.3rem;letter-spacing:-.035em}.sample-pill{padding:7px 11px;border-radius:999px;background:var(--aqua);color:var(--green);font-weight:800;font-size:.82rem;white-space:nowrap}
+    .apparatus{position:relative;margin:14px 0 10px;height:315px;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 72%,#d8f1ea 0 31%,transparent 56%),linear-gradient(180deg,#fbfdfc,#edf6f3);border:1px solid #d5e1dc;border-radius:18px;overflow:hidden}.apparatus:after{content:"";position:absolute;left:18%;right:18%;bottom:28px;height:12px;border-radius:50%;background:rgba(20,55,45,.15);filter:blur(6px)}.apparatus svg{width:min(455px,98%);height:304px;position:relative;z-index:1;overflow:visible}.sensor-unit{transform:translateY(-112px);opacity:.18;transition:transform .65s cubic-bezier(.2,.85,.25,1.15),opacity .35s}.sensor-unit.installed{transform:translateY(0);opacity:1}.lid-unit,.lid-front-rim{transform:translateY(-72px);opacity:.38;transition:transform .58s cubic-bezier(.2,.85,.25,1.12),opacity .3s}.lid-unit.closed,.lid-front-rim.closed{transform:translateY(0);opacity:1}.beans{opacity:0;transform:translateY(-42px);transition:transform .6s cubic-bezier(.25,.9,.35,1.25),opacity .25s}.beans.loaded{opacity:1;transform:translateY(0)}.sprouts{opacity:0;transition:opacity .35s}.apparatus.germinating .sprouts{opacity:1}.gas-bubble{opacity:0}.running .gas-bubble{animation:rise 2.6s infinite ease-in}.running .gas-bubble:nth-child(2){animation-delay:.8s}.running .gas-bubble:nth-child(3){animation-delay:1.6s}.sensor-led{animation:blink 1.7s infinite}.sample-flag{position:absolute;top:10px;left:12px;z-index:2;background:#143d32;color:white;border-radius:999px;padding:6px 10px;font-weight:800;font-size:.75rem;box-shadow:0 4px 12px rgba(0,0,0,.14);white-space:nowrap}.setup-status{position:absolute;left:12px;right:12px;bottom:8px;z-index:2;display:flex;justify-content:center;gap:6px;flex-wrap:wrap}.setup-chip{background:rgba(255,255,255,.94);border:1px solid #cdd9d4;color:#6d7975;border-radius:999px;padding:5px 8px;font-size:.69rem;font-weight:800;box-shadow:0 3px 10px rgba(21,51,42,.08)}.setup-chip.done{background:#6d7975;color:white;border-color:#6d7975}.setup-chip.done:before{content:"✓ ";color:#fff}@keyframes rise{0%{opacity:0;transform:translateY(8px)}30%{opacity:.8}100%{opacity:0;transform:translateY(-48px)}}@keyframes blink{50%{fill:#d8ff8c;filter:drop-shadow(0 0 5px #b9ee63)}}
+    .live-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.readout{padding:11px 13px;border-radius:15px;border:1px solid var(--line);background:#fbfcfa}.readout .label{font-size:.77rem;color:var(--muted);font-weight:700}.readout .value{font-size:1.55rem;font-weight:850;letter-spacing:-.04em;margin-top:2px}.readout.co2 .value{color:var(--green2)}.readout.temp .value{color:var(--orange)}
+    .controls{margin-top:auto}.instruction{display:flex;align-items:center;gap:10px;background:#f0f7f4;border-radius:14px;padding:11px 13px;margin:11px 0;color:#34433e;font-size:.9rem;line-height:1.45}.instruction .num{width:26px;height:26px;flex:0 0 auto;display:grid;place-items:center;border-radius:50%;background:var(--green);color:white;font-weight:800}.action-list{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.phase-btn{position:relative;border:1px solid #d7e0dc;background:#fff;color:#9aa5a1;padding:10px 7px;border-radius:12px;font-weight:800;min-height:47px;font-size:.78rem;transition:.18s}.phase-btn.current{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 6px 15px rgba(21,92,73,.2)}.phase-btn.current:hover:not(:disabled){background:#0d493a;transform:translateY(-1px)}.phase-btn.done{background:#e5e9e7;border-color:#d2d8d5;color:#64706c}.phase-btn.done:before{content:"✓ ";font-weight:950}.phase-btn:disabled{cursor:not-allowed}.control-footer{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:8px}.btn{border:1px solid var(--line);background:white;color:var(--ink);padding:10px 12px;border-radius:12px;font-weight:780;min-height:43px;transition:.18s}.btn:hover:not(:disabled){transform:translateY(-1px);border-color:#8dbfae}.btn:disabled{opacity:.45;cursor:not-allowed}.btn.primary{background:var(--green);color:white;border-color:var(--green)}.btn.primary:hover:not(:disabled){background:#0d493a}.btn.next{display:none}.btn.next.show{display:block}.btn.reset{color:#596661;background:#f7f9f8}
+    .data{padding:20px;display:flex;flex-direction:column;min-width:0}.data-head{display:flex;justify-content:space-between;align-items:start;gap:16px}.clock{background:#142722;color:#dff8ef;border-radius:13px;padding:8px 12px;text-align:center;min-width:112px}.clock small{display:block;color:#97b9af;font-size:.68rem;font-weight:750}.clock b{font-size:1.18rem;font-variant-numeric:tabular-nums;letter-spacing:.03em}.scale-note{margin:7px 0 12px;color:var(--muted);font-size:.82rem}.charts{display:grid;grid-template-rows:1fr 1fr;gap:10px;flex:1}.chart-card{border:1px solid var(--line);border-radius:15px;padding:9px 10px 7px;min-height:205px;background:#fff}.chart-title{display:flex;justify-content:space-between;align-items:center;font-size:.84rem;font-weight:800;margin:0 3px 3px}.legend{font-size:.72rem;color:var(--muted);font-weight:650}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}.dot.green{background:var(--green2)}.dot.orange{background:var(--orange)} canvas{width:100%;height:174px;display:block}.progress-wrap{margin-top:11px}.progress-line{height:8px;background:#e9efec;border-radius:99px;overflow:hidden}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--green2),var(--lime));border-radius:inherit;transition:width .15s}.progress-caption{display:flex;justify-content:space-between;color:var(--muted);font-size:.74rem;margin-top:5px}
+    .compare{display:none;grid-column:1/-1;padding:22px}.compare.show{display:block}.compare-grid{display:grid;grid-template-columns:1.18fr .82fr;gap:16px;margin-top:14px;align-items:stretch}.result-table-card,.comparison-chart{border:1px solid var(--line);border-radius:18px;padding:13px;min-width:0;background:#fff}.comparison-chart{min-height:340px}.comparison-chart canvas{height:290px}.table-scroll{overflow-x:auto;margin-top:10px;border:1px solid #dce4e0;border-radius:12px}.result-table{width:100%;min-width:650px;border-collapse:collapse;font-size:.83rem;text-align:center}.result-table th,.result-table td{padding:11px 9px;border-right:1px solid #e1e7e4;border-bottom:1px solid #e1e7e4;font-variant-numeric:tabular-nums}.result-table tr>*:last-child{border-right:0}.result-table tbody tr:last-child>*{border-bottom:0}.result-table thead th{background:#f0f6f3;color:#40514b;font-weight:850}.result-table thead tr:first-child th:nth-child(2){background:#e7f4ef;color:#17624e}.result-table thead tr:first-child th:nth-child(3){background:#fff1e7;color:#a45a24}.result-table tbody th{background:#fafcfb;text-align:left;white-space:nowrap}.result-table tbody tr.dry td.delta{color:var(--green2);font-weight:850;background:#f2faf7}.result-table tbody tr.germ td.delta{color:var(--orange);font-weight:850;background:#fff7f1}.table-note{margin:9px 2px 0;color:var(--muted);font-size:.78rem;line-height:1.45}.interpret{margin-top:15px;padding-top:15px;border-top:1px solid var(--line)}.interpret h3{margin:0 0 10px;font-size:1.05rem}.question{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;padding:12px 0;border-bottom:1px dashed #dbe3df}.question:last-child{border:0}.question p{margin:0;font-size:.92rem;line-height:1.48}.choices{display:flex;flex-wrap:wrap;gap:6px}.choice{border:1px solid var(--line);border-radius:9px;background:white;padding:8px 10px;font-size:.82rem;font-weight:720}.choice.correct{background:#daf5e9;color:#0d624a;border-color:#77c5ac}.choice.wrong{background:#fff0e7;color:#984c1a;border-color:#e7a779}.summary{display:none;margin-top:12px;background:#113e33;color:#edf9f5;border-radius:16px;padding:15px 17px;line-height:1.6;font-size:.9rem}.summary.show{display:block}.summary b{color:var(--lime)}
+    .toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,16px);background:#152c26;color:white;padding:11px 16px;border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,.18);opacity:0;pointer-events:none;transition:.25s;z-index:5;font-size:.88rem}.toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:960px){.workspace{grid-template-columns:1fr}.lab{min-height:auto}.data{min-height:590px}.compare-grid{grid-template-columns:1fr}.head-note{display:none}}
+    @media(max-width:620px){.shell{padding:14px 10px 30px}.brand-mark{width:40px;height:40px}.brand h1{font-size:1.08rem}.eyebrow{font-size:.68rem}.step{padding:9px 7px;gap:6px;font-size:.76rem}.step b{width:23px;height:23px}.lab,.data,.compare{padding:14px;border-radius:17px}.workspace{grid-template-columns:1fr}.apparatus{height:270px}.apparatus svg{height:256px}.sample-flag{font-size:.67rem}.setup-chip{font-size:.63rem;padding:5px 7px}.data{min-height:560px}.charts{gap:8px}.chart-card{min-height:190px}canvas{height:160px}.question{grid-template-columns:1fr}.comparison-chart canvas{height:250px}.action-list{grid-template-columns:repeat(2,1fr)}.control-footer{grid-template-columns:1fr}.phase-btn{font-size:.76rem}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div class="brand"><div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M21 33V17c0-6 5-10 12-10 0 7-4 12-12 12M19 27C12 27 7 23 7 16c7 0 12 4 12 11Z" fill="#b9ee63" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg></div><div><div class="eyebrow">CELLULAR METABOLISM LAB</div><h1>발아콩의 물질대사와 에너지대사</h1></div></div>
+      <div class="head-note">고등학교 2학년 · 세포와 물질대사<br><strong>20분 실험을 1분으로 압축 체험</strong></div>
+    </header>
+
+    <nav class="stepper" aria-label="실험 진행 단계">
+      <div class="step active" data-step="dry"><b>1</b><span>마른콩 측정</span></div>
+      <div class="step" data-step="germ"><b>2</b><span>발아콩 측정</span></div>
+      <div class="step" data-step="compare"><b>3</b><span>결과 비교</span></div>
+    </nav>
+
+    <section class="workspace">
+      <section class="card lab" aria-labelledby="lab-title">
+        <div class="section-top"><div><p class="kicker">VIRTUAL BIOCHAMBER</p><h2 id="lab-title">실험 장치 구성</h2></div><span class="sample-pill" id="samplePill">마른콩 25 g</span></div>
+        <div class="apparatus" id="apparatus" data-condition="dry" data-phase="empty">
+          <div class="sample-flag" id="sampleFlag">마른콩 챔버</div>
+          <svg viewBox="0 0 460 310" role="img" aria-label="마른콩 또는 발아콩을 넣고 뚜껑을 닫은 뒤 무선 이산화 탄소 농도 센서와 온도 센서를 설치하는 바이오챔버 애니메이션">
+            <defs>
+              <linearGradient id="chamberGlass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff" stop-opacity=".93"/><stop offset=".22" stop-color="#edf9f6" stop-opacity=".77"/><stop offset=".72" stop-color="#bcded6" stop-opacity=".52"/><stop offset="1" stop-color="#8fbcb1" stop-opacity=".62"/></linearGradient>
+              <linearGradient id="lidGlass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f9ffff" stop-opacity=".94"/><stop offset=".45" stop-color="#d8ebe6" stop-opacity=".9"/><stop offset="1" stop-color="#8faaa3" stop-opacity=".96"/></linearGradient>
+              <linearGradient id="lidSide" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#bacdc8"/><stop offset="1" stop-color="#718d86"/></linearGradient>
+              <linearGradient id="tealBody" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#16a4b7"/><stop offset=".55" stop-color="#08788b"/><stop offset="1" stop-color="#075566"/></linearGradient>
+              <linearGradient id="beanFill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f1d39b"/><stop offset="1" stop-color="#b8843e"/></linearGradient>
+              <filter id="softShadow"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#244b40" flood-opacity=".2"/></filter>
+            </defs>
+            <ellipse cx="230" cy="279" rx="136" ry="15" fill="#56766d" opacity=".14"/>
+            <g filter="url(#softShadow)">
+              <path d="M101 130H359L341 267Q339 286 320 290H140Q121 286 119 267Z" fill="url(#chamberGlass)" stroke="#668f85" stroke-width="3.4"/>
+              <path d="M111 144Q230 166 349 144L332 265Q330 276 317 279H143Q130 276 128 265Z" fill="none" stroke="#fff" stroke-opacity=".72" stroke-width="2.5"/>
+              <ellipse cx="230" cy="132" rx="130" ry="26" fill="#e8f6f2" fill-opacity=".82" stroke="#668f85" stroke-width="3.4"/>
+              <ellipse cx="230" cy="132" rx="119" ry="19" fill="none" stroke="#a8c8c0" stroke-width="2"/>
+              <path d="M103 147H76q-15 0-15 12t15 12h37M357 147h27q15 0 15 12t-15 12h-37" fill="none" stroke="#5f837a" stroke-width="8" stroke-linecap="round"/>
+              <path d="M69 151v17M391 151v17" stroke="#dce9e5" stroke-width="3" stroke-linecap="round"/>
+              <path d="M126 246Q230 220 334 246L330 271Q328 280 317 281H143Q132 280 130 271Z" fill="#d4b477" opacity=".44"/>
+              <path d="M134 198h18M132 218h14M129 238h18" stroke="#668f85" stroke-width="2" opacity=".65"/>
+              <text x="157" y="219" fill="#53766e" font-size="9" font-weight="700" opacity=".72">BIOCHAMBER</text>
+              <path d="M131 286v7h28v-5M329 286v7h-28v-5" fill="#506f68" opacity=".82"/>
+            </g>
+            <g class="beans" id="beans" fill="url(#beanFill)" stroke="#9a6e31" stroke-width="1.1">
+              <ellipse cx="151" cy="252" rx="18" ry="11" transform="rotate(18 151 252)"/><ellipse cx="183" cy="258" rx="19" ry="11" transform="rotate(-16 183 258)"/><ellipse cx="219" cy="251" rx="18" ry="11" transform="rotate(13 219 251)"/><ellipse cx="255" cy="257" rx="19" ry="11" transform="rotate(-18 255 257)"/><ellipse cx="292" cy="251" rx="18" ry="10" transform="rotate(18 292 251)"/><ellipse cx="319" cy="260" rx="16" ry="10" transform="rotate(-12 319 260)"/><ellipse cx="169" cy="235" rx="17" ry="10" transform="rotate(-6 169 235)"/><ellipse cx="205" cy="231" rx="18" ry="11" transform="rotate(23 205 231)"/><ellipse cx="244" cy="234" rx="18" ry="11" transform="rotate(-14 244 234)"/><ellipse cx="282" cy="233" rx="17" ry="10" transform="rotate(9 282 233)"/>
+              <g class="sprouts" id="sprouts" fill="none" stroke="#78a83d" stroke-width="4" stroke-linecap="round"><path d="M150 244q-10-17 4-27q7-5 12-1"/><path d="M207 222q1-21 17-25q7-2 10 3"/><path d="M282 224q7-18 21-15q6 1 8 6"/><path d="M245 225q-6-15 5-23"/></g>
+            </g>
+            <g class="lid-unit" id="lid">
+              <path d="M92 111Q230 82 368 111V132Q230 162 92 132Z" fill="url(#lidSide)" stroke="#587a72" stroke-width="3"/>
+              <ellipse cx="230" cy="111" rx="138" ry="30" fill="url(#lidGlass)" stroke="#587a72" stroke-width="3.2"/>
+              <ellipse cx="230" cy="111" rx="124" ry="22" fill="#f5fffc" fill-opacity=".56" stroke="#b0c9c3" stroke-width="2"/>
+              <path d="M105 125Q230 151 355 125" fill="none" stroke="#354e48" stroke-opacity=".48" stroke-width="4"/>
+              <path d="M112 130Q230 154 348 130" fill="none" stroke="#dceae6" stroke-opacity=".8" stroke-width="2"/>
+              <g><ellipse cx="180" cy="106" rx="31" ry="13" fill="#293f3a" stroke="#152420" stroke-width="2"/><ellipse cx="180" cy="103" rx="24" ry="8" fill="#718d86"/><ellipse cx="180" cy="102" rx="15" ry="5" fill="#1d2d29"/></g>
+              <g><ellipse cx="276" cy="106" rx="27" ry="12" fill="#293f3a" stroke="#152420" stroke-width="2"/><ellipse cx="276" cy="103" rx="20" ry="7" fill="#718d86"/><ellipse cx="276" cy="102" rx="12" ry="4" fill="#1d2d29"/></g>
+              <path d="M107 116v15q0 8 9 10M353 116v15q0 8-9 10" fill="none" stroke="#4e6b64" stroke-width="5" stroke-linecap="round"/>
+              <path d="M122 94q108-22 216 0" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="3" stroke-linecap="round"/>
+            </g>
+            <g class="sensor-unit" id="sensors">
+              <g transform="translate(145 18)" filter="url(#softShadow)"><rect x="10" y="0" width="51" height="106" rx="17" fill="#162725"/><path d="M12 24Q35 13 59 24V73Q35 88 12 73Z" fill="url(#tealBody)"/><rect x="19" y="34" width="33" height="30" rx="9" fill="#086f80" stroke="#39aebe" stroke-width="2"/><path d="M23 78h27v18H23z" fill="#1b2c2a"/><circle class="sensor-led" cx="36" cy="17" r="4" fill="#83dc59"/><text x="36" y="54" text-anchor="middle" fill="#aee9ee" font-size="10" font-weight="800">CO₂</text><rect x="24" y="96" width="24" height="49" rx="6" fill="#263633"/><circle cx="30" cy="116" r="3" fill="#101817"/><circle cx="42" cy="116" r="3" fill="#101817"/><circle cx="30" cy="128" r="3" fill="#101817"/><circle cx="42" cy="128" r="3" fill="#101817"/></g>
+              <g transform="translate(253 37)" filter="url(#softShadow)"><rect x="7" y="0" width="43" height="87" rx="15" fill="#172724"/><path d="M9 21Q28 12 48 21V61Q28 73 9 61Z" fill="url(#tealBody)"/><rect x="15" y="30" width="27" height="24" rx="7" fill="#086f80" stroke="#39aebe" stroke-width="2"/><circle class="sensor-led" cx="29" cy="14" r="4" fill="#83dc59"/><text x="29" y="47" text-anchor="middle" fill="#aee9ee" font-size="10" font-weight="800">°C</text><rect x="22" y="81" width="13" height="75" rx="6" fill="#697c77"/></g>
+            </g>
+            <g class="lid-front-rim" id="lidFront">
+              <path d="M92 111Q230 140 368 111V132Q230 162 92 132Z" fill="url(#lidSide)" fill-opacity=".96" stroke="#587a72" stroke-width="3"/>
+              <path d="M103 118Q230 145 357 118" fill="none" stroke="#dbe9e5" stroke-opacity=".76" stroke-width="2"/>
+              <path d="M105 130Q230 156 355 130" fill="none" stroke="#354e48" stroke-opacity=".5" stroke-width="3"/>
+            </g>
+            <g fill="#35a57f"><circle class="gas-bubble" cx="181" cy="215" r="5"/><circle class="gas-bubble" cx="230" cy="221" r="4"/><circle class="gas-bubble" cx="286" cy="210" r="6"/></g>
+          </svg>
+          <div class="setup-status" aria-label="장치 준비 상태"><span class="setup-chip" data-status="sample">① 시료 25 g</span><span class="setup-chip" data-status="lid">② 뚜껑 밀폐</span><span class="setup-chip" data-status="sensor">③ 센서 설치</span></div>
+        </div>
+        <div class="live-row"><div class="readout co2"><div class="label">이산화 탄소 농도</div><div class="value"><span id="co2Value">—</span> <small>ppm</small></div></div><div class="readout temp"><div class="label">온도</div><div class="value"><span id="tempValue">—</span> <small>℃</small></div></div></div>
+        <div class="controls">
+          <div class="instruction"><span class="num" id="instructionNum">1</span><span id="instructionText">바이오챔버에 마른콩 25 g을 넣으세요.</span></div>
+          <div class="action-list" aria-label="실험 수행 순서">
+            <button class="phase-btn current" id="stepLoad">① 시료 넣기</button>
+            <button class="phase-btn" id="stepLid" disabled>② 뚜껑 닫기</button>
+            <button class="phase-btn" id="stepSensor" disabled>③ 센서 설치</button>
+            <button class="phase-btn" id="stepMeasure" disabled>④ 측정 시작</button>
+          </div>
+          <div class="control-footer"><button class="btn primary next" id="nextAction">발아콩 실험으로</button><button class="btn reset" id="resetBtn">실험 처음부터 다시 하기</button></div>
+        </div>
+      </section>
+
+      <section class="card data" aria-labelledby="data-title">
+        <div class="data-head"><div><p class="kicker">REAL-TIME SENSOR DATA</p><h2 id="data-title">실시간 측정 그래프</h2></div><div class="clock"><small>실험 시간</small><b id="clock">00:00 / 20:00</b></div></div>
+        <p class="scale-note">실제 실험 시간 20분이 화면에서는 1분 동안 빠르게 진행됩니다. (화면 1초 = 실험 20초)</p>
+        <div class="charts">
+          <div class="chart-card"><div class="chart-title"><span>CO₂ 농도 변화</span><span class="legend" id="legendCo2"><i class="dot green"></i>마른콩</span></div><canvas id="co2Chart" aria-label="시간에 따른 이산화 탄소 농도 그래프"></canvas></div>
+          <div class="chart-card"><div class="chart-title"><span>온도 변화</span><span class="legend" id="legendTemp"><i class="dot green"></i>마른콩</span></div><canvas id="tempChart" aria-label="시간에 따른 온도 그래프"></canvas></div>
+        </div>
+        <div class="progress-wrap"><div class="progress-line"><div class="progress-fill" id="progressFill"></div></div><div class="progress-caption"><span>측정 시작</span><span id="progressText">준비 전</span><span>20분</span></div></div>
+      </section>
+
+      <section class="card compare" id="compareSection" aria-labelledby="compare-title">
+        <div class="section-top"><div><p class="kicker">RESULT &amp; INTERPRETATION</p><h2 id="compare-title">마른콩과 발아콩의 측정 결과 비교</h2></div><span class="sample-pill">측정 완료</span></div>
+        <div class="compare-grid">
+          <div class="result-table-card">
+            <div class="chart-title"><span>0분과 20분 측정값</span><span class="legend"><i class="dot green"></i>마른콩 &nbsp; <i class="dot orange"></i>발아콩</span></div>
+            <div class="table-scroll">
+              <table class="result-table">
+                <thead><tr><th rowspan="2" scope="col">시료</th><th colspan="3" scope="colgroup">CO₂ 농도 (ppm)</th><th colspan="3" scope="colgroup">온도 (℃)</th></tr><tr><th scope="col">0분</th><th scope="col">20분</th><th scope="col">증가량</th><th scope="col">0분</th><th scope="col">20분</th><th scope="col">증가량</th></tr></thead>
+                <tbody>
+                  <tr class="dry"><th scope="row"><i class="dot green"></i>마른콩</th><td id="dryCo2Start">—</td><td id="dryCo2End">—</td><td class="delta" id="dryCo2Delta">—</td><td id="dryTempStart">—</td><td id="dryTempEnd">—</td><td class="delta" id="dryTempDelta">—</td></tr>
+                  <tr class="germ"><th scope="row"><i class="dot orange"></i>발아콩</th><td id="germCo2Start">—</td><td id="germCo2End">—</td><td class="delta" id="germCo2Delta">—</td><td id="germTempStart">—</td><td id="germTempEnd">—</td><td class="delta" id="germTempDelta">—</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="table-note">두 시료의 처음과 마지막 측정값, 증가량을 비교해 보세요.</p>
+          </div>
+          <div class="comparison-chart"><div class="chart-title"><span>20분 동안의 증가량</span><span class="legend"><i class="dot green"></i>마른콩 &nbsp; <i class="dot orange"></i>발아콩</span></div><canvas id="compareChart" aria-label="마른콩과 발아콩의 이산화 탄소 농도 및 온도 증가량 비교 그래프"></canvas></div>
+        </div>
+        <div class="interpret"><h3>측정 결과를 해석해 보세요</h3><div class="question"><p>1. 발아콩에서 더 활발하게 일어난 에너지대사는?</p><div class="choices"><button class="choice" data-correct="true">세포 호흡</button><button class="choice">광합성</button></div></div><div class="question"><p>2. 발아콩의 온도가 더 많이 상승한 까닭은?</p><div class="choices"><button class="choice" data-correct="true">에너지 일부가 열로 방출됨</button><button class="choice">외부 열을 흡수함</button></div></div><div class="question"><p>3. 실험에서 마른콩을 함께 측정한 가장 중요한 까닭은?</p><div class="choices"><button class="choice" data-correct="true">비교 기준을 마련함</button><button class="choice">발아를 촉진함</button></div></div><div class="summary" id="summary"><b>탐구 결론</b><br>발아콩은 마른콩보다 세포 호흡이 활발하여 이산화 탄소를 더 많이 방출하고, 호흡 과정에서 방출된 에너지의 일부가 열로 전환되어 온도도 더 크게 상승합니다.</div></div>
+      </section>
+    </section>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+  (()=>{
+    const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+    const state={condition:'dry',phase:0,running:false,elapsed:0,timer:null,dry:null,germ:null,answers:0};
+    const labels={dry:'마른콩',germ:'발아콩'};
+    const colors={green:'#23856a',orange:'#e7833e',grid:'#e4ebe7',text:'#64716d',blue:'#2d79b7'};
+    const els={apparatus:$('#apparatus'),beans:$('#beans'),lid:$('#lid'),lidFront:$('#lidFront'),sensors:$('#sensors'),load:$('#stepLoad'),lidBtn:$('#stepLid'),sensorBtn:$('#stepSensor'),measureBtn:$('#stepMeasure'),next:$('#nextAction'),instNum:$('#instructionNum'),inst:$('#instructionText'),co2:$('#co2Value'),temp:$('#tempValue'),clock:$('#clock'),fill:$('#progressFill'),progress:$('#progressText'),pill:$('#samplePill'),flag:$('#sampleFlag')};
+    let currentData={times:[],co2:[],temp:[]};
+
+    function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._x);t._x=setTimeout(()=>t.classList.remove('show'),2200)}
+    function sampleValue(condition,minutes){
+      const t=minutes/20, co2Noise=Math.sin(minutes*2.1)*16+Math.sin(minutes*5.3)*7, tempNoise=Math.sin(minutes*2.7)*.008+Math.sin(minutes*6.1)*.004;
+      if(condition==='dry') return {co2:422+5*t+co2Noise*.12,temp:25.24+.025*t+tempNoise};
+      const co2Progress=t+.08*Math.sin(Math.PI*t),co2=430+10570*co2Progress;
+      return {co2:co2+co2Noise*Math.sin(Math.PI*t),temp:25.27+.85*Math.pow(t,.72)+tempNoise*Math.sin(Math.PI*t)};
+    }
+    function fitCanvas(c){const r=c.getBoundingClientRect(),d=Math.max(1,window.devicePixelRatio||1);if(c.width!==Math.round(r.width*d)||c.height!==Math.round(r.height*d)){c.width=Math.round(r.width*d);c.height=Math.round(r.height*d)}return {ctx:c.getContext('2d'),w:r.width,h:r.height,d}}
+    function drawLineChart(canvas,series,min,max,unit){
+      const {ctx,w,h,d}=fitCanvas(canvas);ctx.setTransform(d,0,0,d,0,0);ctx.clearRect(0,0,w,h);const p={l:48,r:14,t:12,b:28},cw=w-p.l-p.r,ch=h-p.t-p.b;ctx.font='11px system-ui';ctx.fillStyle=colors.text;ctx.strokeStyle=colors.grid;ctx.lineWidth=1;
+      for(let i=0;i<5;i++){const y=p.t+ch*i/4;ctx.beginPath();ctx.moveTo(p.l,y);ctx.lineTo(w-p.r,y);ctx.stroke();const v=max-(max-min)*i/4;ctx.textAlign='right';ctx.fillText(unit==='℃'?v.toFixed(1):Math.round(v),p.l-7,y+4)}
+      [0,5,10,15,20].forEach((v,i)=>{const x=p.l+cw*i/4;ctx.fillStyle=colors.text;ctx.textAlign='center';ctx.fillText(v+(i===4?'분':''),x,h-8)});
+      series.forEach(data=>{if(data.times.length<2)return;ctx.strokeStyle=data.color;ctx.lineWidth=2.8;ctx.lineJoin='round';ctx.lineCap='round';ctx.beginPath();data.times.forEach((t,i)=>{const x=p.l+cw*t/20,y=p.t+ch*(1-(data.values[i]-min)/(max-min));i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();const i=data.times.length-1,x=p.l+cw*data.times[i]/20,y=p.t+ch*(1-(data.values[i]-min)/(max-min));ctx.fillStyle=data.color;ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill()});
+    }
+    function drawCurrent(){
+      const isDry=state.condition==='dry';
+      const dry=state.dry||{times:currentData.times,co2:currentData.co2,temp:currentData.temp};
+      const co2Series=[{times:dry.times||[],values:dry.co2||[],color:colors.green}],tempSeries=[{times:dry.times||[],values:dry.temp||[],color:colors.green}];
+      if(!isDry){co2Series.push({times:currentData.times,values:currentData.co2,color:colors.orange});tempSeries.push({times:currentData.times,values:currentData.temp,color:colors.orange})}
+      drawLineChart($('#co2Chart'),co2Series,isDry?380:0,isDry?500:12000,'ppm');drawLineChart($('#tempChart'),tempSeries,25.15,isDry?25.40:26.30,'℃');
+    }
+    function drawCompare(){
+      const c=$('#compareChart'),{ctx,w,h,d}=fitCanvas(c);ctx.setTransform(d,0,0,d,0,0);ctx.clearRect(0,0,w,h);const dryCo2=state.dry.co2.at(-1)-state.dry.co2[0],germCo2=state.germ.co2.at(-1)-state.germ.co2[0],dryT=state.dry.temp.at(-1)-state.dry.temp[0],germT=state.germ.temp.at(-1)-state.germ.temp[0];
+      const panels=[{x:14,width:w/2-21,title:'CO₂ 증가량',unit:'ppm',max:12000,a:dryCo2,b:germCo2,format:v=>Math.round(v).toLocaleString()},{x:w/2+7,width:w/2-21,title:'온도 증가량',unit:'℃',max:1.00,a:dryT,b:germT,format:v=>v.toFixed(2)}];
+      panels.forEach(g=>{const top=38,bottom=h-43,ch=bottom-top,cx=g.x+g.width/2,bw=Math.min(54,g.width*.2),gap=12;ctx.fillStyle=colors.text;ctx.textAlign='center';ctx.font='bold 13px system-ui';ctx.fillText(g.title+' ('+g.unit+')',cx,18);ctx.strokeStyle=colors.grid;ctx.beginPath();ctx.moveTo(g.x+10,bottom);ctx.lineTo(g.x+g.width-10,bottom);ctx.stroke();[[g.a,colors.green,-bw-gap/2,'마른콩'],[g.b,colors.orange,gap/2,'발아콩']].forEach(([v,col,off,label])=>{const bh=Math.max(2,ch*Math.min(v/g.max,1)),x=cx+off,y=bottom-bh;ctx.fillStyle=col;ctx.beginPath();ctx.roundRect(x,y,bw,bh,6);ctx.fill();ctx.textAlign='center';ctx.font='bold 12px system-ui';ctx.fillStyle=colors.text;ctx.fillText(g.format(v),x+bw/2,Math.max(32,y-7));ctx.font='11px system-ui';ctx.fillText(label,x+bw/2,bottom+18)});});
+    }
+    function updateVisual(){els.apparatus.dataset.phase=state.phase===0?'empty':state.phase<3?'preparing':state.phase===3?'ready':'measuring';$$('.setup-chip').forEach((chip,i)=>chip.classList.toggle('done',state.phase>i))}
+    function setInstruction(n,text){els.instNum.textContent=n;els.inst.textContent=text}
+    function updateButtons(){
+      const cond=state.condition,buttons=[els.load,els.lidBtn,els.sensorBtn,els.measureBtn];
+      buttons.forEach((btn,i)=>{btn.classList.remove('current','done');btn.disabled=true;if(state.phase===5||i<Math.min(state.phase,3)){btn.classList.add('done')}else if(i===state.phase&&state.phase<4){btn.classList.add('current');btn.disabled=false}});
+      els.measureBtn.textContent=state.phase===4?'④ 측정 중…':'④ 측정 시작';
+      els.next.classList.remove('show');
+      if(state.phase===0)setInstruction(1,'바이오챔버에 '+labels[cond]+' 25 g을 넣으세요.');
+      if(state.phase===1)setInstruction(2,'외부 공기가 드나들지 않도록 두꺼운 뚜껑을 단단히 닫으세요.');
+      if(state.phase===2)setInstruction(3,'무선 CO₂ 농도 센서와 온도 센서를 설치하세요.');
+      if(state.phase===3)setInstruction(4,'초기값을 확인한 뒤 20분간 측정을 시작하세요.');
+      if(state.phase===4){els.measureBtn.classList.add('current');setInstruction(5,'그래프의 기울기와 두 측정값의 변화를 관찰하세요.')}
+      if(state.phase===5&&cond==='dry'){els.next.textContent='발아콩 실험으로';els.next.classList.add('show');setInstruction('✓','마른콩 측정이 끝났습니다. 그래프를 남겨 둔 채 발아콩을 측정하세요.')}
+      if(state.phase===5&&cond==='germ'){els.next.textContent='결과 비교하기';els.next.classList.add('show');setInstruction('✓','두 곡선을 비교한 뒤 결과를 해석하세요.')}
+    }
+    function loadSample(){state.phase=1;els.beans.classList.add('loaded');updateVisual();updateButtons();toast(labels[state.condition]+' 25 g을 넣었습니다.')}
+    function closeLid(){state.phase=2;els.lid.classList.add('closed');els.lidFront.classList.add('closed');updateVisual();updateButtons();toast('바이오챔버를 밀폐했습니다.')}
+    function installSensors(){state.phase=3;els.sensors.classList.add('installed');updateVisual();const v=sampleValue(state.condition,0);els.co2.textContent=Math.round(v.co2);els.temp.textContent=v.temp.toFixed(2);updateButtons();toast('두 센서가 연결되었습니다.')}
+    function startMeasurement(){
+      state.phase=4;state.running=true;state.elapsed=0;const initial=sampleValue(state.condition,0);currentData={times:[0],co2:[initial.co2],temp:[initial.temp]};els.apparatus.classList.add('running');updateVisual();updateButtons();drawCurrent();const started=performance.now();
+      state.timer=setInterval(()=>{state.elapsed=Math.min(60,(performance.now()-started)/1000);const min=state.elapsed/3;const v=sampleValue(state.condition,min);currentData.times.push(min);currentData.co2.push(v.co2);currentData.temp.push(v.temp);els.co2.textContent=Math.round(v.co2);els.temp.textContent=v.temp.toFixed(2);const sec=Math.round(min*60),mm=String(Math.floor(sec/60)).padStart(2,'0'),ss=String(sec%60).padStart(2,'0');els.clock.textContent=mm+':'+ss+' / 20:00';els.fill.style.width=(state.elapsed/60*100)+'%';els.progress.textContent=Math.round(min)+'분 경과';drawCurrent();if(state.elapsed>=60)finishMeasurement()},250)
+    }
+    function finishMeasurement(){clearInterval(state.timer);state.timer=null;state.running=false;state.phase=5;els.apparatus.classList.remove('running');state[state.condition]={times:[...currentData.times],co2:[...currentData.co2],temp:[...currentData.temp]};els.clock.textContent='20:00 / 20:00';els.fill.style.width='100%';els.progress.textContent='측정 완료';updateButtons();toast(labels[state.condition]+' 측정이 완료되었습니다.')}
+    function moveToGerm(){state.condition='germ';state.phase=0;currentData={times:[],co2:[],temp:[]};els.apparatus.dataset.condition='germ';els.apparatus.classList.add('germinating');els.beans.classList.remove('loaded');els.lid.classList.remove('closed');els.lidFront.classList.remove('closed');els.sensors.classList.remove('installed');els.pill.textContent='발아콩 25 g';els.flag.textContent='발아콩 챔버';els.co2.textContent='—';els.temp.textContent='—';els.clock.textContent='00:00 / 20:00';els.fill.style.width='0';els.progress.textContent='준비 전';$('#legendCo2').innerHTML='<i class="dot green"></i>마른콩 &nbsp; <i class="dot orange"></i>발아콩';$('#legendTemp').innerHTML='<i class="dot green"></i>마른콩 &nbsp; <i class="dot orange"></i>발아콩';$$('.step').forEach(x=>x.classList.remove('active'));$('[data-step="dry"]').classList.add('done');$('[data-step="germ"]').classList.add('active');updateVisual();updateButtons();drawCurrent()}
+    function fillResultRow(prefix,data){
+      const c0=Math.round(data.co2[0]),c20=Math.round(data.co2.at(-1)),t0=data.temp[0],t20=data.temp.at(-1);
+      $('#'+prefix+'Co2Start').textContent=c0.toLocaleString();$('#'+prefix+'Co2End').textContent=c20.toLocaleString();$('#'+prefix+'Co2Delta').textContent='+'+(c20-c0).toLocaleString();
+      $('#'+prefix+'TempStart').textContent=t0.toFixed(2);$('#'+prefix+'TempEnd').textContent=t20.toFixed(2);$('#'+prefix+'TempDelta').textContent='+'+(t20-t0).toFixed(2);
+    }
+    function showCompare(){
+      $$('.step').forEach(x=>x.classList.remove('active'));$('[data-step="germ"]').classList.add('done');$('[data-step="compare"]').classList.add('active');$('#compareSection').classList.add('show');fillResultRow('dry',state.dry);fillResultRow('germ',state.germ);requestAnimationFrame(()=>{drawCompare();$('#compareSection').scrollIntoView({behavior:'smooth',block:'start'})})
+    }
+    els.load.addEventListener('click',()=>{if(state.phase===0)loadSample()});els.lidBtn.addEventListener('click',()=>{if(state.phase===1)closeLid()});els.sensorBtn.addEventListener('click',()=>{if(state.phase===2)installSensors()});els.measureBtn.addEventListener('click',()=>{if(state.phase===3)startMeasurement()});els.next.addEventListener('click',()=>{if(state.phase===5&&state.condition==='dry')moveToGerm();else if(state.phase===5)showCompare()});
+    $('#resetBtn').addEventListener('click',()=>{if(state.timer)clearInterval(state.timer);location.reload()});
+    $$('.choice').forEach(btn=>btn.addEventListener('click',()=>{const row=btn.closest('.question');if(row.dataset.answered)return;row.dataset.answered='1';const correct=btn.dataset.correct==='true';btn.classList.add(correct?'correct':'wrong');if(!correct)row.querySelector('[data-correct="true"]').classList.add('correct');state.answers++;if(state.answers===3)$('#summary').classList.add('show')}));
+    window.addEventListener('resize',()=>{drawCurrent();if($('#compareSection').classList.contains('show'))drawCompare()});
+    function registerWebTools(){const mc=document.modelContext;if(!mc?.registerTool)return;const safe=fn=>{try{return fn()}catch(e){throw new Error(e.message)}};mc.registerTool({name:'prepare_experiment_step',title:'실험 장치 준비',description:'현재 가상 실험의 다음 준비 단계(콩 넣기, 뚜껑 닫기, 센서 설치)를 실행합니다.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute:()=>safe(()=>{if(state.running||state.phase>=3)throw new Error('지금은 준비 단계를 실행할 수 없습니다.');state.phase===0?loadSample():state.phase===1?closeLid():installSensors();return{condition:state.condition,phase:state.phase}})});mc.registerTool({name:'start_measurement',title:'센서 측정 시작',description:'장치 준비가 끝난 현재 시료의 20분 압축 측정을 시작합니다.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute:()=>safe(()=>{if(state.phase!==3)throw new Error('콩, 뚜껑, 센서를 먼저 준비해야 합니다.');startMeasurement();return{condition:state.condition,status:'started',simulatedMinutes:20,displaySeconds:60}})});}
+    registerWebTools();updateVisual();updateButtons();drawCurrent();
+  })();
+  </script>
+</body>
+</html>

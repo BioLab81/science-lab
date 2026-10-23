@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>단백질을 이용한 감염병 진단 모의실험 v4-세척과정</title>
+<style>
+:root{
+  --navy:#123a78; --blue:#2f6fd5; --blue2:#eaf2ff;
+  --green:#2b9964; --green2:#eaf8f1; --red:#e3425f; --red2:#fff0f3;
+  --purple:#7556bf; --gold:#f0b53c; --ink:#202938; --muted:#667085;
+  --line:#d7e0ed; --bg:#f6f8fc; --panel:#fff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Pretendard","Noto Sans KR","Malgun Gothic",Arial,sans-serif;
+}
+button,select{font:inherit}
+.app{max-width:1480px; margin:0 auto; padding:16px 18px 28px; min-height:100vh}
+header{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:12px}
+h1{margin:0; color:var(--navy); font-size:clamp(25px,2.45vw,40px); letter-spacing:-1px}
+.subtitle{margin:5px 0 0; color:var(--muted); font-size:14px}
+.tools{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end}
+.btn{
+  border:0; border-radius:12px; padding:10px 14px; font-weight:800; cursor:pointer;
+  transition:.15s ease; background:#fff; border:1px solid var(--line); color:var(--navy)
+}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--navy); color:#fff; border-color:var(--navy)}
+.btn:disabled{opacity:.45; cursor:not-allowed; transform:none}
+
+.goal{
+  background:#fff; border:1px solid var(--line); border-left:6px solid var(--green);
+  border-radius:14px; padding:11px 15px; margin-bottom:12px; font-size:14px; line-height:1.55
+}
+.goal b{color:var(--green)}
+
+.stepbar{display:grid; grid-template-columns:repeat(8,1fr); gap:7px; margin-bottom:12px}
+.step{
+  border:1px solid var(--line); background:#fff; color:#6b7280; border-radius:12px;
+  padding:9px 6px; text-align:center; font-size:13px; font-weight:900
+}
+.step.active{background:var(--navy); color:#fff; border-color:var(--navy)}
+.step.done{background:var(--green2); color:var(--green); border-color:#b8e2cf}
+
+.layout{display:grid; grid-template-columns:1.68fr .82fr; gap:13px}
+.card{background:var(--panel); border:1px solid var(--line); border-radius:18px; box-shadow:0 7px 20px rgba(18,58,120,.055)}
+.lab{padding:15px}
+.labhead{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px}
+.labhead h2,.side h2,.bottom h2{margin:0; color:var(--navy); font-size:20px}
+.instruction{margin-top:5px; font-size:14px; color:var(--muted); line-height:1.5}
+.stagebox{
+  display:flex; align-items:center; gap:9px; background:var(--blue2); padding:9px 11px;
+  border-radius:13px; min-width:212px
+}
+.stagecircle{width:37px; height:37px; border-radius:50%; background:var(--navy); color:#fff; display:grid; place-items:center; font-weight:900}
+.stagetext strong{display:block; color:var(--navy); font-size:14px}
+.stagetext span{font-size:11px; color:var(--muted)}
+
+.workspace{display:grid; grid-template-columns:1.05fr .95fr; gap:12px}
+.zone{
+  border:1px dashed #b8c4d8; border-radius:16px; background:linear-gradient(180deg,#fff,#fafcff);
+  padding:14px; min-height:480px
+}
+.zone-title{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:13px; color:var(--muted)}
+.zone-title b{color:var(--navy)}
+.progresschip{
+  background:#fff; border:1px solid var(--line); border-radius:999px; padding:6px 10px; font-weight:900; color:var(--navy)
+}
+
+.plate{
+  width:min(100%,470px); aspect-ratio:1.58/1; margin:14px auto 8px;
+  background:linear-gradient(145deg,#f7f9fc,#dce4ed); border:3px solid #9aa8b7;
+  border-radius:26px; padding:17px; display:grid; grid-template-columns:1fr 1fr; gap:16px;
+  box-shadow:inset 0 3px 10px rgba(255,255,255,.9),0 10px 18px rgba(31,41,55,.09)
+}
+.wellwrap{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px}
+.welllabel{font-weight:950; color:var(--navy); font-size:18px}
+.well{
+  width:104px; height:104px; border-radius:50%; border:9px solid #c9d2dc; position:relative; overflow:visible;
+  background:radial-gradient(circle at 38% 32%,#fff 0 20%,#e6ebf1 58%,#cad2dc 100%);
+  box-shadow:inset 0 10px 18px rgba(0,0,0,.11),0 2px 0 #fff; transition:.16s ease
+}
+.well.dragover{
+  transform:scale(1.07); border-color:#59a0ff;
+  box-shadow:0 0 0 5px rgba(47,111,213,.14),inset 0 10px 18px rgba(0,0,0,.11)
+}
+.liquid{
+  position:absolute; left:7px; right:7px; bottom:7px; height:0; border-radius:50%;
+  background:rgba(159,197,255,.32); transition:height .35s, background .65s, box-shadow .65s
+}
+.liquid.positive{
+  background:radial-gradient(circle at 45% 28%,#ff9abd 0 18%,#ef4c86 50%,#c51c5b 100%) !important;
+  box-shadow:inset 0 0 15px rgba(255,255,255,.3)
+}
+.liquid.negative{
+  background:radial-gradient(circle at 45% 28%,#fbfdff 0 18%,#e4edf8 58%,#cbd8e8 100%) !important;
+}
+.washwave{
+  position:absolute; left:7px; right:7px; bottom:7px; height:0; border-radius:50%; z-index:3;
+  background:radial-gradient(circle at 42% 28%,rgba(255,255,255,.96),rgba(79,191,232,.56));
+  box-shadow:inset 0 0 15px rgba(255,255,255,.72); pointer-events:none;
+  animation:washcycle 1.25s ease-in-out forwards;
+}
+@keyframes washcycle{
+  0%{height:8%;opacity:0}
+  18%{height:72%;opacity:1}
+  34%{height:16%;opacity:.45}
+  48%{height:72%;opacity:1}
+  64%{height:16%;opacity:.45}
+  78%{height:72%;opacity:1}
+  100%{height:8%;opacity:0}
+}
+.drops{
+  position:absolute; top:6px; right:8px; font-size:11px; font-weight:900; background:#fff; border:1px solid #cbd5e1;
+  padding:2px 6px; border-radius:999px; z-index:4
+}
+.sampletag{font-size:11px; color:#475467; font-weight:800; text-align:center; line-height:1.25}
+.sampletag .chip{display:inline-block; border-radius:999px; padding:2px 6px; margin-top:2px; color:#fff; font-size:10px}
+.chip.a{background:#4b77d6}.chip.b{background:#e24c5d}.chip.c{background:#34a06e}.chip.d{background:#7c5cc7}
+
+.timer{
+  display:none; margin-top:10px; background:#fff7e6; border:1px solid #efd28b; border-radius:13px; padding:9px 11px;
+  align-items:center; justify-content:space-between; gap:8px
+}
+.timer strong{color:#9b6505}.timer small{font-size:11px; color:#80601f}.time{font-size:22px; font-weight:950; color:#9b6505}
+.feedback{margin-top:10px; min-height:55px; padding:10px 12px; border:1px solid var(--line); border-radius:13px; background:#f8fafc; font-size:13px; line-height:1.5}
+.feedback.good{background:var(--green2); border-color:#b8e2cf}
+.feedback.warn{background:#fff7e7; border-color:#efd28b}
+.feedback.bad{background:var(--red2); border-color:#f0bbc5}
+
+.tray h3{margin:0 0 6px; color:var(--navy); font-size:17px}
+.tray-note{font-size:11px; color:var(--muted); line-height:1.45; margin-bottom:10px}
+
+.rack{
+  display:grid; grid-template-columns:1fr 1fr; gap:10px;
+}
+.reagent-card{
+  background:#fbfdff; border:1px solid var(--line); border-radius:16px; padding:10px; position:relative;
+  min-height:172px; display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+  box-shadow:inset 0 1px 0 #fff;
+}
+.reagent-card.dim{opacity:.35}
+.reagent-head{
+  width:100%; display:flex; align-items:flex-start; justify-content:space-between; gap:6px; margin-bottom:6px
+}
+.reagent-head strong{font-size:13px; color:var(--navy); line-height:1.25}
+.reagent-head small{display:block; font-size:10px; color:var(--muted); line-height:1.3; margin-top:2px}
+.target{
+  display:inline-block; background:#fff; border:1px solid var(--line); border-radius:999px; padding:3px 7px;
+  font-size:10px; font-weight:900; color:#546173; white-space:nowrap
+}
+.bottle-zone{
+  width:100%; display:flex; align-items:center; justify-content:center; gap:8px; padding-top:4px
+}
+.bottle{
+  width:52px; height:74px; position:relative;
+}
+.bottle .cap{
+  width:28px; height:10px; background:var(--color,#4b77d6); border-radius:5px 5px 2px 2px; margin:0 auto;
+  border:1px solid rgba(0,0,0,.13)
+}
+.bottle .body{
+  width:42px; height:58px; margin:0 auto; background:linear-gradient(180deg,#eef3fb,#dce7f6);
+  border-radius:7px 7px 10px 10px; border:2px solid #8da1bb; position:relative; overflow:hidden
+}
+.bottle .fill{
+  position:absolute; left:4px; right:4px; bottom:4px; height:32%;
+  background:rgba(117,168,255,.35); border-radius:5px
+}
+.bottle .label{
+  position:absolute; left:5px; right:5px; top:16px; background:#fff; border:1px solid #d8e1ec; border-radius:5px;
+  padding:3px; text-align:center; font-size:8px; font-weight:900; color:var(--navy)
+}
+
+.pipette{
+  width:36px; height:118px; position:relative; cursor:grab; touch-action:none; user-select:none;
+  filter:drop-shadow(0 5px 10px rgba(18,58,120,.18)); transition:transform .15s ease
+}
+.pipette:hover{transform:translateY(-2px)}
+.pipette.disabled,.pipette.used{opacity:.33; cursor:not-allowed; transform:none}
+.pipette .bulb{
+  position:absolute; left:8px; top:0; width:20px; height:28px; border-radius:50% 50% 44% 44%;
+  background:linear-gradient(180deg,var(--color,#4b77d6), color-mix(in srgb, var(--color,#4b77d6) 70%, #000 10%));
+  border:1px solid rgba(0,0,0,.14)
+}
+.pipette .collar{
+  position:absolute; left:11px; top:24px; width:14px; height:8px; border-radius:4px;
+  background:#c3d0df; border:1px solid rgba(0,0,0,.12)
+}
+.pipette .barrel{
+  position:absolute; left:12px; top:30px; width:12px; height:46px;
+  background:linear-gradient(180deg,#ffffff,#dfe8f3 55%,#c3d1df);
+  border:1px solid rgba(0,0,0,.13); border-radius:7px
+}
+.pipette .liquid{
+  position:absolute; left:15px; top:49px; width:6px; height:18px;
+  background:var(--color,#4b77d6); opacity:.34; border-radius:3px
+}
+.pipette .stem{
+  position:absolute; left:16px; top:74px; width:4px; height:22px; background:linear-gradient(#d8e4f2,#9fb8d3); border-radius:3px
+}
+.pipette .tip{
+  position:absolute; left:14px; top:94px; width:8px; height:20px;
+  background:linear-gradient(#bdd1e6,#87a3c2); clip-path:polygon(24% 0,76% 0,100% 100%,0 100%);
+  border-radius:0 0 4px 4px
+}
+
+.drag-hint{
+  margin:10px 0 0; padding:9px 10px; border-radius:11px; background:#f3f6fb; border:1px solid var(--line);
+  font-size:11px; color:#58657a; line-height:1.45
+}
+.sample-map{width:100%; border-collapse:collapse; margin-top:10px; font-size:11px}
+.sample-map th,.sample-map td{border:1px solid var(--line); padding:6px; text-align:center}
+.sample-map th{background:#f0f4fa; color:var(--navy)}
+.sample-map td:first-child{font-weight:900; color:var(--navy)}
+
+.dragpipette{
+  position:fixed; z-index:1000; width:54px; height:150px; pointer-events:none;
+  transform:translate(-50%,-50%) rotate(-15deg);
+}
+.dragpipette .bulb{left:15px; width:24px; height:34px}
+.dragpipette .collar{left:18px; top:29px; width:18px; height:9px}
+.dragpipette .barrel{left:19px; top:37px; width:16px; height:58px}
+.dragpipette .liquid{left:24px; top:61px; width:7px; height:22px}
+.dragpipette .stem{left:25px; top:93px; width:5px; height:26px}
+.dragpipette .tip{left:23px; top:117px; width:9px; height:24px}
+
+.pipette-drop-anim{
+  position:absolute; width:34px; height:120px; left:50%; top:-122px; transform:translateX(-50%);
+  animation:pipdown .68s ease forwards; z-index:8; pointer-events:none
+}
+.pipette-drop-anim .bulb,.pipette-drop-anim .collar,.pipette-drop-anim .barrel,.pipette-drop-anim .stem,.pipette-drop-anim .tip,.pipette-drop-anim .liquid{}
+.pipette-drop-anim .bulb{position:absolute; left:8px; top:0; width:20px; height:28px; border-radius:50% 50% 44% 44%; background:linear-gradient(180deg,var(--color), color-mix(in srgb, var(--color) 70%, #000 10%)); border:1px solid rgba(0,0,0,.14)}
+.pipette-drop-anim .collar{position:absolute; left:11px; top:24px; width:14px; height:8px; border-radius:4px; background:#c3d0df; border:1px solid rgba(0,0,0,.12)}
+.pipette-drop-anim .barrel{position:absolute; left:12px; top:30px; width:12px; height:46px; background:linear-gradient(180deg,#ffffff,#dfe8f3 55%,#c3d1df); border:1px solid rgba(0,0,0,.13); border-radius:7px}
+.pipette-drop-anim .stem{position:absolute; left:16px; top:74px; width:4px; height:22px; background:linear-gradient(#d8e4f2,#9fb8d3); border-radius:3px}
+.pipette-drop-anim .tip{position:absolute; left:14px; top:94px; width:8px; height:20px; background:linear-gradient(#bdd1e6,#87a3c2); clip-path:polygon(24% 0,76% 0,100% 100%,0 100%)}
+.pipette-drop-anim .liquid{position:absolute; left:15px; top:49px; width:6px; height:18px; background:var(--color); opacity:.34; border-radius:3px}
+.pipette-drop-anim .drop{
+  position:absolute; width:10px; height:14px; border-radius:55% 55% 55% 55%; background:#4ba3ff; left:12px; top:103px;
+  animation:dropfall .56s ease forwards;
+}
+.pipette-drop-anim .drop.d2{animation-delay:.18s}
+
+@keyframes pipdown{
+  0%{transform:translateX(-50%) translateY(-16px) rotate(8deg); opacity:0}
+  20%{opacity:1}
+  55%{transform:translateX(-50%) translateY(12px) rotate(8deg); opacity:1}
+  100%{transform:translateX(-50%) translateY(-2px) rotate(0deg); opacity:0}
+}
+@keyframes dropfall{
+  0%{transform:translateY(0) scale(.7); opacity:0}
+  30%{opacity:1}
+  100%{transform:translateY(46px) scale(1); opacity:0}
+}
+
+.side{padding:15px}
+.block{margin-top:11px; padding:12px; border:1px solid var(--line); border-radius:14px; background:#fbfcfe}
+.block h3{margin:0 0 7px; color:var(--navy); font-size:15px}
+.flow{display:flex; flex-direction:column; gap:6px; font-size:12px}
+.flow div{background:#fff; border:1px solid var(--line); border-radius:10px; padding:8px 9px; line-height:1.4}
+.flow b{color:var(--purple)}
+.person{border:1px solid var(--line); border-radius:11px; padding:9px; margin-top:7px}
+.person b{color:var(--navy)}
+.choices{display:flex; gap:14px; flex-wrap:wrap; margin-top:6px; font-size:12px}
+.resultmsg{font-size:12px; font-weight:900; margin-top:6px}
+.compare{width:100%; border-collapse:collapse; font-size:11px; margin-top:6px}
+.compare th,.compare td{border:1px solid var(--line); padding:7px; vertical-align:top; line-height:1.38}
+.compare th{background:#edf4ff; color:var(--navy)}
+.compare td:first-child{font-weight:900; background:#fafbfd}
+
+.bottom{margin-top:13px; padding:14px}
+.summarygrid{display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-top:9px}
+.sum{border:1px solid var(--line); border-radius:13px; padding:10px; text-align:center; background:#fff}
+.sum .ico{font-size:24px}
+.sum b{display:block; color:var(--navy); font-size:12px; margin-top:3px}
+.sum span{display:block; font-size:10.5px; color:var(--muted); margin-top:2px; line-height:1.35}
+
+.toast{
+  position:fixed; left:50%; bottom:20px; transform:translate(-50%,16px); opacity:0; pointer-events:none;
+  background:#111827; color:#fff; padding:10px 14px; border-radius:11px; font-size:12px; font-weight:800; transition:.18s; z-index:2000
+}
+.toast.show{opacity:1; transform:translate(-50%,0)}
+
+@media(max-width:1080px){
+  .layout{grid-template-columns:1fr}
+  .workspace{grid-template-columns:1fr}
+  .stepbar{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:700px){
+  .app{padding:10px}
+  .tools{justify-content:flex-start}
+  .stepbar{grid-template-columns:1fr}
+  .rack{grid-template-columns:1fr 1fr}
+  .plate{padding:10px; gap:10px}
+  .well{width:80px; height:80px}
+  .summarygrid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div>
+      <h1>단백질을 이용한 감염병 진단 모의실험</h1>
+      <p class="subtitle">시약 처리와 세척을 직접 수행하고, 표준 시료와 비교해 감염 여부를 판정해 보세요.</p>
+    </div>
+    <div class="tools">
+      <select id="scenario" class="btn" title="교사용 검체 시나리오">
+        <option value="random">검체 결과: 무작위</option>
+        <option value="p1">사람 1 양성 / 사람 2 음성</option>
+        <option value="p2">사람 1 음성 / 사람 2 양성</option>
+      </select>
+      <button id="reset" class="btn">↻ 실험 초기화</button>
+    </div>
+  </header>
+
+  <div class="goal"><b>학습 목표</b> — 단백질을 이용한 감염병 진단 기술을 체험하고, 핵산을 이용한 감염병 진단 기술과 비교하여 설명할 수 있습니다.</div>
+
+  <div class="stepbar">
+    <div class="step active">① 포획 항체</div>
+    <div class="step">② 세척</div>
+    <div class="step">③ 진단 시료</div>
+    <div class="step">④ 세척</div>
+    <div class="step">⑤ 검출 시약</div>
+    <div class="step">⑥ 세척</div>
+    <div class="step">⑦ 반응 시약</div>
+    <div class="step">⑧ 결과 판정</div>
+  </div>
+
+  <div class="layout">
+    <section class="card lab">
+      <div class="labhead">
+        <div>
+          <h2>실험대</h2>
+          <div class="instruction" id="instruction"></div>
+        </div>
+        <div class="stagebox">
+          <div class="stagecircle" id="stageNo">1</div>
+          <div class="stagetext"><strong id="stageTitle"></strong><span id="stageSub"></span></div>
+        </div>
+      </div>
+
+      <div class="workspace">
+        <div class="zone">
+          <div class="zone-title"><span><b>4홈판</b> A~D</span><span class="progresschip" id="progress">0 / 4 완료</span></div>
+          <div class="plate">
+            <div class="wellwrap">
+              <div class="welllabel">A</div>
+              <div class="well" data-well="A"><div class="liquid"></div><div class="drops">0방울</div></div>
+              <div class="sampletag">표준 시료 1<br><span class="chip a">음성 표준</span></div>
+            </div>
+            <div class="wellwrap">
+              <div class="welllabel">B</div>
+              <div class="well" data-well="B"><div class="liquid"></div><div class="drops">0방울</div></div>
+              <div class="sampletag">표준 시료 2<br><span class="chip b">양성 표준</span></div>
+            </div>
+            <div class="wellwrap">
+              <div class="welllabel">C</div>
+              <div class="well" data-well="C"><div class="liquid"></div><div class="drops">0방울</div></div>
+              <div class="sampletag">사람 1의 검체<br><span class="chip c">검체 C</span></div>
+            </div>
+            <div class="wellwrap">
+              <div class="welllabel">D</div>
+              <div class="well" data-well="D"><div class="liquid"></div><div class="drops">0방울</div></div>
+              <div class="sampletag">사람 2의 검체<br><span class="chip d">검체 D</span></div>
+            </div>
+          </div>
+
+          <div class="timer" id="timer">
+            <div><strong>⏱ 반응 기다리기</strong><br><small>교과서의 5분을 모의실험에서는 5초로 압축했습니다.</small></div>
+            <div class="time" id="time">00:05</div>
+            <button id="skip" class="btn">바로 완료</button>
+          </div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+
+        <div class="zone tray">
+          <h3>시약대</h3>
+          <div class="tray-note">
+            지금 단계에서 사용할 <b>스포이트</b>를 끌어 홈 위에서 놓으세요.
+            세척 단계에서는 홈마다 세척액을 넣고 버리는 과정을 3회 반복한 것으로 모의합니다.
+          </div>
+          <div class="rack" id="rack"></div>
+
+          <table class="sample-map">
+            <thead><tr><th>홈</th><th>진단 시료</th><th>역할</th></tr></thead>
+            <tbody>
+              <tr><td>A</td><td>표준 시료 1</td><td>음성 기준</td></tr>
+              <tr><td>B</td><td>표준 시료 2</td><td>양성 기준</td></tr>
+              <tr><td>C</td><td>사람 1 검체</td><td>판정 대상</td></tr>
+              <tr><td>D</td><td>사람 2 검체</td><td>판정 대상</td></tr>
+            </tbody>
+          </table>
+
+          <div class="drag-hint">
+            <b>진단 시료 단계</b>에서는 A~D에 넣는 용액이 서로 다릅니다.
+            그래서 네 개의 시료 스포이트가 각각 <b>자신의 홈에만 들어가도록</b> 설정되어 있습니다.
+            <br><small>※ 스포이트 색은 시료를 구분하기 위한 화면 표시입니다.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="card side">
+      <h2>개념 및 결과 정리</h2>
+      <div class="block">
+        <h3>반응 원리</h3>
+        <div class="flow">
+          <div>① 홈에 <b>포획 항체</b>를 붙입니다.</div>
+          <div>② <b>세척</b>하여 결합하지 않은 포획 항체를 제거합니다.</div>
+          <div>③ 시료에 표적 <b>단백질(항원)</b>이 있으면 포획 항체와 결합합니다.</div>
+          <div>④ <b>세척</b>하여 결합하지 않은 시료 성분을 제거합니다.</div>
+          <div>⑤ <b>검출 시약</b>이 항원에 결합해 검출 가능한 복합체를 만듭니다.</div>
+          <div>⑥ 다시 <b>세척</b>하여 결합하지 않은 검출 시약을 제거합니다.</div>
+          <div>⑦ <b>진단 반응 시약</b>을 넣어 색 변화로 확인합니다.</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>사람 1·2 감염 여부 판정</h3>
+        <div class="person">
+          <b>사람 1 (C)</b>
+          <div class="choices">
+            <label><input type="radio" name="p1" value="positive"> 감염</label>
+            <label><input type="radio" name="p1" value="negative"> 비감염</label>
+          </div>
+          <div id="p1msg" class="resultmsg"></div>
+        </div>
+        <div class="person">
+          <b>사람 2 (D)</b>
+          <div class="choices">
+            <label><input type="radio" name="p2" value="positive"> 감염</label>
+            <label><input type="radio" name="p2" value="negative"> 비감염</label>
+          </div>
+          <div id="p2msg" class="resultmsg"></div>
+        </div>
+        <button id="check" class="btn primary" style="width:100%;margin-top:9px" disabled>판정 확인</button>
+      </div>
+</aside>
+  </div>
+
+  <section class="card bottom">
+    <h2>탐구 흐름</h2>
+    <div class="summarygrid">
+      <div class="sum"><div class="ico">🧬</div><b>1. 포획 항체</b><span>표적 단백질을 잡을 항체를 홈에 준비</span></div>
+      <div class="sum"><div class="ico">🧪</div><b>2. 서로 다른 시료</b><span>음성·양성 표준과 사람 1·2 검체를 각각 투입</span></div>
+      <div class="sum"><div class="ico">🔎</div><b>3. 검출</b><span>검출 시약을 넣어 항원-항체 복합체를 표시</span></div>
+      <div class="sum"><div class="ico">💧</div><b>4. 단계 사이 세척</b><span>결합하지 않은 물질을 제거해 비특이적 발색을 방지</span></div>
+      <div class="sum"><div class="ico">🎨</div><b>5. 색 변화</b><span>양성 표준과 같은 붉은색이면 양성으로 판단</span></div>
+    </div>
+  </section>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(()=>{
+const wells=[...document.querySelectorAll('.well')];
+const steps=[...document.querySelectorAll('.step')];
+const instruction=document.getElementById('instruction');
+const stageNo=document.getElementById('stageNo');
+const stageTitle=document.getElementById('stageTitle');
+const stageSub=document.getElementById('stageSub');
+const progress=document.getElementById('progress');
+const feedback=document.getElementById('feedback');
+const rack=document.getElementById('rack');
+const timerBox=document.getElementById('timer');
+const timeEl=document.getElementById('time');
+const skip=document.getElementById('skip');
+const check=document.getElementById('check');
+const scenario=document.getElementById('scenario');
+const resetBtn=document.getElementById('reset');
+const toast=document.getElementById('toast');
+
+const stages=[
+ {key:'capture',title:'포획 항체 넣기',sub:'A~D에 각각 두 방울',text:'<b>포획 항체용 스포이트</b>를 시약대에서 끌어 A~D 홈에 각각 놓으세요. 한 번 놓으면 두 방울이 들어갑니다.',wait:true},
+ {key:'wash1',title:'1차 세척',sub:'결합하지 않은 포획 항체 제거',text:'<b>세척액용 스포이트</b>를 A~D 홈에 놓으세요. 세척액을 넣고 버리는 과정을 홈마다 3회 반복합니다.',wait:false,isWash:true},
+ {key:'sample',title:'진단 시료 넣기',sub:'A·B·C·D에 서로 다른 시료',text:'이번 단계는 홈마다 <b>서로 다른 용액</b>을 넣습니다. 각 스포이트의 라벨을 확인하고 알맞은 홈으로 끌어 놓으세요.',wait:true},
+ {key:'wash2',title:'2차 세척',sub:'결합하지 않은 시료 성분 제거',text:'<b>세척액</b>으로 각 홈을 3회 세척하여 포획 항체에 결합하지 않은 시료 성분을 제거하세요.',wait:false,isWash:true},
+ {key:'detect',title:'검출 시약 넣기',sub:'A~D에 각각 두 방울',text:'<b>검출 시약용 스포이트</b>를 A~D 홈에 각각 끌어 놓으세요.',wait:true},
+ {key:'wash3',title:'3차 세척',sub:'결합하지 않은 검출 시약 제거',text:'<b>세척액</b>으로 각 홈을 3회 세척하세요. 이 세척이 부족하면 결합하지 않은 검출 시약도 발색하여 잘못된 결과가 나올 수 있습니다.',wait:false,isWash:true},
+ {key:'reaction',title:'진단 반응 시약 넣기',sub:'색 변화 관찰',text:'<b>진단 반응 시약</b>을 A~D 홈에 넣고 색 변화를 관찰하세요.',wait:false},
+ {key:'result',title:'결과 판정',sub:'표준 시료와 비교',text:'A(음성 표준)와 B(양성 표준)의 색을 기준으로 C와 D의 감염 여부를 판정하세요.',wait:false}
+];
+
+const commonSet={
+ capture:[{id:'capture',label:'포획 항체',desc:'A~D 모든 홈에 사용',color:'#526ed0',target:'all'}],
+ detect:[{id:'detect',label:'검출 시약',desc:'A~D 모든 홈에 사용',color:'#7b5ec8',target:'all'}],
+ reaction:[{id:'reaction',label:'진단 반응 시약',desc:'A~D 모든 홈에 사용',color:'#e7a92f',target:'all'}],
+ wash:[{id:'wash',label:'세척액',desc:'넣고 버리기 3회',color:'#3fa9d5',target:'all'}]
+};
+const sampleSet=[
+ {id:'sampleA',label:'표준 시료 1',desc:'음성 표준 시료',color:'#4b77d6',target:'A'},
+ {id:'sampleB',label:'표준 시료 2',desc:'양성 표준 시료',color:'#e24c5d',target:'B'},
+ {id:'sampleC',label:'사람 1의 검체',desc:'판정할 검체',color:'#34a06e',target:'C'},
+ {id:'sampleD',label:'사람 2의 검체',desc:'판정할 검체',color:'#7c5cc7',target:'D'}
+];
+
+let stage=0, treated=new Set(), selected=null, timer=null, seconds=5;
+let truth={p1:'positive',p2:'negative'};
+let dragState=null;
+
+function chooseTruth(){
+ const v=scenario.value;
+ if(v==='p1') truth={p1:'positive',p2:'negative'};
+ else if(v==='p2') truth={p1:'negative',p2:'positive'};
+ else truth=Math.random()<.5 ? {p1:'positive',p2:'negative'} : {p1:'negative',p2:'positive'};
+}
+function showToast(msg){
+ toast.textContent=msg; toast.classList.add('show');
+ setTimeout(()=>toast.classList.remove('show'),1500);
+}
+function setFeedback(msg,type=''){
+ feedback.className='feedback'+(type?' '+type:'');
+ feedback.innerHTML=msg;
+}
+function getReagents(){
+ const s=stages[stage];
+ return s.key==='sample' ? sampleSet : (s.isWash ? commonSet.wash : (commonSet[s.key] || []));
+}
+
+function reagentCardHTML(r, dim=false){
+ return `
+  <div class="reagent-card ${dim ? 'dim' : ''}">
+    <div class="reagent-head">
+      <div>
+        <strong>${r.label}</strong>
+        <small>${r.desc}</small>
+      </div>
+      <span class="target">${r.target==='all' ? 'A~D 공통' : r.target+' 홈 전용'}</span>
+    </div>
+    <div class="bottle-zone">
+      <div class="bottle" style="--color:${r.color}">
+        <div class="cap"></div>
+        <div class="body">
+          <div class="fill"></div>
+          <div class="label">${r.label}</div>
+        </div>
+      </div>
+      <div class="pipette ${dim ? 'used' : ''}" style="--color:${r.color}" data-id="${r.id}" title="${r.label}">
+        <div class="bulb"></div><div class="collar"></div><div class="barrel"></div>
+        <div class="liquid"></div><div class="stem"></div><div class="tip"></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderRack(){
+ const reagents=getReagents();
+ rack.innerHTML='';
+ if(stages[stage].key==='result'){
+   rack.innerHTML='<div style="grid-column:1/-1;padding:22px;text-align:center;border:1px dashed #b8c4d8;border-radius:14px;color:#667085"><b style="color:#123a78">실험 완료</b><br>표준 시료 A·B와 검체 C·D의 색을 비교해 보세요.</div>';
+   return;
+ }
+ reagents.forEach(r=>{
+   const isUsed = r.target!=='all' && treated.has(r.target);
+   const wrap=document.createElement('div');
+   wrap.innerHTML=reagentCardHTML(r, isUsed);
+   const card=wrap.firstElementChild;
+   rack.appendChild(card);
+   const pipette=card.querySelector('.pipette');
+   if(!isUsed){
+     pipette.addEventListener('pointerdown',ev=>startDrag(ev,r,pipette));
+     pipette.addEventListener('click',()=>selectReagent(r,pipette));
+   }
+ });
+}
+function selectReagent(r, pipette){
+ if(stages[stage].key==='result') return;
+ selected=r;
+ document.querySelectorAll('.pipette').forEach(p=>p.classList.remove('selected'));
+ pipette.classList.add('selected');
+ showToast(`${r.label} 선택 — 홈에 놓아 주세요.`);
+}
+function makeGhost(color){
+ const ghost=document.createElement('div');
+ ghost.className='dragpipette';
+ ghost.style.setProperty('--color',color);
+ ghost.innerHTML='<div class="bulb"></div><div class="collar"></div><div class="barrel"></div><div class="liquid"></div><div class="stem"></div><div class="tip"></div>';
+ document.body.appendChild(ghost);
+ return ghost;
+}
+function startDrag(ev,r,pipette){
+ if(stages[stage].key==='result') return;
+ ev.preventDefault();
+ selected=r;
+ const ghost=makeGhost(r.color);
+ dragState={r,ghost};
+ moveGhost(ev.clientX,ev.clientY);
+ document.addEventListener('pointermove',onMove,{passive:false});
+ document.addEventListener('pointerup',onUp,{once:true});
+ pipette.setPointerCapture?.(ev.pointerId);
+}
+function moveGhost(x,y){
+ if(!dragState) return;
+ dragState.ghost.style.left=x+'px';
+ dragState.ghost.style.top=y+'px';
+}
+function onMove(ev){
+ ev.preventDefault();
+ moveGhost(ev.clientX,ev.clientY);
+ wells.forEach(w=>w.classList.remove('dragover'));
+ const hit=document.elementFromPoint(ev.clientX,ev.clientY)?.closest('.well');
+ if(hit) hit.classList.add('dragover');
+}
+function onUp(ev){
+ document.removeEventListener('pointermove',onMove);
+ wells.forEach(w=>w.classList.remove('dragover'));
+ const hit=document.elementFromPoint(ev.clientX,ev.clientY)?.closest('.well');
+ const r=dragState?.r;
+ dragState?.ghost.remove();
+ dragState=null;
+ if(hit && r) applyReagent(r, hit);
+}
+
+wells.forEach(w=>{
+  w.addEventListener('click',()=>{
+    if(stages[stage].key==='result') return;
+    if(!selected){
+      setFeedback('먼저 시약대에서 사용할 스포이트를 선택하거나 끌어오세요.','warn');
+      return;
+    }
+    applyReagent(selected, w);
+  });
+});
+
+function animatePipetteDrop(well, color){
+ const anim=document.createElement('div');
+ anim.className='pipette-drop-anim';
+ anim.style.setProperty('--color',color);
+ anim.innerHTML='<div class="bulb"></div><div class="collar"></div><div class="barrel"></div><div class="liquid"></div><div class="stem"></div><div class="tip"></div><div class="drop d1"></div><div class="drop d2"></div>';
+ well.appendChild(anim);
+ setTimeout(()=>anim.remove(),900);
+}
+
+function animateWash(well){
+ const wave=document.createElement('div');
+ wave.className='washwave';
+ well.appendChild(wave);
+ setTimeout(()=>wave.remove(),1350);
+ const liq=well.querySelector('.liquid');
+ setTimeout(()=>{
+   liq.style.height='10%';
+   liq.style.background='rgba(175,214,235,.22)';
+ },1050);
+}
+
+function setLiquidStage(well, key){
+ const liq=well.querySelector('.liquid');
+ liq.classList.remove('positive','negative');
+ if(key==='capture'){ liq.style.height='20%'; liq.style.background='rgba(155,196,255,.28)' }
+ if(key==='sample'){ liq.style.height='35%'; liq.style.background='rgba(164,205,255,.34)' }
+ if(key==='detect'){ liq.style.height='50%'; liq.style.background='rgba(180,163,236,.25)' }
+ if(key==='reaction'){ liq.style.height='70%'; liq.style.background='rgba(230,235,244,.92)' }
+}
+
+function applyReagent(r, well){
+  const s=stages[stage];
+  if(s.key==='result') return;
+  const id=well.dataset.well;
+  if(r.target!=='all' && r.target!==id){
+    setFeedback(`<b>${r.label}</b>은(는) ${r.target} 홈에 넣어야 합니다. 서로 다른 진단 시료가 섞이지 않도록 라벨을 다시 확인하세요.`, 'bad');
+    showToast('다른 홈입니다.');
+    return;
+  }
+  if(treated.has(id)){
+    showToast(`${id} 홈은 이미 이 단계를 완료했습니다.`);
+    return;
+  }
+
+  treated.add(id);
+  animatePipetteDrop(well, r.color);
+  if(s.isWash){
+    animateWash(well);
+    well.querySelector('.drops').textContent='3회 세척';
+  }else{
+    setLiquidStage(well, s.key);
+    well.querySelector('.drops').textContent='2방울';
+  }
+  progress.textContent=`${treated.size} / 4 완료`;
+
+  if(r.target!=='all'){
+    selected=null;
+    renderRack();
+  }
+
+  if(treated.size===4){
+    if(s.key==='reaction'){
+      setFeedback('모든 홈에 진단 반응 시약을 넣었습니다. 잠시 후 최종 색 변화가 나타납니다.', 'good');
+      setTimeout(()=>{
+        revealResults();
+        setTimeout(()=>advanceStage(), 850);
+      }, 420);
+    }else if(s.isWash){
+      setFeedback('네 개의 홈을 모두 <b>3회씩 세척</b>했습니다. 결합하지 않은 물질이 제거되었습니다.', 'good');
+      selected=null;
+      renderRack();
+      setTimeout(()=>advanceStage(), 1450);
+    }else{
+      setFeedback('네 개의 홈 처리가 끝났습니다. 반응 시간을 기다립니다.', 'good');
+      startTimer();
+    }
+  }else{
+    setFeedback(s.isWash
+      ? `${id} 홈에 세척액을 넣고 버리는 과정을 <b>3회</b> 수행했습니다. 나머지 홈도 세척하세요.`
+      : `${id} 홈에 <b>${r.label}</b> 두 방울을 넣었습니다. 나머지 홈도 처리하세요.`, 'good');
+  }
+}
+
+function revealResults(){
+  const states={A:'negative',B:'positive',C:truth.p1,D:truth.p2};
+  wells.forEach(w=>{
+    const liq=w.querySelector('.liquid');
+    liq.style.height='74%';
+    liq.style.removeProperty('background');   // 이전 단계 배경 제거
+    liq.classList.remove('positive','negative');
+    liq.classList.add(states[w.dataset.well]);
+  });
+}
+
+function startTimer(){
+  selected=null;
+  renderRack();
+  [...rack.querySelectorAll('.pipette')].forEach(p=>p.classList.add('disabled'));
+  timerBox.style.display='flex';
+  seconds=5;
+  timeEl.textContent='00:05';
+  clearInterval(timer);
+  timer=setInterval(()=>{
+    seconds--;
+    timeEl.textContent='00:0'+seconds;
+    if(seconds<=0){
+      clearInterval(timer);
+      finishTimer();
+    }
+  },1000);
+}
+function finishTimer(){
+  timerBox.style.display='none';
+  advanceStage();
+}
+skip.addEventListener('click',()=>{ clearInterval(timer); finishTimer(); });
+
+function advanceStage(){
+  stage++;
+  treated=new Set();
+  selected=null;
+  wells.forEach(w=>w.querySelector('.drops').textContent='0방울');
+  render();
+}
+function render(){
+  const s=stages[stage];
+  stageNo.textContent=stage+1;
+  stageTitle.textContent=s.title;
+  stageSub.textContent=s.sub;
+  instruction.innerHTML=s.text;
+  progress.textContent=`${treated.size} / 4 완료`;
+  steps.forEach((el,i)=>{
+    el.classList.toggle('active', i===stage);
+    el.classList.toggle('done', i<stage);
+  });
+  timerBox.style.display='none';
+  renderRack();
+
+  if(s.key==='result'){
+    check.disabled=false;
+    setFeedback('<b>A는 음성 표준</b>, <b>B는 양성 표준</b>입니다. 붉게 변한 B와 같은 색을 보이는 검체를 감염으로 판정하세요.', 'good');
+  }
+}
+
+check.addEventListener('click',()=>{
+  const p1=document.querySelector('input[name="p1"]:checked')?.value;
+  const p2=document.querySelector('input[name="p2"]:checked')?.value;
+  if(!p1 || !p2){
+    showToast('사람 1과 사람 2를 모두 판정하세요.');
+    return;
+  }
+  const ok1=p1===truth.p1;
+  const ok2=p2===truth.p2;
+  const m1=document.getElementById('p1msg');
+  const m2=document.getElementById('p2msg');
+  m1.textContent=ok1 ? '✓ 맞습니다.' : '✗ A·B 표준 시료와 다시 비교하세요.';
+  m2.textContent=ok2 ? '✓ 맞습니다.' : '✗ A·B 표준 시료와 다시 비교하세요.';
+  m1.style.color=ok1 ? '#2b9964' : '#e3425f';
+  m2.style.color=ok2 ? '#2b9964' : '#e3425f';
+
+  if(ok1 && ok2){
+    setFeedback('정확합니다. <b>양성 표준 시료 B처럼 붉게 변한 검체</b>를 감염으로 판정할 수 있습니다.', 'good');
+    showToast('모두 정확하게 판정했습니다!');
+  } else {
+    setFeedback('표준 시료가 판정의 기준입니다. A(음성)와 B(양성)를 먼저 비교한 뒤 C와 D를 다시 확인하세요.', 'warn');
+  }
+});
+
+function reset(){
+  clearInterval(timer);
+  chooseTruth();
+  stage=0;
+  treated=new Set();
+  selected=null;
+  wells.forEach(w=>{
+    w.classList.remove('dragover');
+    const liq=w.querySelector('.liquid');
+    liq.className='liquid';
+    liq.style.height='0';
+    liq.style.removeProperty('background');
+    w.querySelector('.drops').textContent='0방울';
+  });
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.getElementById('p1msg').textContent='';
+  document.getElementById('p2msg').textContent='';
+  check.disabled=true;
+  setFeedback('현재 단계의 스포이트를 시약대에서 끌어 홈 위에 놓으세요. 공통 시약은 모든 홈에, 진단 시료는 각자 지정된 홈에만 들어갑니다.');
+  render();
+}
+
+resetBtn.addEventListener('click', reset);
+scenario.addEventListener('change', reset);
+
+reset();
+})();
+</script>
+</body>
+</html>

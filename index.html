@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="수업에 활용하는 과학 웹앱을 한곳에서 찾고 실행하는 공개형 디지털 탐구 도구 라이브러리">
+  <meta name="theme-color" content="#12333d">
+  <title>과학탐구 LAB | 웹앱 라이브러리</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="apps-data.js"></script>
+  <script defer src="portal.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap head-inner">
+      <a class="brand" href="index.html" aria-label="포털 홈"><span class="brand-mark" aria-hidden="true">✳</span><span id="brandName">과학탐구 <span class="suffix">LAB</span></span></a>
+      <nav class="head-links" aria-label="주 메뉴"><a href="#library">웹앱 라이브러리</a><a href="#guide">이용 방법</a></nav>
+      <span class="head-status"><span class="dot"></span> 누구나 무료 이용</span>
+    </div>
+  </header>
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">OPEN SCIENCE TOOLKIT</span>
+        <h1 id="heroTitle">과목별 탐구 도구를,<br><span class="accent">한곳에 모아.</span></h1>
+        <p id="heroIntro">실험 데이터를 분석하고, 보이지 않는 현상을 시뮬레이션하며, 탐구의 질문을 넓혀가는 웹앱 모음입니다.</p>
+        <div class="hero-buttons"><a class="btn btn-primary" href="#library">웹앱 둘러보기 <span aria-hidden="true">↗</span></a><a class="btn btn-ghost" href="#guide">이용 방법 알아보기 <span aria-hidden="true">→</span></a></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="graph-card">
+          <div class="topline"><span>EXPERIMENT DATA</span><span class="mini-pills"><i></i><i></i><i></i></span></div>
+          <svg viewBox="0 0 270 130" role="presentation">
+            <defs><linearGradient id="fillGraph" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#61cdb7" stop-opacity=".45"/><stop offset="1" stop-color="#61cdb7" stop-opacity="0"/></linearGradient></defs>
+            <g stroke="#e5eeee" stroke-width="1"><line x1="5" y1="20" x2="267" y2="20"/><line x1="5" y1="55" x2="267" y2="55"/><line x1="5" y1="90" x2="267" y2="90"/><line x1="5" y1="120" x2="267" y2="120"/></g>
+            <path d="M7 114 C25 106 32 98 47 103 S70 83 85 88 S111 75 128 66 S157 80 177 49 S209 51 227 27 S251 25 264 14 L264 120 L7 120Z" fill="url(#fillGraph)"/>
+            <path d="M7 114 C25 106 32 98 47 103 S70 83 85 88 S111 75 128 66 S157 80 177 49 S209 51 227 27 S251 25 264 14" stroke="#159b88" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle cx="227" cy="27" r="5" fill="#159b88" stroke="white" stroke-width="2"/>
+          </svg>
+          <div class="bottomline"><span>시간에 따른 변화</span><span>DATA VISUALIZATION</span></div>
+        </div>
+        <div class="float-chip"><b>🔬</b> 탐구 · 관찰 · 분석</div>
+        <div class="float-chip float-chip2"><b>🌱</b> 직접 해보는 과학</div>
+      </div>
+    </div>
+  </section>
+  <main class="wrap main" id="library">
+    <div class="section-head">
+      <div><div class="overline">EXPLORE THE TOOLS</div><h2>과학 웹앱 라이브러리</h2><p id="sectionSub">과목별 섹션 또는 필터를 이용해 필요한 웹앱을 찾아 수업에 활용해 보세요.</p></div>
+      <div class="count">전체 <strong id="totalCount">0</strong>개 도구</div>
+    </div>
+    <div class="notice" id="setupNotice" hidden><span class="ico" aria-hidden="true">ⓘ</span><div><strong>포털 시작용 예시 목록입니다.</strong> 실제 앱은 아직 연결되지 않았습니다. 관리 화면에서 HTML 경로나 웹주소를 등록하면 앱 실행 버튼이 활성화됩니다.</div></div>
+    <div class="toolbar">
+      <div class="search-wrap"><input id="search" class="search" type="search" autocomplete="off" aria-label="웹앱 검색" placeholder="앱 이름, 과목, 단원, 실험 주제 검색"></div>
+      <select id="gradeSelect" aria-label="학년 선택"><option value="all">전체 학년</option><option value="고1">고1</option><option value="고2">고2</option><option value="고3">고3</option></select>
+      <select id="sortSelect" aria-label="정렬"><option value="default">추천 순</option><option value="name">이름 순</option><option value="ready">실행 가능 순</option></select>
+    </div>
+    <div class="filters" role="group" aria-label="과목 필터" id="filters">
+      <button class="chip" type="button" data-subject="all" aria-pressed="true">전체</button>
+      <button class="chip" type="button" data-subject="생명과학" aria-pressed="false">생명과학</button>
+      <button class="chip" type="button" data-subject="통합과학" aria-pressed="false">통합과학</button>
+      <button class="chip" type="button" data-subject="물리학" aria-pressed="false">물리학</button>
+      <button class="chip" type="button" data-subject="실험 도구" aria-pressed="false">실험 도구</button>
+      <span class="filter-divider"></span><button class="chip fav-filter" id="favoriteFilter" type="button" aria-pressed="false">☆ 즐겨찾기</button>
+    </div>
+    <div id="resultCount" class="sr-only" aria-live="polite"></div>
+    <div class="cards" id="cards"></div>
+    <div id="empty" class="empty" hidden><strong>검색 결과가 없습니다.</strong><div>다른 검색어나 분류로 다시 찾아보세요.</div><button class="manage-btn light" id="resetFilters" type="button">필터 초기화</button></div>
+    <section class="guide-section" id="guide">
+      <div class="guide-panel">
+        <div><div class="overline">HOW TO USE</div><h2>배움이 이어지는<br>가벼운 과학 도구</h2><p>별도 회원가입 없이 웹앱을 탐색할 수 있습니다. 과목별 섹션이나 필터를 이용해 필요한 도구를 빠르게 찾고 수업에 활용하세요.</p></div>
+        <div class="guide-steps"><div class="guide-item"><b>01</b> 과목·학년 필터로 필요한 웹앱 찾기</div><div class="guide-item"><b>02</b> 상세 보기에서 용도와 사용법 확인</div><div class="guide-item"><b>03</b> 앱 실행을 눌러 새 창에서 활용하기</div></div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="wrap foot-inner"><div><b id="footerName">과학탐구 LAB</b> · 탐구를 돕는 디지털 수업 도구</div><div>사용 가능한 앱은 <span class="footer-signal">●</span> 실행 가능으로 표시됩니다.</div></div></footer>
+  <div id="modalBackdrop" class="modal-backdrop" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button type="button" class="modal-close" id="closeModal" aria-label="닫기">×</button><div id="modalContent"></div></div></div>
+</body>
+</html>
