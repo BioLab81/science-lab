@@ -168,6 +168,29 @@ window.SCIENCE_PORTAL_DATA = {
       "featured": true,
       "visible": true,
       "image": "images/red-blood-cell-count.webp"
+    },
+    {
+      "id": "biology-centrifuge-rcf-rpm-converter",
+      "title": "원심분리기 RCF ↔ RPM 변환기",
+      "summary": "로터 반경 또는 기기 사양을 설정하여 상대원심력(×g)과 회전속도(rpm)를 간편하게 상호 변환하는 실험 계산 도구입니다.",
+      "subject": "생물실험",
+      "grades": [
+        "고2",
+        "고3"
+      ],
+      "tags": [
+        "원심분리",
+        "RCF",
+        "RPM",
+        "원심분획"
+      ],
+      "icon": "🌀",
+      "kind": "html",
+      "url": "apps/rcf-rpm-converter.html",
+      "guide": "① 로터 반경을 직접 입력하거나 최대 RPM·RCF에서 계산하거나 등록된 기기를 선택합니다. ② 목표 ×g를 입력해 RPM을 계산하고, RPM을 입력해 ×g를 확인합니다. ③ 빠른 참고표와 복사 기능을 활용하세요. CF-10 기본 반경은 추정값이므로 실제 로터 사양을 반드시 확인해야 합니다.",
+      "featured": true,
+      "visible": true,
+      "image": "images/rcf-rpm-converter.webp"
     }
   ]
 };
