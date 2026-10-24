@@ -191,6 +191,29 @@ window.SCIENCE_PORTAL_DATA = {
       "featured": true,
       "visible": true,
       "image": "images/rcf-rpm-converter.webp"
+    },
+    {
+      "id": "biology-daphnia-heart-rate",
+      "title": "물벼룩 심장박동수 측정",
+      "summary": "현미경 영상을 불러와 심장 영역을 지정한 후 박동 신호를 분석하고, 피크를 직접 보정하여 BPM과 처리 조건별 결과를 비교하는 실험 도구입니다.",
+      "subject": "생물실험",
+      "grades": [
+        "고2",
+        "고3"
+      ],
+      "tags": [
+        "물벼룩",
+        "심장박동",
+        "영상 분석",
+        "BPM"
+      ],
+      "icon": "💓",
+      "kind": "html",
+      "url": "apps/daphnia-heart-rate.html",
+      "guide": "① 물벼룩 관찰 영상을 불러오거나 연습 영상을 선택합니다. ② 심장 부위를 드래그해 지정하고 영상의 슬로모션 배수와 분석 구간을 설정합니다. ③ 박동 신호 분석 후 그래프의 피크를 추가하거나 삭제해 검출 결과를 보정합니다. ④ 처리 조건과 개체 정보를 기록해 대조군·처리군의 BPM을 비교하세요. 연습 영상은 모의 데이터입니다.",
+      "featured": true,
+      "visible": true,
+      "image": "images/daphnia-heart-rate.webp"
     }
   ]
 };
