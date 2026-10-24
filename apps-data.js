@@ -214,6 +214,29 @@ window.SCIENCE_PORTAL_DATA = {
       "featured": true,
       "visible": true,
       "image": "images/daphnia-heart-rate.webp"
+    },
+    {
+      "id": "biology-solution-preparation-calculator",
+      "title": "용액 제조 계산기",
+      "summary": "고체 시약의 몰농도 용액 제조량을 계산하고, 농도 단위 변환 및 원액 희석에 필요한 시약량을 구하는 실험 계산 도구입니다.",
+      "subject": "생물실험",
+      "grades": [
+        "고2",
+        "고3"
+      ],
+      "tags": [
+        "용액 제조",
+        "몰농도",
+        "농도 변환",
+        "희석"
+      ],
+      "icon": "🧪",
+      "kind": "html",
+      "url": "apps/solution-calculator.html",
+      "guide": "① 고체 시약 제조에서는 시약명·화학식, 목표 몰농도와 부피를 입력해 필요한 질량을 계산합니다. ② 농도 변환에서는 M, mM, µM, g/L, mg/L, % w/v, % w/w, % v/v 간 변환합니다. ③ 원액 희석에서는 원액·목표 농도와 최종 제조량을 입력해 원액량을 구합니다. % w/w 등의 변환에 필요한 밀도와 시약 순도를 확인하고, 용액은 증류수를 더해 최종 부피로 맞추세요.",
+      "featured": true,
+      "visible": true,
+      "image": "images/solution-calculator.webp"
     }
   ]
 };
