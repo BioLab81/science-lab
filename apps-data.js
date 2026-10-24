@@ -1,9 +1,9 @@
-/* 과학탐구 LAB · 실제 HTML 수업용 앱 6개. 모든 교과 분류 유지 */
+/* 과학탐구 LAB · 공개 포털 데이터 */
 window.SCIENCE_PORTAL_DATA = {
   "site": {
     "name": "과학탐구 LAB",
     "tagline": "과목별로 모은 실제 수업용 웹앱 · 새로운 도구는 계속 추가됩니다.",
-    "intro": "통합과학2와 세포와 물질대사 수업에 활용할 수 있는 디지털 탐구 앱을 모았습니다. 새로운 실험 앱도 과목별로 차근차근 추가할 예정입니다.",
+    "intro": "통합과학2, 세포와 물질대사, 생물실험에 활용하는 디지털 탐구 앱을 모았습니다. 새로운 실험 앱도 과목별로 차근차근 추가할 예정입니다.",
     "subjectOrder": [
       "통합과학1",
       "통합과학2",
@@ -145,6 +145,29 @@ window.SCIENCE_PORTAL_DATA = {
       "featured": true,
       "visible": true,
       "image": "images/germinating-beans.webp"
+    },
+    {
+      "id": "biology-red-blood-cell-count",
+      "title": "적혈구 수 측정",
+      "summary": "혈구계산판 사진을 확대하고 적혈구를 직접 클릭·터치하여 계수하는 실험 도구입니다.",
+      "subject": "생물실험",
+      "grades": [
+        "고2",
+        "고3"
+      ],
+      "tags": [
+        "적혈구",
+        "혈구계산판",
+        "수동 계수",
+        "이미지 분석"
+      ],
+      "icon": "🩸",
+      "kind": "html",
+      "url": "apps/red-blood-cell-count/index.html",
+      "guide": "현미경 사진을 불러오거나 예제 사진으로 연습합니다. 계수 모드에서 세포 중심을 눌러 표시하고, 확대·이동·삭제 기능을 활용하세요. 계수 규칙을 적용한 후 결과 사진 또는 작업 파일을 저장할 수 있습니다.",
+      "featured": true,
+      "visible": true,
+      "image": "images/red-blood-cell-count.webp"
     }
   ]
 };
