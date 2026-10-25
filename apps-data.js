@@ -237,6 +237,29 @@ window.SCIENCE_PORTAL_DATA = {
       "featured": true,
       "visible": true,
       "image": "images/solution-calculator.webp"
+    },
+    {
+      "id": "biology-photo-color-analyzer",
+      "title": "사진 색상·밝기 분석",
+      "summary": "큐벳·홈판 사진에서 원형 측정 영역을 지정해 RGB, 평균 밝기와 상대 휘도를 계산하고 시료별 차이를 비교하는 이미지 분석 도구입니다.",
+      "subject": "생물실험",
+      "grades": [
+        "고2",
+        "고3"
+      ],
+      "tags": [
+        "사진 분석",
+        "RGB",
+        "상대 휘도",
+        "색 변화"
+      ],
+      "icon": "🎨",
+      "kind": "html",
+      "url": "apps/photo-color-analyzer.html",
+      "guide": "① 실험 사진을 불러오거나 예제 사진을 선택합니다. ② 큐벳·홈판의 균일한 영역을 클릭해 원형 측정 지점을 추가하고, +/− 버튼으로 원 크기를 조절합니다. ③ 측정 지점별 R·G·B, 평균 밝기, 상대 휘도를 확인합니다. ④ 기준 시료와 비교 항목을 선택해 그래프와 표를 해석하고 결과 이미지 또는 표를 저장합니다. 촬영 조건을 일정하게 유지하며, 기준 대비 상대 휘도 비율을 분해율이나 흡광도로 해석하지 마세요.",
+      "featured": true,
+      "visible": true,
+      "image": "images/photo-color-analyzer.webp"
     }
   ]
 };
