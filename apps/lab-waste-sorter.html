@@ -1,0 +1,2331 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>과학실 폐수 분류기</title>
+
+<!-- 홈 화면에 추가했을 때 앱처럼 보이도록 하는 설정 -->
+<link rel="manifest" href="data:application/manifest+json,{%22name%22: %22과학실 폐수 분류기%22, %22short_name%22: %22폐수분류기%22, %22start_url%22: %22.%22, %22display%22: %22standalone%22, %22background_color%22: %22%23EFF3F0%22, %22theme_color%22: %22%232158A6%22, %22icons%22: [{%22src%22: %22data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAFPklEQVR4nO3cvW4cZRTH4VkrorNkXwQdDRESoqPOdZCKnougpwrXkZouioRCQ5eLcKR0NKbB1rLZj/namXnP/3mqFCiZfXN+5x3bCrtuBQ+fPz2u8eeybfe3d7ul/8xF/kADzxhLBHG1P8DQM6drxTDrb2roWcKcMdzM9RsZfpYy56xNLsngs6apt8GkG8Dws7apMziqHoPPFo25DQbfAIafrRozm4MCMPxs3dAZ7R2A4acVQ2a1VwCGn9b0ndmLARh+WtVnds8GYPhp3aUZnu0nwdCikwHY/lRxbpaPBmD4qebUTHsFItoXAdj+VHVstm8u/QdQyeGMewUimgCI9hyA1x9S7M+6G4BoL9Z+gJZ88+2Paz9Cb3//9cfaj9CEXdd5/bmkpcE/JITT7m/vdl6BiCaAC1re/l3X/vNfmwCIduP9n1QPnz89ugGIJgCiCYBoAiCaAC5o/QdJrT//tQmAaDvfBu1v/4dKX333y2rPcco/f/76/Gubvx8BjPTy9du1H+ELH968WvsRmuMViGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgBGePn67dqPcNRWn2vLBEA0AQy09S279efbGgEQTQADtLJdW3nOLRAA0QTQU2tbtbXnXYsAiCaAHlrdpq0+95IEQDQBEE0AF7T+GtH681+bAIgmgDOqbM8qn+MaBEA0AZxQbWtW+zxzEQDRBHBE1W1Z9XNNIQCiCeBA9S1Z/fMNJQCiCYBoAtiT8nqQ8jn7EADRBPCftK2Y9nlPEQDRBNDlbsPUz71PAESLDyB9C6Z//vgAyBYdQPr2e5J8DtEBgACIFhtA8rV/TOp5xAYAXRcaQOq2uyTxXCIDgCdxASRuuSHSzufF2g+wth++/3rtR1jVu/cf136EVUXdAGnbbaykc4oK4FD69u86ZxATQNJWm0PKecUEcCh98+1LPovYAKDrQgI4vM6TN94px84k4TUoIgA4pXwAtn9/ibdA+QDgnNIB2P7Dpd0CpQOAS8oGYPuPl3QLlA0A+igZgO0/XcotUDIA6Kt8ALb/eAlnVy6Aitf0llQ733IBwBClAvDF7/yqfzFcKgAYqkwAtv/1VL4FygQAY5QIwPa/vqq3QIkAYKzmA7D9l1PxFmg+AJii+QA+vHn1/Gvb//oOz3j//FvUfAAwxe7h86fHtR9iDj//nv0/eV3au/cfm9/+XecGYKQKw991RQKw/ZdX5cxLBABjNR9AlU3Uogpn33wAMEXzAfz2k+/9r6XC2TcfAExRIoAKm6g1Vc68RABdV+cvpAWVzrpMADBGqQAqbaatqnbGpQLounp/QVtS8WzLBQBDlAyg4qZaW9UzLRkA9HVzf3u3W/shrqHqxlpD1bO8v73blb4Bqv7FLan6GZYOAC4pH0D1DXZNCWf3/P5f5d8GQx9PX/uWvwHgHAEQ7TmAqt8OhUP7s+4GIJoAiPa/ALwGUd3hjH9xA4iAqo7Ntlcgoh0NwC1ANadm+uQNIAKqODfLXoGIdjYAtwCtuzTDF28AEdCqPrPb6xVIBLSm78z2/hpABLRiyKwO+iJYBGzd0Bkd/F0gEbBVY2Zz0jD7V2RswZSlPOnnAG4D1jZ1BmcbYLcBS5pr+c72k2C3AUuZc9auNrRuBOZ0rQW7yNYWA2Ms8VaxymuLIDhmjdfofwEnY0zituFnaQAAAABJRU5ErkJggg==%22, %22sizes%22: %22192x192%22, %22type%22: %22image/png%22, %22purpose%22: %22any%22}, {%22src%22: %22data:image/png;base64,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%22, %22sizes%22: %22512x512%22, %22type%22: %22image/png%22, %22purpose%22: %22any%22}, {%22src%22: %22data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAFPklEQVR4nO3cvW4cZRTH4VkrorNkXwQdDRESoqPOdZCKnougpwrXkZouioRCQ5eLcKR0NKbB1rLZj/namXnP/3mqFCiZfXN+5x3bCrtuBQ+fPz2u8eeybfe3d7ul/8xF/kADzxhLBHG1P8DQM6drxTDrb2roWcKcMdzM9RsZfpYy56xNLsngs6apt8GkG8Dws7apMziqHoPPFo25DQbfAIafrRozm4MCMPxs3dAZ7R2A4acVQ2a1VwCGn9b0ndmLARh+WtVnds8GYPhp3aUZnu0nwdCikwHY/lRxbpaPBmD4qebUTHsFItoXAdj+VHVstm8u/QdQyeGMewUimgCI9hyA1x9S7M+6G4BoL9Z+gJZ88+2Paz9Cb3//9cfaj9CEXdd5/bmkpcE/JITT7m/vdl6BiCaAC1re/l3X/vNfmwCIduP9n1QPnz89ugGIJgCiCYBoAiCaAC5o/QdJrT//tQmAaDvfBu1v/4dKX333y2rPcco/f/76/Gubvx8BjPTy9du1H+ELH968WvsRmuMViGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgBGePn67dqPcNRWn2vLBEA0AQy09S279efbGgEQTQADtLJdW3nOLRAA0QTQU2tbtbXnXYsAiCaAHlrdpq0+95IEQDQBEE0AF7T+GtH681+bAIgmgDOqbM8qn+MaBEA0AZxQbWtW+zxzEQDRBHBE1W1Z9XNNIQCiCeBA9S1Z/fMNJQCiCYBoAtiT8nqQ8jn7EADRBPCftK2Y9nlPEQDRBNDlbsPUz71PAESLDyB9C6Z//vgAyBYdQPr2e5J8DtEBgACIFhtA8rV/TOp5xAYAXRcaQOq2uyTxXCIDgCdxASRuuSHSzufF2g+wth++/3rtR1jVu/cf136EVUXdAGnbbaykc4oK4FD69u86ZxATQNJWm0PKecUEcCh98+1LPovYAKDrQgI4vM6TN94px84k4TUoIgA4pXwAtn9/ibdA+QDgnNIB2P7Dpd0CpQOAS8oGYPuPl3QLlA0A+igZgO0/XcotUDIA6Kt8ALb/eAlnVy6Aitf0llQ733IBwBClAvDF7/yqfzFcKgAYqkwAtv/1VL4FygQAY5QIwPa/vqq3QIkAYKzmA7D9l1PxFmg+AJii+QA+vHn1/Gvb//oOz3j//FvUfAAwxe7h86fHtR9iDj//nv0/eV3au/cfm9/+XecGYKQKw991RQKw/ZdX5cxLBABjNR9AlU3Uogpn33wAMEXzAfz2k+/9r6XC2TcfAExRIoAKm6g1Vc68RABdV+cvpAWVzrpMADBGqQAqbaatqnbGpQLounp/QVtS8WzLBQBDlAyg4qZaW9UzLRkA9HVzf3u3W/shrqHqxlpD1bO8v73blb4Bqv7FLan6GZYOAC4pH0D1DXZNCWf3/P5f5d8GQx9PX/uWvwHgHAEQ7TmAqt8OhUP7s+4GIJoAiPa/ALwGUd3hjH9xA4iAqo7Ntlcgoh0NwC1ANadm+uQNIAKqODfLXoGIdjYAtwCtuzTDF28AEdCqPrPb6xVIBLSm78z2/hpABLRiyKwO+iJYBGzd0Bkd/F0gEbBVY2Zz0jD7V2RswZSlPOnnAG4D1jZ1BmcbYLcBS5pr+c72k2C3AUuZc9auNrRuBOZ0rQW7yNYWA2Ms8VaxymuLIDhmjdfofwEnY0zituFnaQAAAABJRU5ErkJggg==%22, %22sizes%22: %22192x192%22, %22type%22: %22image/png%22, %22purpose%22: %22maskable%22}, {%22src%22: %22data:image/png;base64,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%22, %22sizes%22: %22512x512%22, %22type%22: %22image/png%22, %22purpose%22: %22maskable%22}]}">
+<meta name="theme-color" content="#2158A6">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="폐수분류기">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAFPklEQVR4nO3cvW4cZRTH4VkrorNkXwQdDRESoqPOdZCKnougpwrXkZouioRCQ5eLcKR0NKbB1rLZj/namXnP/3mqFCiZfXN+5x3bCrtuBQ+fPz2u8eeybfe3d7ul/8xF/kADzxhLBHG1P8DQM6drxTDrb2roWcKcMdzM9RsZfpYy56xNLsngs6apt8GkG8Dws7apMziqHoPPFo25DQbfAIafrRozm4MCMPxs3dAZ7R2A4acVQ2a1VwCGn9b0ndmLARh+WtVnds8GYPhp3aUZnu0nwdCikwHY/lRxbpaPBmD4qebUTHsFItoXAdj+VHVstm8u/QdQyeGMewUimgCI9hyA1x9S7M+6G4BoL9Z+gJZ88+2Paz9Cb3//9cfaj9CEXdd5/bmkpcE/JITT7m/vdl6BiCaAC1re/l3X/vNfmwCIduP9n1QPnz89ugGIJgCiCYBoAiCaAC5o/QdJrT//tQmAaDvfBu1v/4dKX333y2rPcco/f/76/Gubvx8BjPTy9du1H+ELH968WvsRmuMViGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgBGePn67dqPcNRWn2vLBEA0AQy09S279efbGgEQTQADtLJdW3nOLRAA0QTQU2tbtbXnXYsAiCaAHlrdpq0+95IEQDQBEE0AF7T+GtH681+bAIgmgDOqbM8qn+MaBEA0AZxQbWtW+zxzEQDRBHBE1W1Z9XNNIQCiCeBA9S1Z/fMNJQCiCYBoAtiT8nqQ8jn7EADRBPCftK2Y9nlPEQDRBNDlbsPUz71PAESLDyB9C6Z//vgAyBYdQPr2e5J8DtEBgACIFhtA8rV/TOp5xAYAXRcaQOq2uyTxXCIDgCdxASRuuSHSzufF2g+wth++/3rtR1jVu/cf136EVUXdAGnbbaykc4oK4FD69u86ZxATQNJWm0PKecUEcCh98+1LPovYAKDrQgI4vM6TN94px84k4TUoIgA4pXwAtn9/ibdA+QDgnNIB2P7Dpd0CpQOAS8oGYPuPl3QLlA0A+igZgO0/XcotUDIA6Kt8ALb/eAlnVy6Aitf0llQ733IBwBClAvDF7/yqfzFcKgAYqkwAtv/1VL4FygQAY5QIwPa/vqq3QIkAYKzmA7D9l1PxFmg+AJii+QA+vHn1/Gvb//oOz3j//FvUfAAwxe7h86fHtR9iDj//nv0/eV3au/cfm9/+XecGYKQKw991RQKw/ZdX5cxLBABjNR9AlU3Uogpn33wAMEXzAfz2k+/9r6XC2TcfAExRIoAKm6g1Vc68RABdV+cvpAWVzrpMADBGqQAqbaatqnbGpQLounp/QVtS8WzLBQBDlAyg4qZaW9UzLRkA9HVzf3u3W/shrqHqxlpD1bO8v73blb4Bqv7FLan6GZYOAC4pH0D1DXZNCWf3/P5f5d8GQx9PX/uWvwHgHAEQ7TmAqt8OhUP7s+4GIJoAiPa/ALwGUd3hjH9xA4iAqo7Ntlcgoh0NwC1ANadm+uQNIAKqODfLXoGIdjYAtwCtuzTDF28AEdCqPrPb6xVIBLSm78z2/hpABLRiyKwO+iJYBGzd0Bkd/F0gEbBVY2Zz0jD7V2RswZSlPOnnAG4D1jZ1BmcbYLcBS5pr+c72k2C3AUuZc9auNrRuBOZ0rQW7yNYWA2Ms8VaxymuLIDhmjdfofwEnY0zituFnaQAAAABJRU5ErkJggg==">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAFPklEQVR4nO3cvW4cZRTH4VkrorNkXwQdDRESoqPOdZCKnougpwrXkZouioRCQ5eLcKR0NKbB1rLZj/namXnP/3mqFCiZfXN+5x3bCrtuBQ+fPz2u8eeybfe3d7ul/8xF/kADzxhLBHG1P8DQM6drxTDrb2roWcKcMdzM9RsZfpYy56xNLsngs6apt8GkG8Dws7apMziqHoPPFo25DQbfAIafrRozm4MCMPxs3dAZ7R2A4acVQ2a1VwCGn9b0ndmLARh+WtVnds8GYPhp3aUZnu0nwdCikwHY/lRxbpaPBmD4qebUTHsFItoXAdj+VHVstm8u/QdQyeGMewUimgCI9hyA1x9S7M+6G4BoL9Z+gJZ88+2Paz9Cb3//9cfaj9CEXdd5/bmkpcE/JITT7m/vdl6BiCaAC1re/l3X/vNfmwCIduP9n1QPnz89ugGIJgCiCYBoAiCaAC5o/QdJrT//tQmAaDvfBu1v/4dKX333y2rPcco/f/76/Gubvx8BjPTy9du1H+ELH968WvsRmuMViGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgBGePn67dqPcNRWn2vLBEA0AQy09S279efbGgEQTQADtLJdW3nOLRAA0QTQU2tbtbXnXYsAiCaAHlrdpq0+95IEQDQBEE0AF7T+GtH681+bAIgmgDOqbM8qn+MaBEA0AZxQbWtW+zxzEQDRBHBE1W1Z9XNNIQCiCeBA9S1Z/fMNJQCiCYBoAtiT8nqQ8jn7EADRBPCftK2Y9nlPEQDRBNDlbsPUz71PAESLDyB9C6Z//vgAyBYdQPr2e5J8DtEBgACIFhtA8rV/TOp5xAYAXRcaQOq2uyTxXCIDgCdxASRuuSHSzufF2g+wth++/3rtR1jVu/cf136EVUXdAGnbbaykc4oK4FD69u86ZxATQNJWm0PKecUEcCh98+1LPovYAKDrQgI4vM6TN94px84k4TUoIgA4pXwAtn9/ibdA+QDgnNIB2P7Dpd0CpQOAS8oGYPuPl3QLlA0A+igZgO0/XcotUDIA6Kt8ALb/eAlnVy6Aitf0llQ733IBwBClAvDF7/yqfzFcKgAYqkwAtv/1VL4FygQAY5QIwPa/vqq3QIkAYKzmA7D9l1PxFmg+AJii+QA+vHn1/Gvb//oOz3j//FvUfAAwxe7h86fHtR9iDj//nv0/eV3au/cfm9/+XecGYKQKw991RQKw/ZdX5cxLBABjNR9AlU3Uogpn33wAMEXzAfz2k+/9r6XC2TcfAExRIoAKm6g1Vc68RABdV+cvpAWVzrpMADBGqQAqbaatqnbGpQLounp/QVtS8WzLBQBDlAyg4qZaW9UzLRkA9HVzf3u3W/shrqHqxlpD1bO8v73blb4Bqv7FLan6GZYOAC4pH0D1DXZNCWf3/P5f5d8GQx9PX/uWvwHgHAEQ7TmAqt8OhUP7s+4GIJoAiPa/ALwGUd3hjH9xA4iAqo7Ntlcgoh0NwC1ANadm+uQNIAKqODfLXoGIdjYAtwCtuzTDF28AEdCqPrPb6xVIBLSm78z2/hpABLRiyKwO+iJYBGzd0Bkd/F0gEbBVY2Zz0jD7V2RswZSlPOnnAG4D1jZ1BmcbYLcBS5pr+c72k2C3AUuZc9auNrRuBOZ0rQW7yNYWA2Ms8VaxymuLIDhmjdfofwEnY0zituFnaQAAAABJRU5ErkJggg==">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --organic:#2158A6;   --organic-soft:#E7EEF9;
+    --acid:#C23B32;      --acid-soft:#FBEAE8;
+    --alkali:#D98324;    --alkali-soft:#FBF0E1;
+    --inorganic:#2E9B63; --inorganic-soft:#E7F5EC;
+    --check:#7A4E86;     --check-soft:#F0E9F2;
+    --ink:#1B2430; --ink-soft:#5B6472;
+    --line:#DCE1DE; --bg:#EFF3F0; --card:#FFFFFF;
+    --warn-bg:#FFF6DE; --warn-line:#E8C766; --warn-ink:#7A5B06;
+    --hazard-bg:#FDEAEA; --hazard-line:#E9A6A0; --hazard-ink:#8A2A22;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Pretendard', -apple-system, sans-serif; background:var(--bg); color:var(--ink); line-height:1.5; padding:0 0 60px;}
+  .wrap{max-width:960px;margin:0 auto;padding:20px 16px 0;}
+
+  header.app-head{padding:26px 16px 16px;text-align:center;}
+  header.app-head h1{font-size:25px;font-weight:800;letter-spacing:-0.02em;margin:0 0 6px;}
+  header.app-head p{margin:0;font-size:13px;color:var(--ink-soft);}
+  header.app-head .badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.03em;color:var(--ink-soft);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 10px;margin-bottom:10px;}
+
+  .tabs{display:flex;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px;margin-bottom:16px;position:sticky;top:8px;z-index:50;overflow-x:auto;}
+  .tab-btn{flex:1;min-width:86px;border:none;background:transparent;padding:10px 4px;font-family:inherit;font-size:12px;font-weight:700;color:var(--ink-soft);border-radius:9px;cursor:pointer;white-space:nowrap;}
+  .tab-btn.active{background:var(--ink);color:#fff;}
+  .panel{display:none;} .panel.active{display:block;}
+
+  .search-box{display:flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;}
+  .search-box input{border:none;outline:none;font-family:inherit;font-size:15px;width:100%;background:transparent;color:var(--ink);}
+  .search-box svg{flex-shrink:0;opacity:.5;}
+  .result-count{font-size:11.5px;color:var(--ink-soft);margin:0 2px 10px;}
+
+  .filter-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+  .pill{display:flex;align-items:center;gap:6px;border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--ink-soft);user-select:none;}
+  .pill .dot{width:8px;height:8px;border-radius:50%;}
+  .pill.on{color:var(--ink);border-color:var(--ink);background:#fff;}
+
+  .chem-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:18px;max-height:420px;overflow-y:auto;padding:2px;}
+  .chem-group-header{grid-column:1 / -1;font-size:12px;font-weight:800;color:var(--ink-soft);padding:8px 4px 2px;border-top:1px solid var(--line);margin-top:2px;}
+  .chem-group-header:first-child{border-top:none;margin-top:0;}
+  .chem-chip{text-align:left;background:var(--card);border:1.5px solid var(--line);border-left:5px solid var(--cat-color,#999);border-radius:10px;padding:9px 11px;cursor:pointer;transition:transform .1s, box-shadow .1s;position:relative;}
+  .chem-chip:hover{box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .chem-chip.selected{background:var(--cat-soft,#eee);transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.08);}
+  .chem-chip .name{font-weight:700;font-size:13.5px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;}
+  .chem-chip .formula{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-soft);margin-top:2px;}
+  .badge-mini{font-size:9.5px;font-weight:800;padding:1px 5px;border-radius:5px;background:#EEE;color:var(--ink-soft);}
+  .badge-bio{background:#E4EEF9;color:#2158A6;}
+  .badge-custom{background:#F1E9F0;color:#7A4E86;}
+  .badge-hazard{background:var(--hazard-bg);color:var(--hazard-ink);}
+
+  .empty-msg{color:var(--ink-soft);font-size:13.5px;padding:16px 4px;text-align:center;}
+
+  .bins-title{font-size:15px;font-weight:800;margin:22px 0 10px;}
+  .bins-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px;}
+  @media(max-width:560px){.bins-row{grid-template-columns:repeat(2,1fr);}}
+  .bin-card{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:12px 10px 14px;text-align:center;}
+  .jug{width:44px;height:58px;margin:0 auto 8px;position:relative;}
+  .jug .cap{width:18px;height:9px;background:#B9C0C6;border-radius:3px 3px 0 0;margin:0 auto;}
+  .jug .body{width:44px;height:49px;border-radius:8px 8px 10px 10px;border:2px solid #C7CDD1;background:#F5F7F6;overflow:hidden;position:relative;}
+  .jug .fill{position:absolute;bottom:0;left:0;right:0;height:0%;transition:height .3s ease;opacity:.85;}
+  .bin-label{font-size:12.5px;font-weight:800;margin-bottom:2px;}
+  .bin-count{font-size:11px;color:var(--ink-soft);margin-bottom:6px;}
+  .bin-items{font-size:11px;color:var(--ink-soft);min-height:14px;line-height:1.5;}
+
+  .check-list{background:var(--check-soft);border:1.5px solid #D9C6DE;border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:13px;color:var(--check);}
+  .check-list .ct-title{font-weight:800;margin-bottom:6px;}
+
+  .mix-card{border-radius:12px;padding:14px 16px;margin-bottom:12px;border:1.5px solid;}
+  .mix-head{font-weight:800;font-size:15px;margin-bottom:6px;}
+  .mix-card p{margin:0 0 6px;font-size:13.5px;color:var(--ink);}
+  .mix-card .mix-sub{font-size:12px;color:var(--ink-soft);margin:0;}
+  .mix-empty{font-size:13px;color:var(--ink-soft);padding:10px 2px;}
+
+  .conflict-box{background:var(--hazard-bg);border:1.5px solid var(--hazard-line);color:var(--hazard-ink);border-radius:12px;padding:12px 14px;font-size:13px;margin-bottom:12px;}
+  .conflict-box .w-title{font-weight:800;margin-bottom:6px;}
+  .conflict-box ul{margin:0;padding-left:18px;} .conflict-box li{margin-bottom:4px;}
+
+  .warn-box{background:var(--warn-bg);border:1.5px solid var(--warn-line);color:var(--warn-ink);border-radius:12px;padding:12px 14px;font-size:13px;margin-bottom:12px;}
+  .warn-box .w-title{font-weight:800;margin-bottom:6px;}
+  .warn-box ul{margin:0;padding-left:18px;} .warn-box li{margin-bottom:4px;}
+
+  .hazard-box{background:var(--hazard-bg);border:1.5px solid var(--hazard-line);color:var(--hazard-ink);border-radius:12px;padding:12px 14px;font-size:13px;margin-bottom:12px;}
+  .hazard-box .w-title{font-weight:800;margin-bottom:6px;}
+  .hazard-box ul{margin:0;padding-left:18px;} .hazard-box li{margin-bottom:4px;}
+
+  .accordion{background:var(--card);border:1.5px solid var(--line);border-radius:12px;overflow:hidden;margin-top:8px;}
+  .acc-head{padding:13px 14px;font-weight:800;font-size:14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
+  .acc-body{padding:0 14px 14px;font-size:13.5px;color:var(--ink-soft);display:none;}
+  .acc-body.open{display:block;}
+  .acc-body ul{margin:0;padding-left:18px;} .acc-body li{margin-bottom:6px;}
+  .acc-chevron{transition:transform .15s;} .acc-chevron.open{transform:rotate(180deg);}
+
+  /* wizard */
+  .wizard-card{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:16px;margin-top:6px;}
+  .wizard-card h3{margin:0 0 4px;font-size:15px;}
+  .wizard-card .sub{font-size:12.5px;color:var(--ink-soft);margin:0 0 14px;}
+  .wizard-q{font-size:14.5px;font-weight:700;margin-bottom:10px;}
+  .wizard-opts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px;}
+  .wizard-opt{flex:1;min-width:120px;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:10px 12px;font-size:13px;font-weight:700;cursor:pointer;text-align:center;}
+  .wizard-opt:hover{border-color:var(--ink);}
+  .wizard-result{border-radius:12px;padding:14px;margin-top:10px;}
+  .wizard-result h4{margin:0 0 6px;font-size:15px;}
+  .wizard-trail{font-size:11.5px;color:var(--ink-soft);margin-bottom:10px;}
+  .wizard-restart{background:none;border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;color:var(--ink-soft);margin-top:10px;}
+  .add-form{margin-top:14px;border-top:1px dashed var(--line);padding-top:14px;}
+  .add-form input, .add-form select{width:100%;padding:9px 11px;border:1.5px solid var(--line);border-radius:8px;font-family:inherit;font-size:13.5px;margin-bottom:8px;}
+  .add-form label{font-size:12px;font-weight:700;color:var(--ink-soft);display:block;margin-bottom:4px;}
+  .add-btn{background:var(--ink);color:#fff;border:none;border-radius:8px;padding:10px 16px;font-weight:700;font-size:13.5px;cursor:pointer;}
+  .storage-note{font-size:11.5px;color:var(--ink-soft);margin-top:8px;}
+  .custom-list{margin-top:16px;}
+  .custom-item{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-bottom:6px;font-size:13px;}
+  .custom-del{border:none;background:none;color:var(--acid);font-size:12px;font-weight:700;cursor:pointer;}
+
+  .compat-result{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:16px;margin-top:6px;}
+  .compat-result h3{margin:0 0 10px;font-size:16px;}
+  .compat-chip{display:inline-block;background:var(--acid-soft);color:var(--acid);border-radius:999px;padding:4px 10px;font-size:12.5px;font-weight:700;margin:0 6px 6px 0;}
+  .compat-list{max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;}
+  .compat-item{padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;cursor:pointer;background:#fff;}
+
+  .steps{display:flex;flex-direction:column;gap:0;margin-top:6px;}
+  .step{display:flex;gap:14px;padding-bottom:22px;position:relative;}
+  .step:not(:last-child)::before{content:"";position:absolute;left:17px;top:38px;bottom:0;width:2px;background:var(--line);}
+  .step-num{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:var(--ink);color:#fff;font-weight:800;font-family:'JetBrains Mono',monospace;display:flex;align-items:center;justify-content:center;font-size:14px;}
+  .step-body h3{margin:4px 0 6px;font-size:16px;}
+  .step-body ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--ink-soft);} .step-body li{margin-bottom:5px;}
+
+  .callout{background:var(--acid-soft);border:1.5px solid #E9C4C0;border-radius:12px;padding:14px;margin-top:6px;margin-bottom:14px;}
+  .callout h4{margin:0 0 8px;color:var(--acid);font-size:14px;}
+  .callout p{margin:0 0 6px;font-size:13.5px;color:var(--ink);}
+  .callout .ph{font-family:'JetBrains Mono',monospace;font-weight:600;}
+  .callout.alt{background:var(--check-soft);border-color:#D9C6DE;}
+  .callout.alt h4{color:var(--check);}
+
+  footer{text-align:center;color:var(--ink-soft);font-size:11.5px;padding:24px 20px 4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="app-head">
+    <span class="badge">SEOUL DOE · 2026 과학실 안전관리 매뉴얼 + 폐수처리 안내영상</span>
+    <h1>과학실 폐수 분류기</h1>
+    <p>실험에 쓴 시약을 고르면 유기·산·알칼리·무기 4개 폐수통 중 어디로 가야 하는지 알려드려요</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="classify">단일 시약 분류</button>
+    <button class="tab-btn" data-tab="mix">혼합 시약 분류</button>
+    <button class="tab-btn" data-tab="wizard">새 시약 판별</button>
+    <button class="tab-btn" data-tab="compat">혼합주의 확인</button>
+    <button class="tab-btn" data-tab="process">처리 절차</button>
+  </div>
+
+  <!-- TAB 1: CLASSIFIER -->
+  <section class="panel active" id="panel-classify">
+    <div class="search-box">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="chemSearch" type="text" placeholder="시약 이름으로 검색 (예: 염산, NaOH, 아세트산, Giemsa)">
+    </div>
+    <div class="filter-row" id="filterRow"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:2px;">
+      <div class="result-count" id="resultCount"></div>
+      <button class="wizard-restart" id="selectionResetBtn" style="display:none;">✕ 선택 초기화</button>
+    </div>
+    <div class="chem-grid" id="chemGrid"></div>
+
+    <div id="criticalZone"></div>
+    <div id="hazardZone"></div>
+    <div id="checkZone"></div>
+    <div id="warnZone"></div>
+
+    <div class="bins-title">🧪 일반 4분류 폐수통 (해당하는 시약만 표시)</div>
+    <div class="bins-row" id="binsRow"></div>
+
+    <div class="accordion">
+      <div class="acc-head" id="accHead">
+        <span>공통 수집 수칙 (매뉴얼 요약)</span>
+        <svg class="acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="acc-body" id="accBody">
+        <ul>
+          <li>20L 폴리에틸렌(내화학성) 용기를 4개 이상 준비하고, 유기계·산성·알칼리·무기계 라벨을 눈에 띄게 부착합니다.</li>
+          <li>폐수통 용량의 <b>80%까지만</b> 수집합니다.</li>
+          <li>폐수 속에 장갑, 유리조각, 탈지면 같은 고형물이 섞여 있다면 <b>제거한 뒤</b> 폐수통에 담습니다.</li>
+          <li>같은 계열이라도 서로 반응할 수 있으므로, 붓기 전 반드시 <b>혼입금지 물질</b>인지 확인합니다. (혼합주의 확인 탭 참고)</li>
+          <li>깔때기를 이용해 새지 않게 붓고, 통 안의 다른 폐수와 반응할 수 있으니 <b>천천히</b> 부어 수집합니다.</li>
+          <li>수집한 폐수·폐시약은 학생 접근이 불가능한 격리 공간에 잠금장치를 마련해 보관하며, 과학실 안에는 보관하지 않습니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB: MIXTURE CLASSIFIER -->
+  <section class="panel" id="panel-mix">
+    <div class="wizard-card">
+      <h3>⚗️ 혼합 폐수, 어디에 버려야 할까요?</h3>
+      <p class="sub">실험에 실제로 사용한 시약을 하나씩 추가한 뒤 '분류하기'를 누르면, 이 혼합액 전체를 어느 폐수통에 넣어야 하는지와 주의사항을 알려드려요.</p>
+
+      <div class="search-box" style="margin-bottom:6px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="mixInput" type="text" placeholder="시약 이름을 입력하세요 (예: 염산, 포도당)">
+      </div>
+      <div id="mixSuggest"></div>
+      <button class="add-btn" id="mixAddBtn" style="margin:8px 0 4px;">(+) 추가</button>
+
+      <div class="bins-title" style="margin-top:18px;">🧪 혼합할 시약 목록</div>
+      <div id="mixListArea"><p class="empty-msg">아직 추가된 시약이 없어요.</p></div>
+
+      <div style="display:flex;gap:8px;margin-top:14px;">
+        <button class="add-btn" id="mixClassifyBtn" style="flex:1;">분류하기</button>
+        <button class="wizard-restart" id="mixResetBtn">전체 초기화</button>
+      </div>
+
+      <div id="mixOutput" style="margin-top:16px;"></div>
+    </div>
+  </section>
+
+  <!-- TAB 2: WIZARD -->
+  <section class="panel" id="panel-wizard">
+    <div class="wizard-card">
+      <h3>🧭 목록에 없는 시약, 이렇게 판별하세요</h3>
+      <p class="sub">서울시교육청 폐수처리 안내영상의 분류 흐름도 그대로 예/아니오만 답하면 어느 폐수통에 넣을지 알려드려요.</p>
+      <div id="wizardBody"></div>
+    </div>
+
+    <div class="wizard-card add-form" id="addFormCard" style="display:none;">
+      <h3>➕ 이 시약, 내 화면에 추가하기</h3>
+      <p class="sub">이 버전은 서버 저장소를 쓰지 않아서 로그인이 필요 없어요. 대신 <b>파일을 다운로드해서 내 PC에서 직접 열었을 때만</b>, 추가한 시약이 이 브라우저에 계속 남아요 (다른 사람과는 공유되지 않아요). 지금처럼 채팅 화면 안 미리보기로 보고 있다면, 추가해도 저장이 안 되고 새로고침하면 사라질 수 있어요. 여러 사람과 공유하고 싶은 시약은 Claude에게 "이 시약 기본 목록에 추가해줘"라고 요청해주세요.</p>
+      <label>시약 이름</label>
+      <input id="newChemName" type="text" placeholder="예: 브로민화 나트륨">
+      <label>화학식/영문명 (선택)</label>
+      <input id="newChemFormula" type="text" placeholder="예: NaBr">
+      <label>분류 결과</label>
+      <select id="newChemCategory"></select>
+      <button class="add-btn" id="addChemBtn">내 화면에 추가</button>
+      <div class="storage-note" id="addStatus"></div>
+    </div>
+
+    <div class="wizard-card custom-list">
+      <h3>📋 내가 추가한 시약</h3>
+      <div id="customChemList"><p class="empty-msg">아직 추가된 시약이 없어요.</p></div>
+
+      <div style="display:flex;gap:8px;margin-top:14px;">
+        <button class="wizard-restart" id="exportBtn" style="flex:1;">📤 내 목록 내보내기</button>
+        <button class="wizard-restart" id="importToggleBtn" style="flex:1;">📥 다른 목록 가져오기</button>
+      </div>
+
+      <div id="exportArea" style="display:none;margin-top:12px;">
+        <p class="sub" style="margin:0 0 6px;">아래 내용을 통째로 복사해서 카톡·메일 등으로 다른 사람에게 보내주세요.</p>
+        <textarea id="exportText" readonly style="width:100%;min-height:90px;padding:9px 11px;border:1.5px solid var(--line);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12px;"></textarea>
+        <button class="add-btn" id="copyExportBtn" style="margin-top:8px;">복사하기</button>
+        <div class="storage-note" id="exportStatus"></div>
+      </div>
+
+      <div id="importArea" style="display:none;margin-top:12px;">
+        <p class="sub" style="margin:0 0 6px;">다른 사람이 보내준 내보내기 텍스트를 아래에 붙여넣으세요. 이름이 같은 시약은 건너뛰고, 새로운 것만 추가돼요.</p>
+        <textarea id="importText" placeholder="여기에 붙여넣기" style="width:100%;min-height:90px;padding:9px 11px;border:1.5px solid var(--line);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12px;"></textarea>
+        <button class="add-btn" id="importBtn" style="margin-top:8px;">가져오기</button>
+        <div class="storage-note" id="importStatus"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 3: COMPATIBILITY -->
+  <section class="panel" id="panel-compat">
+    <div class="search-box">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="compatSearch" type="text" placeholder="물질명을 검색해보세요 (예: 질산, 황산, 아세트산)">
+    </div>
+    <p style="font-size:12.5px;color:var(--ink-soft);margin:0 0 12px;">매뉴얼 부록 '공존할 수 없는 물질' 표를 기준으로 합니다. 표에 없는 물질은 SDS(물질안전보건자료)를 확인하세요.</p>
+    <div id="compatArea"></div>
+  </section>
+
+  <!-- TAB 4: PROCESS -->
+  <section class="panel" id="panel-process">
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h3>수집 단계</h3>
+          <ul>
+            <li>유기계·산성·알칼리·무기계 4종류로 나눈 20L 폐수통을 구비합니다.</li>
+            <li>화학물질 폐기물은 인화성·부식성·독성이 유지되거나 서로 합성되어 더 위험해질 수 있음을 유의합니다.</li>
+            <li>성질·상태별로 분리 수집하고, 불가피하게 섞일 경우 혼합 가능 여부를 먼저 확인합니다.</li>
+            <li>깔때기로 새지 않게, 천천히 부어 수집합니다.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h3>보관 단계</h3>
+          <ul>
+            <li>성질·상태별로 별도 용기에 분리해, 관리자 외 접근할 수 없는 격리 공간에 잠금장치를 마련해 보관합니다. (과학실 내 보관 금지)</li>
+            <li>보관 용기에는 경고(위험) 문구와 내용물의 성질·상태를 명기합니다.</li>
+            <li>폐시약병·폐액침 표본은 입구를 밀봉하고 병 사이에 신문지 등 완충재를 넣어 포장합니다.</li>
+            <li>사람이 오가지 않는 곳에 설치하고, 준비실·폐수통에 각각 잠금장치를 두어 이중 잠금을 갖춥니다.</li>
+            <li>폐수·폐시약 관리대장을 작성하고 월 1회 이상 관리 상태를 점검합니다.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h3>처리 단계</h3>
+          <ul>
+            <li>과학실험실 폐수는 전량 폐수 처리 전문 업체에 위탁하여 처리합니다.</li>
+            <li>처리 계약서와 위·수탁 확인서는 처리 완료 후 <b>3년간</b> 보존합니다.</li>
+            <li>교육청 일괄 수거 일정이 안내되면, 그 전까지 폐수·폐시약을 안전한 장소에 보관합니다.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h4>⚠ 폐산·폐알칼리는 반드시 지정된 전용 용기로만</h4>
+      <p>산업안전·폐기물관리법 기준으로 <span class="ph">pH ≤ 2.0</span>인 폐산, <span class="ph">pH ≥ 12.5</span>인 폐알칼리는 부식성 지정폐기물에 해당합니다. <b>하수구에 흘려보내거나 아무 용기에나 담지 말고</b>, 학교가 지정한 산성·알칼리 폐수 전용 용기에 분리 보관한 뒤 인허가받은 위탁 처리업체를 통해 처리하세요.</p>
+      <p>폐유·폐유독물·폐유기용제 등도 마찬가지로 지정된 전용 용기 외의 일반 용기 사용이 금지됩니다.</p>
+      <p>시약병에 남은 잔류 시약은 다른 통에 옮기지 말고, 수거 시까지 <b>원래 용기 그대로</b> 직사광선을 피해 통풍이 잘 되는 곳에 보관합니다.</p>
+    </div>
+
+    <div class="callout">
+      <h4>🚨 고독성 물질은 세척수도 따로 모으세요</h4>
+      <p>수은·카드뮴·6가 크로뮴처럼 독성이 강하거나 배출 허용기준이 낮은 물질을 사용했다면, 실험기구를 <b>3회 이상 헹군 세척수</b>도 그냥 버리지 말고 종류에 따라 분류하여 폐수통에 함께 수집합니다.</p>
+    </div>
+
+    <div class="callout alt">
+      <h4>🧭 폐수 분류 4단계 (안내영상 기준)</h4>
+      <p>① 탄소가 포함된 <b>유기 화합물</b>인가요? → 예: 유기계 폐수</p>
+      <p>② 아니라면, <b>무기산</b>인가요? (크로뮴산 포함) → 예: 산성 폐수</p>
+      <p>③ 아니라면, <b>알칼리</b>인가요? → 예: 알칼리 폐수 (단, <b>암모니아 함유 폐수는 예외적으로 유기계 폐수</b>)</p>
+      <p>④ 어디에도 해당하지 않으면 → 무기계 폐수</p>
+    </div>
+  </section>
+
+  <footer>
+    2026년 과학실 안전관리 및 안전매뉴얼(서울시교육청), 폐수처리 안내영상, 학교 보유 시약 목록을 참고해 제작한 학습·참고용 도구입니다.<br>
+    이 분류는 <b>시약 이름만으로 판단한 일반적인 기준</b>이며, 실제 폐액의 <b>농도·pH·용매·반응 생성물·오염 여부</b>는 반영하지 않습니다.<br>
+    실제 처리 전에는 반드시 학교 과학실 안전관리자·기관 안전관리(EHS) 부서와 다시 확인하세요.
+  </footer>
+</div>
+
+<script>
+// ================= DATA =================
+const CATS = {
+  organic:   {label:"유기계 폐수", hex:"#2158A6", soft:"var(--organic-soft)"},
+  acid:      {label:"산성 폐수",   hex:"#C23B32", soft:"var(--acid-soft)"},
+  alkali:    {label:"알칼리 폐수", hex:"#D98324", soft:"var(--alkali-soft)"},
+  inorganic: {label:"무기계 폐수", hex:"#2E9B63", soft:"var(--inorganic-soft)"},
+  check:     {label:"확인 필요",   hex:"#7A4E86", soft:"var(--check-soft)"}
+};
+const BIN_ORDER = ["organic","acid","alkali","inorganic"];
+
+// c = {name, en, formula, category, tag:'bio'?, special: html note, hazard: html note}
+const CHEMICALS = [
+  {name:"요소", en:"Urea", formula:"CH4N2O", category:"organic"},
+  {name:"에탄올(에틸알코올)", en:"Ethanol", formula:"C2H5OH", category:"organic", tags:["combustible"]},
+  {name:"메탄올(메틸알코올)", en:"Methanol", formula:"CH3OH", category:"organic", tags:["combustible"]},
+  {name:"헥세인", en:"Hexane", formula:"C6H14", category:"organic", tags:["combustible"]},
+  {name:"아세톤", en:"Acetone", formula:"CH3COCH3", category:"organic", tags:["combustible"]},
+  {name:"갈락토오스", en:"Galactose", formula:"C6H12O6", category:"organic"},
+  {name:"포도당(글루코스)", en:"Glucose / Dextrose", formula:"C6H12O6", category:"organic", tags:["reducingAgent"]},
+  {name:"엿당(말토스)", en:"Maltose", formula:"C12H22O11", category:"organic", tags:["reducingAgent"]},
+  {name:"과당(프럭토스)", en:"Fructose", formula:"C6H12O6", category:"organic", tags:["reducingAgent"]},
+  {name:"자당(설탕, 수크로스)", en:"Sucrose", formula:"C12H22O11", category:"organic"},
+  {name:"에틸아세테이트(아세트산에틸)", en:"Ethyl acetate", formula:"CH3COOC2H5", category:"organic", tags:["combustible"]},
+  {name:"디클로로메탄", en:"Dichloromethane", formula:"CH2Cl2", category:"organic"},
+  {name:"아세트산(초산)", en:"Acetic acid", formula:"CH3COOH", category:"organic", tags:["acidic"],
+    special:"무기산이 아닌 <b>유기산</b>이라 유기계로 분류됩니다. 중화 후 유기계 폐수로 처리하며, 산 폐수통에는 절대 혼입하지 않습니다."},
+  {name:"스테아르산", en:"Stearic acid", formula:"CH3(CH2)16COOH", category:"organic", tags:["acidic"]},
+  {name:"스테아릴알코올", en:"Stearyl alcohol", formula:"C18H38O", category:"organic"},
+  {name:"폴리비닐알코올(PVA)", en:"Polyvinyl alcohol", formula:"(C2H4O)n", category:"organic"},
+  {name:"젖산칼슘", en:"Calcium lactate", formula:"C6H10CaO6", category:"organic"},
+  {name:"타르타르산나트륨칼륨(로쉘염)", en:"Sodium potassium tartrate", formula:"KNaC4H4O6", category:"organic"},
+  {name:"알긴산나트륨", en:"Sodium alginate", formula:"C6H7NaO6", category:"organic"},
+  {name:"잔탄검(쟁탄검)", en:"Xanthan gum", formula:"다당류", category:"organic"},
+  {name:"디니트로살리실산(DNS 시약)", en:"Dinitrosalicylic acid", formula:"C7H4N2O7", category:"organic"},
+  {name:"젤라틴", en:"Gelatin", formula:"단백질", category:"organic"},
+  {name:"아라비아고무", en:"Gum arabic", formula:"다당류", category:"organic"},
+  {name:"한천(아가)", en:"Agar", formula:"다당류", category:"organic"},
+  {name:"아가로스 분말", en:"Agarose", formula:"다당류", category:"organic", tag:"bio", state:"solid",
+    special:"가루 상태나 굳은 젤 모두 고체입니다. 액체 폐수통에 넣지 말고 고형 화학폐기물로 수거하세요."},
+  {name:"카페인", en:"Caffeine", formula:"C8H10N4O2", category:"organic"},
+  {name:"아세틸콜린", en:"Acetylcholine", formula:"C7H16NO2+", category:"organic", tag:"bio"},
+  {name:"아드레날린(에피네프린)", en:"Adrenaline / Epinephrine", formula:"C9H13NO3", category:"organic", tag:"bio"},
+  {name:"건조 효모", en:"Dry yeast", formula:"생물체", category:"organic", tag:"bio"},
+  {name:"실험용 오일", en:"Experimental oil", formula:"유지류", category:"organic"},
+  {name:"알부민 용액", en:"Albumin solution", formula:"단백질", category:"organic", tag:"bio"},
+  {name:"초파리 등장액", en:"Drosophila isotonic solution", formula:"염류+당류 혼합", category:"organic", tag:"bio"},
+  {name:"합성혈액", en:"Synthetic blood", formula:"혼합시약", category:"organic", tag:"bio"},
+  {name:"합성혈청", en:"Synthetic serum", formula:"혼합시약", category:"organic", tag:"bio"},
+  {name:"DPPH", en:"DPPH", formula:"C18H12N5O6", category:"organic", tag:"bio"},
+  {name:"TAE 완충액(50x)", en:"TAE buffer", formula:"Tris-Acetate-EDTA", category:"organic", tag:"bio"},
+  {name:"TE 완충액(1x)", en:"TE buffer", formula:"Tris-EDTA", category:"organic", tag:"bio"},
+  {name:"로딩버퍼", en:"Loading buffer (6x)", formula:"글리세롤+염료", category:"organic", tag:"bio"},
+  {name:"세포용해액(라이시스 버퍼)", en:"Lysis buffer (10x)", formula:"계면활성제 포함", category:"organic", tag:"bio"},
+  {name:"제한효소 BglI", en:"Restriction enzyme BglI", formula:"효소(단백질)", category:"organic", tag:"bio",
+    special:"소량 효소 시약은 유기 폐수로 분류하되, 학교 규정상 생물 폐기물로 별도 수거하는 경우도 있으니 확인하세요."},
+  {name:"제한효소 BsuRI", en:"Restriction enzyme BsuRI", formula:"효소(단백질)", category:"organic", tag:"bio"},
+  {name:"제한효소 Eco571(추정 EcoRI 계열)", en:"Restriction enzyme", formula:"효소(단백질)", category:"organic", tag:"bio"},
+  {name:"제한효소 ScaI", en:"Restriction enzyme ScaI", formula:"효소(단백질)", category:"organic", tag:"bio"},
+  {name:"핵산염색시약(Gel Safe Red)", en:"Gel Safe Red", formula:"핵산 염색시약", category:"organic", tag:"bio",
+    special:"핵산염색시약은 제품 지침에 따라 전용 폐기 절차가 있는 경우가 많으니 라벨을 확인하세요."},
+  {name:"PCR 프리믹스", en:"Direct PCR pre-mix (2x)", formula:"효소+완충액 혼합", category:"organic", tag:"bio"},
+  {name:"메틸렌 블루", en:"Methylene Blue", formula:"지시약", category:"organic"},
+  {name:"BTB(브로모티몰블루)", en:"Bromothymol Blue", formula:"지시약", category:"organic"},
+  {name:"페놀프탈레인", en:"Phenolphthalein", formula:"지시약", category:"organic"},
+  {name:"베네딕트 용액", en:"Benedict's solution", formula:"혼합시약", category:"organic"},
+  {name:"수단Ⅲ(수단3)", en:"Sudan III", formula:"염색시약", category:"organic"},
+  {name:"인디고카민", en:"Indigo carmine", formula:"C16H8N2Na2O8S2", category:"organic"},
+  {name:"페놀레드", en:"Phenol red", formula:"지시약", category:"organic"},
+  {name:"티몰프탈레인", en:"Thymolphthalein", formula:"지시약", category:"organic"},
+  {name:"티몰블루", en:"Thymol blue", formula:"지시약", category:"organic"},
+  {name:"만능지시약", en:"Universal indicator", formula:"혼합염료", category:"organic"},
+  {name:"메틸레드", en:"Methyl red", formula:"지시약", category:"organic"},
+  {name:"콩고 레드 용액", en:"Congo red solution", formula:"염색시약", category:"organic"},
+  {name:"크리스탈바이올렛", en:"Crystal Violet", formula:"염색시약", category:"organic"},
+  {name:"샤프라닌", en:"Safranin O", formula:"염색시약", category:"organic"},
+  {name:"아세토올세인(아세트산오르세인)", en:"Aceto-orcein", formula:"오르세인+아세트산", category:"organic", tag:"bio", tags:["acidic"],
+    special:"오르세인 염색시약을 아세트산에 녹인 제제입니다. 아세트산 성분이 있어 산성으로 작용합니다."},
+  {name:"김자 염색약", en:"Giemsa Stain", formula:"염색시약(메탄올 포함)", category:"organic", tag:"bio"},
+  {name:"라이트-김자 염색약", en:"Wright-Giemsa Stain", formula:"염색시약(메탄올 포함)", category:"organic", tag:"bio"},
+  {name:"녹말(전분) 용액", en:"Starch solution", formula:"다당류", category:"organic"},
+  {name:"펠링용액(A, B)", en:"Fehling's solution A/B", formula:"A:CuSO4 / B:로쉘염+NaOH", category:"organic",
+    special:"A액(황산구리, 무기)과 B액(로쉘염+수산화나트륨, 유기/알칼리)이 섞인 사용 후 용액은 유기계 폐수로 처리하는 것을 권장합니다."},
+  {name:"뷰렛 시약", en:"Biuret Reagent solution", formula:"NaOH+CuSO4 혼합", category:"alkali",
+    special:"수산화나트륨이 주성분인 알칼리성 시약이라 알칼리 폐수로 분류했어요. 학교 규정에 따라 다를 수 있습니다."},
+  {name:"암모니아수(수산화암모늄)", en:"Ammonia water / NH4OH", formula:"NH4OH", category:"organic", tags:["ammonia"],
+    special:"알칼리처럼 보이지만, <b>암모니아 함유 폐수는 예외적으로 유기계 폐수</b>로 분류합니다."},
+  {name:"암모니아(기체)", en:"Ammonia", formula:"NH3", category:"organic", state:"gas", tags:["ammonia"],
+    special:"기체 상태의 암모니아는 폐수통(액상 전용)의 대상이 아닙니다. 수용액(암모니아수)만 폐액으로 분류하세요."},
+  {name:"염산", en:"Hydrochloric acid", formula:"HCl", category:"acid", tags:["acidic"]},
+  {name:"황산", en:"Sulfuric acid", formula:"H2SO4", category:"acid", tags:["acidic"],
+    special:"산화력은 농도에 크게 좌우됩니다. 진한(농축) 황산이나 가열된 황산은 강한 산화성을 띠지만, 학교에서 흔히 쓰는 묽은 황산은 그렇지 않은 경우가 많습니다. 진한 황산을 사용했다면 산화제로 간주해 별도로 주의하세요."},
+  {name:"인산", en:"Phosphoric acid", formula:"H3PO4", category:"acid", tags:["acidic"]},
+  {name:"질산", en:"Nitric acid", formula:"HNO3", category:"acid", tags:["acidic","oxidizer"]},
+  {name:"크로뮴산(크롬산)", en:"Chromic acid", formula:"H2CrO4 / CrO3", category:"acid", disposalRoute:"special", tags:["acidic","chromium6","oxidizer"],
+    special:"흐름도에 '산 폐수(크로뮴산 포함)'로 명시된 예시 물질입니다."},
+  {name:"크로뮴산칼륨(크롬산칼륨)", en:"Potassium chromate", formula:"K2CrO4", category:"inorganic", disposalRoute:"special", tags:["chromium6","oxidizer"],
+    special:"크로뮴산 자체가 아닌 무기 크로뮴산염이지만, 실제 수용액의 산성도는 물질과 농도에 따라 달라질 수 있습니다. 6가 크로뮴 함유 폐기물이므로 일반 무기계 폐수통에 넣지 말고 별도관리하세요.", hazard:"6가 크로뮴은 독성이 강한 물질로, 세척수도 3회 이상 분리 수집이 필요합니다."},
+  {name:"다이크로뮴산칼륨(중크롬산칼륨)", en:"Potassium dichromate", formula:"K2Cr2O7", category:"inorganic", disposalRoute:"special", tags:["chromium6","oxidizer"],
+    special:"크로뮴산 자체가 아닌 무기 크로뮴산염이지만, 실제 수용액의 산성도는 물질과 농도에 따라 달라질 수 있습니다. 6가 크로뮴 함유 폐기물이므로 일반 무기계 폐수통에 넣지 말고 별도관리하세요.", hazard:"6가 크로뮴은 독성이 강한 물질로, 세척수도 3회 이상 분리 수집이 필요합니다."},
+  {name:"수산화 나트륨", en:"Sodium hydroxide", formula:"NaOH", category:"alkali"},
+  {name:"수산화 칼륨", en:"Potassium hydroxide", formula:"KOH", category:"alkali"},
+  {name:"탄산수소 나트륨", en:"Sodium bicarbonate", formula:"NaHCO3", category:"inorganic",
+    special:"중화 후 <b>무기 폐액</b>으로 처리합니다."},
+  {name:"백반", en:"Alum", formula:"KAl(SO4)2·12H2O", category:"inorganic"},
+  {name:"황산 아연", en:"Zinc sulfate", formula:"ZnSO4 (·7H2O)", category:"inorganic"},
+  {name:"질산 나트륨", en:"Sodium nitrate", formula:"NaNO3", category:"inorganic"},
+  {name:"황산 구리(Ⅱ)", en:"Copper(II) sulfate", formula:"CuSO4", category:"inorganic"},
+  {name:"황산 나트륨", en:"Sodium sulfate", formula:"Na2SO4", category:"inorganic"},
+  {name:"싸이오황산 나트륨", en:"Sodium thiosulfate", formula:"Na2S2O3", category:"inorganic", tags:["reducingAgent"]},
+  {name:"염화 칼륨", en:"Potassium chloride", formula:"KCl", category:"inorganic"},
+  {name:"염화 암모늄", en:"Ammonium chloride", formula:"NH4Cl", category:"inorganic",
+    special:"암모늄 이온을 포함하지만, 매뉴얼상 무기계로 분류됩니다. (암모니아 그 자체는 예외적으로 유기계입니다.)"},
+  {name:"염화 구리(Ⅱ)", en:"Copper(II) chloride", formula:"CuCl2", category:"inorganic"},
+  {name:"염화 코발트(Ⅱ)", en:"Cobalt(II) chloride", formula:"CoCl2", category:"inorganic"},
+  {name:"염화 칼슘", en:"Calcium chloride", formula:"CaCl2", category:"inorganic"},
+  {name:"아황산수소 나트륨", en:"Sodium bisulfite", formula:"NaHSO3", category:"inorganic", tags:["reducingAgent"]},
+  {name:"아이오딘산 칼륨(요오드산칼륨)", en:"Potassium iodate", formula:"KIO3", category:"inorganic", tags:["oxidizer"]},
+  {name:"아이오딘-아이오딘화 칼륨 용액(루골/그람 아이오딘)", en:"Lugol's / Gram's Iodine (IKI)", formula:"I2 + KI", category:"inorganic", tag:"bio"},
+  {name:"과산화수소(수)", en:"Hydrogen peroxide", formula:"H2O2", category:"inorganic", tags:["oxidizer"],
+    special:"강한 산화제입니다. 유기물·금속·알코올·아세톤과 반응할 수 있으니, 함께 버리기 전에 '혼합주의 확인' 탭에서 확인하세요."},
+  {name:"과망가니즈산 칼륨", en:"Potassium permanganate", formula:"KMnO4", category:"inorganic", tags:["oxidizer"]},
+  {name:"이산화 망가니즈", en:"Manganese dioxide", formula:"MnO2", category:"inorganic"},
+  {name:"질산 칼륨", en:"Potassium nitrate", formula:"KNO3", category:"inorganic"},
+  {name:"질산 은", en:"Silver nitrate", formula:"AgNO3", category:"inorganic"},
+  {name:"염소산 칼륨", en:"Potassium chlorate", formula:"KClO3", category:"inorganic", tags:["oxidizer"]},
+  {name:"탄산 칼륨", en:"Potassium carbonate", formula:"K2CO3", category:"inorganic"},
+  {name:"탄산 나트륨", en:"Sodium carbonate", formula:"Na2CO3", category:"inorganic",
+    special:"탄소가 포함되어 있지만 유기 화합물이 아닌 무기 탄산염이라, 탄산수소나트륨·탄산칼륨과 같은 기준으로 무기계 폐수로 분류합니다."},
+  {name:"염화 리튬(무수)", en:"Lithium chloride", formula:"LiCl", category:"inorganic"},
+  {name:"염화 바륨(2수화물)", en:"Barium chloride", formula:"BaCl2·2H2O", category:"inorganic"},
+  {name:"질산 바륨", en:"Barium nitrate", formula:"Ba(NO3)2", category:"inorganic"},
+  {name:"질산 구리(Ⅱ)", en:"Copper(II) nitrate", formula:"Cu(NO3)2", category:"inorganic"},
+  {name:"염화 나트륨", en:"Sodium chloride", formula:"NaCl", category:"inorganic"},
+  {name:"마그네슘 가루", en:"Magnesium powder", formula:"Mg", category:"inorganic", state:"solid",
+    special:"물이나 산과 반응할 수 있는 금속 분말입니다. 액체 폐수통에 넣지 말고 고형 화학폐기물로 수거하세요. 화기에도 주의하세요."},
+  {name:"아연 조각/분말", en:"Zinc pieces/powder", formula:"Zn", category:"inorganic", state:"solid"},
+  {name:"납 조각", en:"Lead pieces", formula:"Pb", category:"inorganic", state:"solid", disposalRoute:"special", tags:["heavyMetal"],
+    hazard:"중금속으로, 지정폐기물에 해당할 수 있습니다. 폐수통이 아닌 별도 용기에 보관 후 전문업체 처리 여부를 확인하세요."},
+  {name:"황 가루", en:"Sulfur powder", formula:"S", category:"inorganic", state:"solid",
+    special:"원소 상태의 고체 분말입니다. 액체 폐수통에 넣지 말고, 고형 화학폐기물로 별도 수거하세요."},
+  {name:"산화 아연", en:"Zinc oxide", formula:"ZnO", category:"inorganic"},
+  {name:"탄산 칼슘", en:"Calcium carbonate", formula:"CaCO3", category:"inorganic"},
+  {name:"활성탄 분말", en:"Activated carbon", formula:"C", category:"inorganic", state:"solid",
+    special:"고체 분말입니다. 액체 폐수통에 넣지 말고, 흡착된 오염물 성분에 따라 라벨을 붙여 고형 화학폐기물로 수거하세요."},
+  {name:"수은", en:"Mercury", formula:"Hg", category:"inorganic", disposalRoute:"special", tags:["mercury"],
+    hazard:"온도계 등에서 나온 수은은 지정폐기물입니다. 폐수통에 절대 넣지 말고 밀폐 용기에 별도 보관 후 전문업체에 위탁 처리하세요. 세척수도 3회 이상 분리 수집이 필요합니다."},
+  {name:"카드뮴 화합물", en:"Cadmium compounds", formula:"예: CdCl2 등", category:"inorganic", disposalRoute:"special", tags:["heavyMetal"],
+    hazard:"독성이 매우 강한 중금속입니다. 세척수도 3회 이상 분리 수집하고, 지정폐기물 여부를 확인하세요."},
+  {name:"다이에틸에터(에터)", en:"Diethyl ether", formula:"C2H5OC2H5", category:"organic", tags:["combustible"],
+    hazard:"인화성이 매우 높고, 오래 보관하면 폭발성 과산화물이 생길 수 있습니다. 화기 근처 보관 금지."},
+  {name:"테트라하이드로퓨란(THF)", en:"Tetrahydrofuran", formula:"C4H8O", category:"organic", tags:["combustible"],
+    hazard:"에터류와 마찬가지로 보관 중 폭발성 과산화물이 생길 수 있습니다."},
+  {name:"클로로폼", en:"Chloroform", formula:"CHCl3", category:"organic", tag:"bio"},
+  {name:"사염화탄소", en:"Carbon tetrachloride", formula:"CCl4", category:"organic",
+    hazard:"독성이 강하고 오존층 파괴물질로 사용이 제한됩니다."},
+  {name:"다이메틸설폭사이드(DMSO)", en:"Dimethyl sulfoxide", formula:"C2H6OS", category:"organic",
+    special:"피부 흡수가 매우 잘 되어, 녹아 있는 다른 물질을 함께 흡수시킬 수 있으니 취급에 주의하세요."},
+  {name:"다이메틸폼아마이드(DMF)", en:"Dimethylformamide", formula:"C3H7NO", category:"organic"},
+  {name:"톨루엔", en:"Toluene", formula:"C7H8", category:"organic", tags:["combustible"]},
+  {name:"자일렌", en:"Xylene", formula:"C8H10", category:"organic", tags:["combustible"]},
+  {name:"벤젠", en:"Benzene", formula:"C6H6", category:"organic", tags:["combustible"],
+    hazard:"발암물질(1군)입니다. 가능하면 톨루엔 등 대체 용매 사용을 권장하며, 흄후드에서만 취급하세요."},
+  {name:"나프탈렌", en:"Naphthalene", formula:"C10H8", category:"organic"},
+  {name:"피리딘", en:"Pyridine", formula:"C5H5N", category:"organic"},
+  {name:"아닐린", en:"Aniline", formula:"C6H5NH2", category:"organic",
+    hazard:"독성이 강하고 피부로 흡수됩니다."},
+  {name:"페놀", en:"Phenol", formula:"C6H5OH", category:"organic",
+    hazard:"부식성과 독성이 강해 피부에 닿으면 화상을 입을 수 있습니다. 즉시 다량의 물로 씻어내세요."},
+  {name:"헵테인", en:"Heptane", formula:"C7H16", category:"organic", tags:["combustible"]},
+  {name:"펜테인", en:"Pentane", formula:"C5H12", category:"organic", tags:["combustible"]},
+  {name:"사이클로헥세인", en:"Cyclohexane", formula:"C6H12", category:"organic", tags:["combustible"]},
+  {name:"1-프로판올", en:"1-Propanol", formula:"C3H8O", category:"organic", tags:["combustible"]},
+  {name:"아이소프로필알코올(IPA)", en:"Isopropyl alcohol", formula:"C3H8O", category:"organic", tags:["combustible"]},
+  {name:"뷰탄올", en:"Butanol", formula:"C4H10O", category:"organic", tags:["combustible"]},
+  {name:"아세트알데하이드", en:"Acetaldehyde", formula:"C2H4O", category:"organic", tags:["reducingAgent"]},
+  {name:"벤즈알데하이드", en:"Benzaldehyde", formula:"C7H6O", category:"organic", tags:["reducingAgent"]},
+  {name:"아세토페논", en:"Acetophenone", formula:"C8H8O", category:"organic"},
+  {name:"폼알데하이드(포르말린)", en:"Formaldehyde (formalin)", formula:"CH2O", category:"organic", tag:"bio", tags:["reducingAgent"],
+    hazard:"발암 의심물질이며 자극성이 강합니다. 흄후드에서 취급하세요."},
+  {name:"무수아세트산(아세트산 무수물)", en:"Acetic anhydride", formula:"C4H6O3", category:"organic", disposalRoute:"special", tags:["waterReactive"],
+    hazard:"부식성이 있고 물과 반응해 열과 아세트산을 냅니다."},
+  {name:"벤조산", en:"Benzoic acid", formula:"C7H6O2", category:"organic", tags:["acidic"]},
+  {name:"살리실산", en:"Salicylic acid", formula:"C7H6O3", category:"organic", tags:["acidic"]},
+  {name:"아스피린(아세틸살리실산)", en:"Acetylsalicylic acid", formula:"C9H8O4", category:"organic", tags:["acidic"]},
+  {name:"에틸렌글라이콜", en:"Ethylene glycol", formula:"C2H6O2", category:"organic"},
+  {name:"글리세롤(글리세린)", en:"Glycerol", formula:"C3H8O3", category:"organic"},
+  {name:"클로로벤젠", en:"Chlorobenzene", formula:"C6H5Cl", category:"organic"},
+  {name:"아세토나이트릴", en:"Acetonitrile", formula:"C2H3N", category:"organic", tags:["combustible"]},
+  {name:"다이에틸아민", en:"Diethylamine", formula:"C4H11N", category:"organic"},
+  {name:"트라이에틸아민", en:"Triethylamine", formula:"C6H15N", category:"organic"},
+  {name:"뷰틸아세테이트", en:"Butyl acetate", formula:"C6H12O2", category:"organic"},
+  {name:"요오드화메틸(아이오도메테인)", en:"Methyl iodide", formula:"CH3I", category:"organic",
+    hazard:"발암 의심물질이며 독성이 있습니다. 흄후드에서만 취급하세요."},
+  {name:"소듐보로하이드라이드(NaBH4)", en:"Sodium borohydride", formula:"NaBH4", category:"inorganic", disposalRoute:"special", tags:["reducingAgent","waterReactive"],
+    hazard:"물과 반응해 수소 기체를 발생시킵니다. 습기를 피해 보관하세요."},
+  {name:"리튬알루미늄하이드라이드(LiAlH4)", en:"Lithium aluminum hydride", formula:"LiAlH4", category:"inorganic", disposalRoute:"special", tags:["reducingAgent","waterReactive"],
+    hazard:"물과 격렬하게 반응해 발화할 수 있는 매우 위험한 환원제입니다. 절대 물 근처에서 다루지 마세요."},
+  {name:"피리디늄 클로로크로메이트(PCC)", en:"Pyridinium chlorochromate", formula:"C5H5NHCrO3Cl", category:"check", state:"solid", disposalRoute:"special", tags:["oxidizer","chromium6"],
+    special:"일반 4분류 폐수통 대상이 아닙니다. 사용한 용매와 폐기물 상태를 확인하여 Cr(Ⅵ) 함유 폐기물로 별도 수거하세요. (미사용/반응 잔사는 고형폐기물, 유기용매 반응액은 사용 용매를 표시한 폐액, 세척수는 수계 폐액으로 각각 구분)", hazard:"6가 크로뮴을 포함한 독성 산화제입니다. 유기물·환원제와 접촉시키지 마세요."},
+  {name:"존스 시약(CrO3/H2SO4)", en:"Jones reagent", formula:"CrO3 in H2SO4(aq)", category:"acid", disposalRoute:"special", tags:["acidic","chromium6","oxidizer"],
+    hazard:"크로뮴(Ⅵ)과 황산이 섞인 강한 산화제입니다. 취급에 각별히 주의하세요."},
+  {name:"삼산화 크로뮴", en:"Chromium trioxide", formula:"CrO3", category:"acid", disposalRoute:"special", tags:["acidic","chromium6","oxidizer"],
+    hazard:"6가 크로뮴 화합물로 독성이 강합니다."},
+  {name:"다이크로뮴산 나트륨", en:"Sodium dichromate", formula:"Na2Cr2O7", category:"inorganic", disposalRoute:"special", tags:["chromium6","oxidizer"],
+    special:"크로뮴산 자체가 아닌 무기 크로뮴산염이지만, 실제 수용액의 산성도는 물질과 농도에 따라 달라질 수 있습니다. 6가 크로뮴 함유 폐기물이므로 일반 무기계 폐수통에 넣지 말고 별도관리하세요.", hazard:"6가 크로뮴 화합물로 독성이 강합니다."},
+  {name:"사이안화 칼륨(KCN)", en:"Potassium cyanide", formula:"KCN", category:"inorganic", disposalRoute:"special", tags:["cyanide"],
+    hazard:"맹독성 물질입니다. 산과 반응하면 치명적인 사이안화수소 기체가 발생하니, 절대 산성 물질과 섞지 마세요."},
+  {name:"사이안화 나트륨(NaCN)", en:"Sodium cyanide", formula:"NaCN", category:"inorganic", disposalRoute:"special", tags:["cyanide"],
+    hazard:"맹독성 물질입니다. 산과 반응하면 치명적인 사이안화수소 기체가 발생하니, 절대 산성 물질과 섞지 마세요."},
+  {name:"황화 나트륨", en:"Sodium sulfide", formula:"Na2S", category:"inorganic", tags:["sulfide"],
+    hazard:"산과 반응하면 유독한 황화수소 기체가 발생합니다."},
+  {name:"아자이드화 나트륨", en:"Sodium azide", formula:"NaN3", category:"inorganic", disposalRoute:"special", tags:["azide"],
+    hazard:"독성이 있고, 금속 배관과 반응해 폭발성 물질을 만들 수 있습니다. 하수구에 직접 버리지 마세요."},
+  {name:"불화수소산", en:"Hydrofluoric acid", formula:"HF", category:"acid", disposalRoute:"special", tags:["acidic"],
+    hazard:"피부에 닿으면 통증 없이 뼈까지 침투할 수 있는 매우 위험한 산입니다. 전용 응급처치(글루콘산칼슘 젤)가 필요합니다."},
+  {name:"붕산", en:"Boric acid", formula:"H3BO3", category:"acid", tags:["acidic"]},
+  {name:"붕사", en:"Borax", formula:"Na2B4O7", category:"inorganic"},
+  {name:"수산화 리튬", en:"Lithium hydroxide", formula:"LiOH", category:"alkali"},
+  {name:"브로민(액체)", en:"Bromine", formula:"Br2", category:"inorganic",
+    hazard:"강한 부식성과 독성 증기가 있습니다. 흄후드에서만 취급하세요."},
+  {name:"아이오딘(고체)", en:"Iodine (solid)", formula:"I2", category:"inorganic"},
+  {name:"옥살산", en:"Oxalic acid", formula:"C2H2O4", category:"organic", tags:["acidic"],
+    special:"무기산이 아닌 유기산이라 유기계로 분류합니다."},
+  {name:"옥살산 나트륨", en:"Sodium oxalate", formula:"Na2C2O4", category:"organic"},
+  {name:"황산 철(Ⅱ)", en:"Iron(II) sulfate", formula:"FeSO4", category:"inorganic", tags:["reducingAgent"]},
+  {name:"몰 염(황산철암모늄)", en:"Mohr's salt", formula:"(NH4)2Fe(SO4)2", category:"inorganic", tags:["reducingAgent"]},
+  {name:"염화 철(Ⅲ)", en:"Iron(III) chloride", formula:"FeCl3", category:"inorganic"},
+  {name:"질산 철(Ⅲ)", en:"Iron(III) nitrate", formula:"Fe(NO3)3", category:"inorganic"},
+  {name:"싸이오사이안산 칼륨", en:"Potassium thiocyanate", formula:"KSCN", category:"inorganic"},
+  {name:"에리오크롬 블랙 T(지시약)", en:"Eriochrome Black T", formula:"지시약", category:"organic"},
+  {name:"뮤렉사이드 지시약", en:"Murexide", formula:"지시약", category:"organic"},
+  {name:"다이페닐아민 지시약", en:"Diphenylamine indicator", formula:"지시약", category:"organic"},
+  {name:"페로인 지시약", en:"Ferroin indicator", formula:"지시약", category:"organic"},
+  {name:"EDTA(다이소듐염)", en:"EDTA disodium salt", formula:"C10H14N2Na2O8", category:"organic"},
+  {name:"이온교환수지", en:"Ion exchange resin", formula:"고분자 수지", category:"organic", state:"solid",
+    special:"고체 수지입니다. 액체 폐수통에 넣지 말고 고형 화학폐기물로 수거하세요."},
+  {name:"실리카젤(컬럼 크로마토그래피용)", en:"Silica gel", formula:"SiO2", category:"inorganic", state:"solid",
+    special:"고체입니다. 액체 폐수통에 넣지 말고, 흡착된 성분(유기물 등)에 따라 라벨을 붙여 고형 화학폐기물로 수거하세요."},
+  {name:"트리스(Tris base/Tris-HCl)", en:"Tris buffer", formula:"C4H11NO3", category:"organic", tag:"bio"},
+  {name:"인산완충생리식염수(PBS)", en:"Phosphate-buffered saline", formula:"인산염+NaCl 완충액", category:"inorganic", tag:"bio"},
+  {name:"소듐도데실설페이트(SDS)", en:"Sodium dodecyl sulfate", formula:"C12H25NaO4S", category:"organic", tag:"bio"},
+  {name:"아크릴아마이드", en:"Acrylamide", formula:"C3H5NO", category:"organic", tag:"bio",
+    hazard:"중합되지 않은 상태는 신경독성이 있고 피부로 흡수됩니다. 반드시 장갑을 착용하세요."},
+  {name:"비스아크릴아마이드", en:"Bis-acrylamide", formula:"C7H10N2O2", category:"organic", tag:"bio",
+    hazard:"아크릴아마이드와 마찬가지로 미중합 상태에서 신경독성이 있습니다."},
+  {name:"TEMED", en:"TEMED", formula:"C6H16N2", category:"organic", tag:"bio"},
+  {name:"과황산암모늄(APS)", en:"Ammonium persulfate", formula:"(NH4)2S2O8", category:"inorganic", tag:"bio", tags:["oxidizer"],
+    hazard:"강한 산화제입니다. 유기물과 접촉을 피하세요."},
+  {name:"쿠마시 블루 염색시약", en:"Coomassie Brilliant Blue", formula:"염색시약", category:"organic", tag:"bio"},
+  {name:"브래드포드 단백질정량시약", en:"Bradford reagent", formula:"혼합시약", category:"organic", tag:"bio"},
+  {name:"BCA 단백질정량시약", en:"BCA protein assay reagent", formula:"바이신코닌산+구리 혼합", category:"organic", tag:"bio"},
+  {name:"로우리 단백질정량시약", en:"Lowry reagent", formula:"혼합시약", category:"organic", tag:"bio"},
+  {name:"트립신", en:"Trypsin", formula:"효소(단백질)", category:"organic", tag:"bio"},
+  {name:"프로테이나아제 K", en:"Proteinase K", formula:"효소(단백질)", category:"organic", tag:"bio"},
+  {name:"리소자임", en:"Lysozyme", formula:"효소(단백질)", category:"organic", tag:"bio"},
+  {name:"RNase A", en:"RNase A", formula:"효소(단백질)", category:"organic", tag:"bio"},
+  {name:"DNase I", en:"DNase I", formula:"효소(단백질)", category:"organic", tag:"bio"},
+  {name:"dNTP 혼합액", en:"dNTP mix", formula:"뉴클레오타이드 혼합", category:"organic", tag:"bio"},
+  {name:"프라이머(올리고뉴클레오타이드)", en:"DNA primer", formula:"올리고뉴클레오타이드", category:"organic", tag:"bio"},
+  {name:"암피실린", en:"Ampicillin", formula:"C16H19N3O4S", category:"organic", tag:"bio"},
+  {name:"카나마이신", en:"Kanamycin", formula:"C18H36N4O11", category:"organic", tag:"bio"},
+  {name:"IPTG", en:"IPTG", formula:"C9H18O5S", category:"organic", tag:"bio"},
+  {name:"X-gal", en:"X-gal", formula:"C14H15BrClNO6", category:"organic", tag:"bio"},
+  {name:"LB 배지(브로스/한천)", en:"LB broth/agar", formula:"효모추출물+트립톤+NaCl", category:"organic", tag:"bio"},
+  {name:"영양 한천 배지", en:"Nutrient agar", formula:"복합 배지", category:"organic", tag:"bio"},
+  {name:"맥콘키 배지", en:"MacConkey agar", formula:"복합 배지", category:"organic", tag:"bio"},
+  {name:"파라포름알데하이드(고정액)", en:"Paraformaldehyde", formula:"(CH2O)n", category:"organic", tag:"bio",
+    hazard:"독성 및 발암 의심물질입니다. 흄후드에서 취급하세요."},
+  {name:"DAPI(형광염색시약)", en:"DAPI", formula:"C16H15N5", category:"organic", tag:"bio",
+    hazard:"DNA에 결합하는 형광 염색시약으로 돌연변이 유발 가능성이 있어 장갑을 착용하세요."},
+  {name:"소혈청알부민(BSA)", en:"Bovine serum albumin", formula:"단백질", category:"organic", tag:"bio"},
+  {name:"탈지분유(블로킹시약)", en:"Skim milk (blocking buffer)", formula:"단백질 혼합", category:"organic", tag:"bio"},
+  {name:"트립신-EDTA 용액", en:"Trypsin-EDTA solution", formula:"효소+킬레이트 혼합", category:"organic", tag:"bio"},
+  {name:"DMEM 배양액", en:"DMEM culture medium", formula:"복합 배양액", category:"organic", tag:"bio"},
+  {name:"우태아혈청(FBS)", en:"Fetal bovine serum", formula:"혈청", category:"organic", tag:"bio"},
+  {name:"단백질분해효소 억제제 칵테일", en:"Protease inhibitor cocktail", formula:"혼합시약", category:"organic", tag:"bio"},
+  {name:"리포펙션 시약(리포펙타민 등)", en:"Lipofection reagent", formula:"지질 혼합시약", category:"organic", tag:"bio"},
+  {name:"브로민화수소산", en:"Hydrobromic acid", formula:"HBr", category:"acid", tags:["acidic"]},
+  {name:"아이오딘화수소산", en:"Hydroiodic acid", formula:"HI", category:"acid", tags:["acidic"]},
+  {name:"탄산", en:"Carbonic acid", formula:"H2CO3", category:"inorganic",
+    special:"이산화탄소가 물에 녹은 약한 산으로, 탄산염과 같은 기준으로 무기계로 분류합니다."},
+  {name:"아황산", en:"Sulfurous acid", formula:"H2SO3", category:"acid", tags:["acidic"]},
+  {name:"차아염소산", en:"Hypochlorous acid", formula:"HOCl", category:"acid", tags:["acidic","chlorineGasRisk","oxidizer"],
+    hazard:"산화력이 있어 다른 물질과 섞을 때 주의하세요."},
+  {name:"설팜산", en:"Sulfamic acid", formula:"H3NSO3", category:"acid", tags:["acidic"]},
+  {name:"폼산(포름산)", en:"Formic acid", formula:"HCOOH", category:"organic", tags:["acidic"],
+    special:"무기산이 아닌 유기산이라 유기계로 분류합니다."},
+  {name:"시트르산(구연산)", en:"Citric acid", formula:"C6H8O7", category:"organic", tags:["acidic"]},
+  {name:"타타르산(주석산)", en:"Tartaric acid", formula:"C4H6O6", category:"organic", tags:["acidic"]},
+  {name:"젖산", en:"Lactic acid", formula:"C3H6O3", category:"organic", tags:["acidic"]},
+  {name:"말산", en:"Malic acid", formula:"C4H6O5", category:"organic", tags:["acidic"]},
+  {name:"말론산", en:"Malonic acid", formula:"C3H4O4", category:"organic", tags:["acidic"]},
+  {name:"석신산(숙신산)", en:"Succinic acid", formula:"C4H6O4", category:"organic", tags:["acidic"]},
+  {name:"푸마르산", en:"Fumaric acid", formula:"C4H4O4", category:"organic", tags:["acidic"]},
+  {name:"말레산", en:"Maleic acid", formula:"C4H4O4", category:"organic", tags:["acidic"]},
+  {name:"프탈산", en:"Phthalic acid", formula:"C8H6O4", category:"organic", tags:["acidic"]},
+  {name:"테레프탈산", en:"Terephthalic acid", formula:"C8H6O4", category:"organic", tags:["acidic"]},
+  {name:"수산화칼슘", en:"Calcium hydroxide", formula:"Ca(OH)2", category:"alkali"},
+  {name:"수산화바륨", en:"Barium hydroxide", formula:"Ba(OH)2", category:"alkali",
+    hazard:"바륨 화합물은 독성이 있습니다."},
+  {name:"수산화마그네슘", en:"Magnesium hydroxide", formula:"Mg(OH)2", category:"alkali"},
+  {name:"수산화알루미늄", en:"Aluminum hydroxide", formula:"Al(OH)3", category:"inorganic", state:"solid",
+    special:"난용성 양쪽성 고체입니다. 알칼리 폐수로 자동 처리하지 말고, 용액·현탁액 상태라면 실제 pH와 조성을 확인하세요."},
+  {name:"테트라메틸암모늄 하이드록사이드(TMAH)", en:"Tetramethylammonium hydroxide", formula:"(CH3)4NOH", category:"organic",
+    special:"하이드록사이드(염기)지만 탄소를 포함한 유기 화합물이라 유기계로 분류합니다.", hazard:"부식성이 강하고 독성이 있습니다."},
+  {name:"테트라에틸암모늄 하이드록사이드(TEAH)", en:"Tetraethylammonium hydroxide", formula:"(C2H5)4NOH", category:"organic",
+    special:"하이드록사이드(염기)지만 탄소를 포함한 유기 화합물이라 유기계로 분류합니다."},
+  {name:"리튬(금속)", en:"Lithium metal", formula:"Li", category:"inorganic", state:"solid", disposalRoute:"special", tags:["waterReactive"],
+    hazard:"물과 격렬히 반응합니다."},
+  {name:"나트륨(금속)", en:"Sodium metal", formula:"Na", category:"inorganic", state:"solid", disposalRoute:"special", tags:["waterReactive"],
+    hazard:"물과 격렬히 반응하며 발화할 수 있습니다."},
+  {name:"칼륨(금속)", en:"Potassium metal", formula:"K", category:"inorganic", state:"solid", disposalRoute:"special", tags:["waterReactive"],
+    hazard:"물과 격렬히 반응하며 발화·폭발할 수 있습니다."},
+  {name:"스트론튬(금속)", en:"Strontium metal", formula:"Sr", category:"inorganic", state:"solid"},
+  {name:"바륨(금속)", en:"Barium metal", formula:"Ba", category:"inorganic", state:"solid",
+    hazard:"독성이 있습니다."},
+  {name:"알루미늄(금속)", en:"Aluminum metal", formula:"Al", category:"inorganic", state:"solid"},
+  {name:"갈륨", en:"Gallium", formula:"Ga", category:"inorganic"},
+  {name:"인듐", en:"Indium", formula:"In", category:"inorganic"},
+  {name:"주석(금속)", en:"Tin metal", formula:"Sn", category:"inorganic", state:"solid"},
+  {name:"비스무트(금속)", en:"Bismuth metal", formula:"Bi", category:"inorganic", state:"solid"},
+  {name:"철(금속)", en:"Iron metal", formula:"Fe", category:"inorganic", state:"solid"},
+  {name:"코발트(금속)", en:"Cobalt metal", formula:"Co", category:"inorganic", state:"solid"},
+  {name:"니켈(금속)", en:"Nickel metal", formula:"Ni", category:"inorganic", state:"solid"},
+  {name:"구리(금속)", en:"Copper metal", formula:"Cu", category:"inorganic", state:"solid"},
+  {name:"카드뮴(금속)", en:"Cadmium metal", formula:"Cd", category:"inorganic", state:"solid", disposalRoute:"special", tags:["heavyMetal"],
+    hazard:"독성이 매우 강한 중금속입니다. 세척수도 분리 수집하세요."},
+  {name:"크로뮴(금속)", en:"Chromium metal", formula:"Cr", category:"inorganic", state:"solid"},
+  {name:"망가니즈(금속)", en:"Manganese metal", formula:"Mn", category:"inorganic", state:"solid"},
+  {name:"타이타늄(금속)", en:"Titanium metal", formula:"Ti", category:"inorganic", state:"solid"},
+  {name:"바나듐(금속)", en:"Vanadium metal", formula:"V", category:"inorganic", state:"solid"},
+  {name:"몰리브데넘(금속)", en:"Molybdenum metal", formula:"Mo", category:"inorganic", state:"solid"},
+  {name:"텅스텐(금속)", en:"Tungsten metal", formula:"W", category:"inorganic", state:"solid"},
+  {name:"지르코늄(금속)", en:"Zirconium metal", formula:"Zr", category:"inorganic", state:"solid"},
+  {name:"은(금속)", en:"Silver metal", formula:"Ag", category:"inorganic", state:"solid"},
+  {name:"금(금속)", en:"Gold metal", formula:"Au", category:"inorganic", state:"solid"},
+  {name:"백금(금속)", en:"Platinum metal", formula:"Pt", category:"inorganic", state:"solid"},
+  {name:"팔라듐(금속)", en:"Palladium metal", formula:"Pd", category:"inorganic", state:"solid"},
+  {name:"로듐(금속)", en:"Rhodium metal", formula:"Rh", category:"inorganic", state:"solid"},
+  {name:"루테늄(금속)", en:"Ruthenium metal", formula:"Ru", category:"inorganic", state:"solid"},
+  {name:"세륨(금속)", en:"Cerium metal", formula:"Ce", category:"inorganic", state:"solid"},
+  {name:"붕소", en:"Boron", formula:"B", category:"inorganic"},
+  {name:"흑연", en:"Graphite", formula:"C", category:"inorganic", state:"solid",
+    special:"탄소 원소이지만 유기 화합물이 아닌 고체 원소 형태라 무기계로 분류합니다. 액체 폐수통에 넣지 말고 고형 화학폐기물로 수거하세요."},
+  {name:"규소", en:"Silicon", formula:"Si", category:"inorganic"},
+  {name:"인(적린)", en:"Red phosphorus", formula:"P", category:"inorganic",
+    hazard:"공기 중 마찰·가열에 주의하세요."},
+  {name:"셀레늄", en:"Selenium", formula:"Se", category:"inorganic",
+    hazard:"독성이 있는 원소입니다."},
+  {name:"염소(기체)", en:"Chlorine gas", formula:"Cl2", category:"inorganic", state:"gas",
+    hazard:"독성 기체입니다. 흄후드에서만 다루세요."},
+  {name:"수소(기체)", en:"Hydrogen gas", formula:"H2", category:"inorganic", state:"gas",
+    hazard:"인화성이 매우 높습니다."},
+  {name:"산소(기체)", en:"Oxygen gas", formula:"O2", category:"inorganic", state:"gas",
+    hazard:"가연물과 만나면 연소를 촉진합니다."},
+  {name:"질소(기체)", en:"Nitrogen gas", formula:"N2", category:"inorganic", state:"gas"},
+  {name:"이산화탄소(기체)", en:"Carbon dioxide gas", formula:"CO2", category:"inorganic", state:"gas",
+    special:"탄소가 있지만 유기 화합물이 아닌 무기 기체라 무기계로 분류합니다."},
+  {name:"헬륨", en:"Helium", formula:"He", category:"inorganic", state:"gas"},
+  {name:"아르곤", en:"Argon", formula:"Ar", category:"inorganic", state:"gas"},
+  {name:"브로민화나트륨", en:"Sodium bromide", formula:"NaBr", category:"inorganic"},
+  {name:"아이오딘화나트륨", en:"Sodium iodide", formula:"NaI", category:"inorganic"},
+  {name:"플루오린화나트륨", en:"Sodium fluoride", formula:"NaF", category:"inorganic",
+    hazard:"고농도는 독성이 있습니다."},
+  {name:"황산수소나트륨", en:"Sodium bisulfate", formula:"NaHSO4", category:"inorganic"},
+  {name:"아질산나트륨", en:"Sodium nitrite", formula:"NaNO2", category:"inorganic", tags:["nitrite","oxidizer"]},
+  {name:"인산나트륨", en:"Sodium phosphate", formula:"Na3PO4", category:"inorganic"},
+  {name:"인산수소이나트륨", en:"Disodium phosphate", formula:"Na2HPO4", category:"inorganic"},
+  {name:"인산이수소나트륨", en:"Sodium dihydrogen phosphate", formula:"NaH2PO4", category:"inorganic"},
+  {name:"벤조산나트륨", en:"Sodium benzoate", formula:"C7H5NaO2", category:"organic"},
+  {name:"살리실산나트륨", en:"Sodium salicylate", formula:"C7H5NaO3", category:"organic"},
+  {name:"과망가니즈산나트륨", en:"Sodium permanganate", formula:"NaMnO4", category:"inorganic", tags:["oxidizer"],
+    hazard:"강한 산화제입니다."},
+  {name:"크로뮴산나트륨", en:"Sodium chromate", formula:"Na2CrO4", category:"inorganic", disposalRoute:"special", tags:["chromium6","oxidizer"],
+    special:"크로뮴산 자체가 아닌 무기 크로뮴산염이지만, 실제 수용액의 산성도는 물질과 농도에 따라 달라질 수 있습니다. 6가 크로뮴 함유 폐기물이므로 일반 무기계 폐수통에 넣지 말고 별도관리하세요.", hazard:"독성이 강합니다. 세척수도 분리 수집하세요."},
+  {name:"과염소산나트륨", en:"Sodium perchlorate", formula:"NaClO4", category:"inorganic", tags:["oxidizer"],
+    hazard:"강한 산화제입니다."},
+  {name:"브로민화칼륨", en:"Potassium bromide", formula:"KBr", category:"inorganic"},
+  {name:"아이오딘화칼륨", en:"Potassium iodide", formula:"KI", category:"inorganic"},
+  {name:"플루오린화칼륨", en:"Potassium fluoride", formula:"KF", category:"inorganic",
+    hazard:"고농도는 독성이 있습니다."},
+  {name:"황산수소칼륨", en:"Potassium bisulfate", formula:"KHSO4", category:"inorganic"},
+  {name:"아황산칼륨", en:"Potassium sulfite", formula:"K2SO3", category:"inorganic"},
+  {name:"탄산수소칼륨", en:"Potassium bicarbonate", formula:"KHCO3", category:"inorganic"},
+  {name:"아질산칼륨", en:"Potassium nitrite", formula:"KNO2", category:"inorganic", tags:["nitrite","oxidizer"]},
+  {name:"인산칼륨", en:"Potassium phosphate", formula:"K3PO4", category:"inorganic"},
+  {name:"인산수소이칼륨", en:"Dipotassium phosphate", formula:"K2HPO4", category:"inorganic"},
+  {name:"인산이수소칼륨", en:"Potassium dihydrogen phosphate", formula:"KH2PO4", category:"inorganic"},
+  {name:"아세트산칼륨", en:"Potassium acetate", formula:"C2H3KO2", category:"organic"},
+  {name:"옥살산칼륨", en:"Potassium oxalate", formula:"K2C2O4", category:"organic"},
+  {name:"차아염소산칼륨", en:"Potassium hypochlorite", formula:"KOCl", category:"inorganic", tags:["chlorineGasRisk","oxidizer"],
+    hazard:"산화제입니다. 산과 섞으면 유독 기체가 날 수 있습니다."},
+  {name:"브로민산칼륨", en:"Potassium bromate", formula:"KBrO3", category:"inorganic", tags:["oxidizer"],
+    hazard:"산화제이며 발암 의심물질입니다."},
+  {name:"브로민화암모늄", en:"Ammonium bromide", formula:"NH4Br", category:"inorganic"},
+  {name:"아이오딘화암모늄", en:"Ammonium iodide", formula:"NH4I", category:"inorganic"},
+  {name:"플루오린화암모늄", en:"Ammonium fluoride", formula:"NH4F", category:"inorganic"},
+  {name:"황산수소암모늄", en:"Ammonium bisulfate", formula:"NH4HSO4", category:"inorganic"},
+  {name:"탄산암모늄", en:"Ammonium carbonate", formula:"(NH4)2CO3", category:"inorganic"},
+  {name:"탄산수소암모늄", en:"Ammonium bicarbonate", formula:"NH4HCO3", category:"inorganic"},
+  {name:"아질산암모늄", en:"Ammonium nitrite", formula:"NH4NO2", category:"inorganic", disposalRoute:"special", tags:["nitrite"],
+    hazard:"불안정하여 가열 시 분해될 수 있습니다."},
+  {name:"인산암모늄", en:"Ammonium phosphate", formula:"(NH4)3PO4", category:"inorganic"},
+  {name:"인산수소이암모늄", en:"Diammonium phosphate", formula:"(NH4)2HPO4", category:"inorganic"},
+  {name:"인산이수소암모늄", en:"Ammonium dihydrogen phosphate", formula:"NH4H2PO4", category:"inorganic"},
+  {name:"아세트산암모늄", en:"Ammonium acetate", formula:"C2H7NO2", category:"organic"},
+  {name:"옥살산암모늄", en:"Ammonium oxalate", formula:"(NH4)2C2O4", category:"organic"},
+  {name:"탄산리튬", en:"Lithium carbonate", formula:"Li2CO3", category:"inorganic"},
+  {name:"황산리튬", en:"Lithium sulfate", formula:"Li2SO4", category:"inorganic"},
+  {name:"질산리튬", en:"Lithium nitrate", formula:"LiNO3", category:"inorganic"},
+  {name:"아세트산리튬", en:"Lithium acetate", formula:"C2H3LiO2", category:"organic"},
+  {name:"과염소산리튬", en:"Lithium perchlorate", formula:"LiClO4", category:"inorganic", tags:["oxidizer"],
+    hazard:"강한 산화제입니다."},
+  {name:"염화마그네슘", en:"Magnesium chloride", formula:"MgCl2", category:"inorganic"},
+  {name:"황산마그네슘", en:"Magnesium sulfate", formula:"MgSO4", category:"inorganic"},
+  {name:"질산마그네슘", en:"Magnesium nitrate", formula:"Mg(NO3)2", category:"inorganic"},
+  {name:"탄산마그네슘", en:"Magnesium carbonate", formula:"MgCO3", category:"inorganic"},
+  {name:"산화마그네슘", en:"Magnesium oxide", formula:"MgO", category:"inorganic"},
+  {name:"과산화마그네슘", en:"Magnesium peroxide", formula:"MgO2", category:"inorganic", tags:["oxidizer"],
+    hazard:"산화제입니다."},
+  {name:"황산칼슘", en:"Calcium sulfate", formula:"CaSO4", category:"inorganic"},
+  {name:"질산칼슘", en:"Calcium nitrate", formula:"Ca(NO3)2", category:"inorganic"},
+  {name:"인산칼슘", en:"Calcium phosphate", formula:"Ca3(PO4)2", category:"inorganic"},
+  {name:"산화칼슘(생석회)", en:"Calcium oxide", formula:"CaO", category:"inorganic",
+    hazard:"물과 반응하며 많은 열을 냅니다."},
+  {name:"과산화칼슘", en:"Calcium peroxide", formula:"CaO2", category:"inorganic", tags:["oxidizer"],
+    hazard:"산화제입니다."},
+  {name:"아세트산칼슘", en:"Calcium acetate", formula:"C4H6CaO4", category:"organic"},
+  {name:"염화스트론튬", en:"Strontium chloride", formula:"SrCl2", category:"inorganic"},
+  {name:"질산스트론튬", en:"Strontium nitrate", formula:"Sr(NO3)2", category:"inorganic",
+    hazard:"산화제 성질이 있습니다."},
+  {name:"황산스트론튬", en:"Strontium sulfate", formula:"SrSO4", category:"inorganic"},
+  {name:"탄산스트론튬", en:"Strontium carbonate", formula:"SrCO3", category:"inorganic"},
+  {name:"수산화스트론튬", en:"Strontium hydroxide", formula:"Sr(OH)2", category:"alkali"},
+  {name:"염화알루미늄", en:"Aluminum chloride", formula:"AlCl3", category:"check",
+    special:"무수 염화알루미늄은 물과 격렬히 반응하는 별도관리 대상이고, 수화물이나 수용액 형태는 실제 pH를 확인해 무기계 폐액으로 처리할 수 있습니다. 어떤 형태인지 확인한 뒤 분류하세요.", hazard:"무수 염화알루미늄은 물과 반응하여 열과 자극성 염화수소 증기를 발생시킬 수 있습니다. 수화물이나 수용액은 무수물과 같은 급격한 물반응성 위험을 적용하지 않지만, 용액이 산성·부식성을 나타낼 수 있으므로 실제 pH와 제품 정보를 확인하세요."},
+  {name:"황산알루미늄", en:"Aluminum sulfate", formula:"Al2(SO4)3", category:"inorganic"},
+  {name:"질산알루미늄", en:"Aluminum nitrate", formula:"Al(NO3)3", category:"inorganic"},
+  {name:"아세트산알루미늄", en:"Aluminum acetate", formula:"C6H9AlO6", category:"organic"},
+  {name:"산화알루미늄", en:"Aluminum oxide", formula:"Al2O3", category:"inorganic"},
+  {name:"황산알루미늄암모늄", en:"Ammonium aluminum sulfate", formula:"AlNH4(SO4)2", category:"inorganic"},
+  {name:"염화붕소", en:"Boron trichloride", formula:"BCl3", category:"inorganic", state:"gas", disposalRoute:"special", tags:["waterReactive"],
+    hazard:"물과 격렬히 반응합니다."},
+  {name:"산화붕소", en:"Boron oxide", formula:"B2O3", category:"inorganic"},
+  {name:"질화붕소", en:"Boron nitride", formula:"BN", category:"inorganic"},
+  {name:"탄화붕소", en:"Boron carbide", formula:"B4C", category:"inorganic"},
+  {name:"이산화규소", en:"Silicon dioxide", formula:"SiO2", category:"inorganic"},
+  {name:"탄화규소", en:"Silicon carbide", formula:"SiC", category:"inorganic"},
+  {name:"염화규소(Ⅳ)", en:"Silicon tetrachloride", formula:"SiCl4", category:"inorganic", disposalRoute:"special", tags:["waterReactive"],
+    hazard:"물과 반응하며 자극성 연기를 냅니다."},
+  {name:"규산칼슘", en:"Calcium silicate", formula:"CaSiO3", category:"inorganic"},
+  {name:"염화철(Ⅱ)", en:"Iron(II) chloride", formula:"FeCl2", category:"inorganic", tags:["reducingAgent"]},
+  {name:"황산철(Ⅲ)", en:"Iron(III) sulfate", formula:"Fe2(SO4)3", category:"inorganic"},
+  {name:"산화철(Ⅱ)", en:"Iron(II) oxide", formula:"FeO", category:"inorganic"},
+  {name:"산화철(Ⅲ)", en:"Iron(III) oxide", formula:"Fe2O3", category:"inorganic"},
+  {name:"사산화삼철", en:"Iron(II,III) oxide", formula:"Fe3O4", category:"inorganic"},
+  {name:"황화철(Ⅱ)", en:"Iron(II) sulfide", formula:"FeS", category:"inorganic", tags:["sulfide"],
+    hazard:"산과 반응하면 유독한 황화수소 기체가 발생합니다."},
+  {name:"옥살산철(Ⅱ)", en:"Iron(II) oxalate", formula:"FeC2O4", category:"organic"},
+  {name:"시트르산철(Ⅲ)", en:"Iron(III) citrate", formula:"FeC6H5O7", category:"organic"},
+  {name:"황산코발트(Ⅱ)", en:"Cobalt(II) sulfate", formula:"CoSO4", category:"inorganic"},
+  {name:"질산코발트(Ⅱ)", en:"Cobalt(II) nitrate", formula:"Co(NO3)2", category:"inorganic"},
+  {name:"아세트산코발트(Ⅱ)", en:"Cobalt(II) acetate", formula:"C4H6CoO4", category:"organic"},
+  {name:"산화코발트(Ⅱ)", en:"Cobalt(II) oxide", formula:"CoO", category:"inorganic"},
+  {name:"염화니켈(Ⅱ)", en:"Nickel(II) chloride", formula:"NiCl2", category:"inorganic",
+    hazard:"발암 의심물질입니다."},
+  {name:"황산니켈(Ⅱ)", en:"Nickel(II) sulfate", formula:"NiSO4", category:"inorganic",
+    hazard:"발암 의심물질입니다."},
+  {name:"질산니켈(Ⅱ)", en:"Nickel(II) nitrate", formula:"Ni(NO3)2", category:"inorganic"},
+  {name:"아세트산니켈(Ⅱ)", en:"Nickel(II) acetate", formula:"C4H6NiO4", category:"organic"},
+  {name:"염화구리(Ⅰ)", en:"Copper(I) chloride", formula:"CuCl", category:"inorganic"},
+  {name:"아세트산구리(Ⅱ)", en:"Copper(II) acetate", formula:"C4H6CuO4", category:"organic"},
+  {name:"산화구리(Ⅰ)", en:"Copper(I) oxide", formula:"Cu2O", category:"inorganic"},
+  {name:"산화구리(Ⅱ)", en:"Copper(II) oxide", formula:"CuO", category:"inorganic"},
+  {name:"탄산구리(Ⅱ)", en:"Copper(II) carbonate", formula:"CuCO3", category:"inorganic"},
+  {name:"염기성 탄산구리", en:"Basic copper carbonate", formula:"Cu2CO3(OH)2", category:"inorganic"},
+  {name:"황화구리(Ⅱ)", en:"Copper(II) sulfide", formula:"CuS", category:"inorganic", tags:["sulfide"],
+    hazard:"산과 반응하면 유독한 황화수소 기체가 발생합니다."},
+  {name:"브로민화구리(Ⅱ)", en:"Copper(II) bromide", formula:"CuBr2", category:"inorganic"},
+  {name:"아이오딘화구리(Ⅰ)", en:"Copper(I) iodide", formula:"CuI", category:"inorganic"},
+  {name:"염화아연", en:"Zinc chloride", formula:"ZnCl2", category:"inorganic",
+    hazard:"부식성이 있습니다."},
+  {name:"질산아연", en:"Zinc nitrate", formula:"Zn(NO3)2", category:"inorganic"},
+  {name:"아세트산아연", en:"Zinc acetate", formula:"C4H6O4Zn", category:"organic"},
+  {name:"황화아연", en:"Zinc sulfide", formula:"ZnS", category:"inorganic", tags:["sulfide"],
+    hazard:"산과 반응하면 유독한 황화수소 기체가 발생합니다."},
+  {name:"탄산아연", en:"Zinc carbonate", formula:"ZnCO3", category:"inorganic"},
+  {name:"브로민화아연", en:"Zinc bromide", formula:"ZnBr2", category:"inorganic"},
+  {name:"염화카드뮴", en:"Cadmium chloride", formula:"CdCl2", category:"inorganic", disposalRoute:"special", tags:["heavyMetal"],
+    hazard:"독성이 매우 강한 중금속입니다. 세척수도 분리 수집하세요."},
+  {name:"황산카드뮴", en:"Cadmium sulfate", formula:"CdSO4", category:"inorganic", disposalRoute:"special", tags:["heavyMetal"],
+    hazard:"독성이 매우 강한 중금속입니다."},
+  {name:"질산카드뮴", en:"Cadmium nitrate", formula:"Cd(NO3)2", category:"inorganic", disposalRoute:"special", tags:["heavyMetal"],
+    hazard:"독성이 매우 강한 중금속입니다."},
+  {name:"황화카드뮴", en:"Cadmium sulfide", formula:"CdS", category:"inorganic", disposalRoute:"special", tags:["heavyMetal","sulfide"],
+    hazard:"독성이 강하고, 산과 반응하면 황화수소 기체가 발생합니다."},
+  {name:"염화망가니즈(Ⅱ)", en:"Manganese(II) chloride", formula:"MnCl2", category:"inorganic"},
+  {name:"황산망가니즈(Ⅱ)", en:"Manganese(II) sulfate", formula:"MnSO4", category:"inorganic"},
+  {name:"질산망가니즈(Ⅱ)", en:"Manganese(II) nitrate", formula:"Mn(NO3)2", category:"inorganic"},
+  {name:"아세트산망가니즈(Ⅱ)", en:"Manganese(II) acetate", formula:"C4H6MnO4", category:"organic"},
+  {name:"산화망가니즈(Ⅱ)", en:"Manganese(II) oxide", formula:"MnO", category:"inorganic"},
+  {name:"염화크로뮴(Ⅲ)", en:"Chromium(III) chloride", formula:"CrCl3", category:"inorganic"},
+  {name:"황산크로뮴(Ⅲ)", en:"Chromium(III) sulfate", formula:"Cr2(SO4)3", category:"inorganic"},
+  {name:"질산크로뮴(Ⅲ)", en:"Chromium(III) nitrate", formula:"Cr(NO3)3", category:"inorganic"},
+  {name:"산화크로뮴(Ⅲ)", en:"Chromium(III) oxide", formula:"Cr2O3", category:"inorganic"},
+  {name:"염화바나듐(Ⅲ)", en:"Vanadium(III) chloride", formula:"VCl3", category:"inorganic"},
+  {name:"염화바나듐(Ⅳ)", en:"Vanadium(IV) chloride", formula:"VCl4", category:"inorganic"},
+  {name:"오산화바나듐", en:"Vanadium pentoxide", formula:"V2O5", category:"inorganic",
+    hazard:"독성이 있는 분말입니다."},
+  {name:"황산바나딜", en:"Vanadyl sulfate", formula:"VOSO4", category:"inorganic"},
+  {name:"염화은", en:"Silver chloride", formula:"AgCl", category:"inorganic"},
+  {name:"브로민화은", en:"Silver bromide", formula:"AgBr", category:"inorganic"},
+  {name:"아이오딘화은", en:"Silver iodide", formula:"AgI", category:"inorganic"},
+  {name:"황산은", en:"Silver sulfate", formula:"Ag2SO4", category:"inorganic"},
+  {name:"산화은", en:"Silver oxide", formula:"Ag2O", category:"inorganic"},
+  {name:"아세트산은", en:"Silver acetate", formula:"C2H3AgO2", category:"organic"},
+  {name:"질산납(Ⅱ)", en:"Lead(II) nitrate", formula:"Pb(NO3)2", category:"inorganic", disposalRoute:"special", tags:["heavyMetal"],
+    hazard:"중금속입니다. 지정폐기물 여부를 확인하세요."},
+  {name:"아세트산납(Ⅱ)", en:"Lead(II) acetate", formula:"Pb(C2H3O2)2", category:"organic", disposalRoute:"special", tags:["heavyMetal"],
+    hazard:"중금속을 포함한 유기 화합물입니다. 지정폐기물 여부를 확인하세요."},
+  {name:"염화납(Ⅱ)", en:"Lead(II) chloride", formula:"PbCl2", category:"inorganic", disposalRoute:"special", tags:["heavyMetal"],
+    hazard:"중금속입니다."},
+  {name:"아이오딘화납(Ⅱ)", en:"Lead(II) iodide", formula:"PbI2", category:"inorganic", disposalRoute:"special", tags:["heavyMetal"],
+    hazard:"중금속입니다."},
+  {name:"산화납(Ⅱ)", en:"Lead(II) oxide", formula:"PbO", category:"inorganic", disposalRoute:"special", tags:["heavyMetal"],
+    hazard:"중금속입니다."},
+  {name:"이산화납", en:"Lead(IV) oxide", formula:"PbO2", category:"inorganic", disposalRoute:"special", tags:["heavyMetal"],
+    hazard:"중금속이며 강한 산화제입니다."},
+  {name:"크로뮴산납", en:"Lead(II) chromate", formula:"PbCrO4", category:"inorganic", disposalRoute:"special", tags:["chromium6","heavyMetal","oxidizer"],
+    special:"크로뮴산 자체가 아닌 무기 크로뮴산염이지만, 실제 수용액의 산성도는 물질과 농도에 따라 달라질 수 있습니다. 6가 크로뮴 함유 폐기물이므로 일반 무기계 폐수통에 넣지 말고 별도관리하세요.", hazard:"납과 6가 크로뮴이 모두 포함되어 독성이 매우 강합니다."},
+  {name:"염화주석(Ⅱ)", en:"Tin(II) chloride", formula:"SnCl2", category:"inorganic"},
+  {name:"염화주석(Ⅳ)", en:"Tin(IV) chloride", formula:"SnCl4", category:"inorganic",
+    hazard:"물과 반응하며 자극성 연기를 냅니다."},
+  {name:"산화주석(Ⅱ)", en:"Tin(II) oxide", formula:"SnO", category:"inorganic"},
+  {name:"산화주석(Ⅳ)", en:"Tin(IV) oxide", formula:"SnO2", category:"inorganic"},
+  {name:"염화비스무트(Ⅲ)", en:"Bismuth(III) chloride", formula:"BiCl3", category:"inorganic"},
+  {name:"질산비스무트(Ⅲ)", en:"Bismuth(III) nitrate", formula:"Bi(NO3)3", category:"inorganic"},
+  {name:"오존", en:"Ozone", formula:"O3", category:"inorganic", state:"gas",
+    hazard:"독성이 강한 산화성 기체입니다."},
+  {name:"일산화탄소", en:"Carbon monoxide", formula:"CO", category:"inorganic", state:"gas",
+    special:"탄소가 있지만 유기 화합물이 아닌 무기 기체라 무기계로 분류합니다.", hazard:"무색무취의 맹독성 기체입니다."},
+  {name:"이산화질소", en:"Nitrogen dioxide", formula:"NO2", category:"inorganic", state:"gas",
+    hazard:"독성이 강한 기체입니다."},
+  {name:"일산화질소", en:"Nitric oxide", formula:"NO", category:"inorganic", state:"gas",
+    hazard:"독성이 있는 기체입니다."},
+  {name:"황화수소", en:"Hydrogen sulfide", formula:"H2S", category:"inorganic", state:"gas", disposalRoute:"special", tags:["sulfide"],
+    hazard:"매우 독성이 강한 기체입니다. 흄후드에서만 다루세요."},
+  {name:"이황화탄소", en:"Carbon disulfide", formula:"CS2", category:"inorganic",
+    special:"탄소가 있지만 전통적으로 무기 화합물로 다뤄 무기계로 분류합니다.", hazard:"인화성이 매우 높고 독성이 있습니다."},
+  {name:"염화싸이오닐", en:"Thionyl chloride", formula:"SOCl2", category:"inorganic", disposalRoute:"special", tags:["waterReactive"],
+    hazard:"물과 격렬히 반응하며 유독 가스를 냅니다."},
+  {name:"옥시염화인", en:"Phosphorus oxychloride", formula:"POCl3", category:"inorganic", disposalRoute:"special", tags:["waterReactive"],
+    hazard:"물과 반응하며 부식성 연기를 냅니다."},
+  {name:"오염화인", en:"Phosphorus pentachloride", formula:"PCl5", category:"inorganic", disposalRoute:"special", tags:["waterReactive"],
+    hazard:"물과 격렬히 반응합니다."},
+  {name:"삼염화인", en:"Phosphorus trichloride", formula:"PCl3", category:"inorganic", disposalRoute:"special", tags:["waterReactive"],
+    hazard:"물과 반응하며 부식성 연기를 냅니다."},
+  {name:"오황화인", en:"Phosphorus pentasulfide", formula:"P2S5", category:"inorganic",
+    hazard:"물과 반응하면 유독한 황화수소 기체가 발생합니다."},
+  {name:"질화알루미늄", en:"Aluminum nitride", formula:"AlN", category:"inorganic"},
+  {name:"질화규소", en:"Silicon nitride", formula:"Si3N4", category:"inorganic"},
+  {name:"텅스텐산", en:"Tungstic acid", formula:"H2WO4", category:"acid", tags:["acidic"]},
+  {name:"몰리브데넘산", en:"Molybdic acid", formula:"H2MoO4", category:"acid", tags:["acidic"]},
+  {name:"인몰리브데넘산", en:"Phosphomolybdic acid", formula:"H3PMo12O40", category:"acid", tags:["acidic"]},
+  {name:"인텅스텐산", en:"Phosphotungstic acid", formula:"H3PW12O40", category:"acid", tags:["acidic"]},
+  {name:"염화지르코늄(Ⅳ)", en:"Zirconium(IV) chloride", formula:"ZrCl4", category:"inorganic", disposalRoute:"special", tags:["waterReactive"],
+    hazard:"물과 반응합니다."},
+  {name:"옥시염화지르코늄", en:"Zirconyl chloride", formula:"ZrOCl2", category:"inorganic"},
+  {name:"황산지르코늄", en:"Zirconium sulfate", formula:"Zr(SO4)2", category:"inorganic"},
+  {name:"염화타이타늄(Ⅳ)", en:"Titanium(IV) chloride", formula:"TiCl4", category:"inorganic", disposalRoute:"special", tags:["waterReactive"],
+    hazard:"물과 격렬히 반응하며 부식성 연기를 냅니다."},
+  {name:"이산화타이타늄", en:"Titanium dioxide", formula:"TiO2", category:"inorganic"},
+  {name:"염화몰리브데넘(Ⅴ)", en:"Molybdenum(V) chloride", formula:"MoCl5", category:"inorganic"},
+  {name:"삼산화몰리브데넘", en:"Molybdenum trioxide", formula:"MoO3", category:"inorganic"},
+  {name:"2-부탄올", en:"2-Butanol", formula:"C4H10O", category:"organic"},
+  {name:"아이소부탄올", en:"Isobutanol", formula:"C4H10O", category:"organic"},
+  {name:"tert-부탄올", en:"tert-Butanol", formula:"C4H10O", category:"organic"},
+  {name:"1-펜탄올", en:"1-Pentanol", formula:"C5H12O", category:"organic"},
+  {name:"아이소아밀알코올", en:"Isoamyl alcohol", formula:"C5H12O", category:"organic"},
+  {name:"1-헥산올", en:"1-Hexanol", formula:"C6H14O", category:"organic"},
+  {name:"1-옥탄올", en:"1-Octanol", formula:"C8H18O", category:"organic"},
+  {name:"벤질알코올", en:"Benzyl alcohol", formula:"C7H8O", category:"organic"},
+  {name:"사이클로헥산올", en:"Cyclohexanol", formula:"C6H12O", category:"organic"},
+  {name:"프로필렌글리콜", en:"Propylene glycol", formula:"C3H8O2", category:"organic"},
+  {name:"2-부탄온(MEK)", en:"2-Butanone (MEK)", formula:"C4H8O", category:"organic"},
+  {name:"2-펜탄온", en:"2-Pentanone", formula:"C5H10O", category:"organic"},
+  {name:"3-펜탄온", en:"3-Pentanone", formula:"C5H10O", category:"organic"},
+  {name:"메틸아이소부틸케톤(MIBK)", en:"Methyl isobutyl ketone", formula:"C6H12O", category:"organic"},
+  {name:"사이클로헥산온", en:"Cyclohexanone", formula:"C6H10O", category:"organic"},
+  {name:"벤조페논", en:"Benzophenone", formula:"C13H10O", category:"organic"},
+  {name:"다이아이소프로필에터", en:"Diisopropyl ether", formula:"C6H14O", category:"organic",
+    hazard:"과산화물 생성 위험이 있습니다."},
+  {name:"tert-뷰틸 메틸 에터(MTBE)", en:"tert-Butyl methyl ether", formula:"C5H12O", category:"organic"},
+  {name:"1,4-다이옥세인", en:"1,4-Dioxane", formula:"C4H8O2", category:"organic",
+    hazard:"발암 의심물질이며 과산화물 생성 위험이 있습니다."},
+  {name:"1,2-다이메톡시에테인", en:"1,2-Dimethoxyethane", formula:"C4H10O2", category:"organic",
+    hazard:"과산화물 생성 위험이 있습니다."},
+  {name:"다이글라임", en:"Diglyme", formula:"C6H14O3", category:"organic"},
+  {name:"아니솔", en:"Anisole", formula:"C7H8O", category:"organic"},
+  {name:"페네톨", en:"Phenetole", formula:"C8H10O", category:"organic"},
+  {name:"메틸아세테이트", en:"Methyl acetate", formula:"C3H6O2", category:"organic"},
+  {name:"프로필아세테이트", en:"Propyl acetate", formula:"C5H10O2", category:"organic"},
+  {name:"아이소프로필아세테이트", en:"Isopropyl acetate", formula:"C5H10O2", category:"organic"},
+  {name:"아이소아밀아세테이트", en:"Isoamyl acetate", formula:"C7H14O2", category:"organic"},
+  {name:"에틸폼에이트", en:"Ethyl formate", formula:"C3H6O2", category:"organic"},
+  {name:"에틸락테이트", en:"Ethyl lactate", formula:"C5H10O3", category:"organic"},
+  {name:"다이에틸카보네이트", en:"Diethyl carbonate", formula:"C5H10O3", category:"organic"},
+  {name:"옥테인", en:"Octane", formula:"C8H18", category:"organic", tags:["combustible"]},
+  {name:"노네인", en:"Nonane", formula:"C9H20", category:"organic", tags:["combustible"]},
+  {name:"데케인", en:"Decane", formula:"C10H22", category:"organic", tags:["combustible"]},
+  {name:"석유에터", en:"Petroleum ether", formula:"혼합 탄화수소", category:"organic", tags:["combustible"]},
+  {name:"리그로인", en:"Ligroin", formula:"혼합 탄화수소", category:"organic", tags:["combustible"]},
+  {name:"메틸사이클로헥세인", en:"Methylcyclohexane", formula:"C7H14", category:"organic", tags:["combustible"]},
+  {name:"에틸벤젠", en:"Ethylbenzene", formula:"C8H10", category:"organic", tags:["combustible"]},
+  {name:"스타이렌", en:"Styrene", formula:"C8H8", category:"organic"},
+  {name:"메테인(기체)", en:"Methane", formula:"CH4", category:"organic", state:"gas",
+    hazard:"인화성이 매우 높습니다."},
+  {name:"에테인(기체)", en:"Ethane", formula:"C2H6", category:"organic", state:"gas",
+    hazard:"인화성이 매우 높습니다."},
+  {name:"프로페인(기체)", en:"Propane", formula:"C3H8", category:"organic", state:"gas",
+    hazard:"인화성이 매우 높습니다."},
+  {name:"뷰테인(기체)", en:"Butane", formula:"C4H10", category:"organic", state:"gas",
+    hazard:"인화성이 매우 높습니다."},
+  {name:"에틸렌(기체)", en:"Ethylene", formula:"C2H4", category:"organic", state:"gas"},
+  {name:"프로필렌(기체)", en:"Propylene", formula:"C3H6", category:"organic", state:"gas"},
+  {name:"아세틸렌(기체)", en:"Acetylene", formula:"C2H2", category:"organic", state:"gas",
+    hazard:"인화성이 매우 높고 구리·은과 반응해 폭발성 물질을 만들 수 있습니다."},
+  {name:"1-헥센", en:"1-Hexene", formula:"C6H12", category:"organic", tags:["combustible"]},
+  {name:"1-옥텐", en:"1-Octene", formula:"C8H16", category:"organic", tags:["combustible"]},
+  {name:"사이클로펜타다이엔", en:"Cyclopentadiene", formula:"C5H6", category:"organic"},
+  {name:"다이사이클로펜타다이엔", en:"Dicyclopentadiene", formula:"C10H12", category:"organic"},
+  {name:"바이페닐", en:"Biphenyl", formula:"C12H10", category:"organic"},
+  {name:"안트라센", en:"Anthracene", formula:"C14H10", category:"organic"},
+  {name:"페난트렌", en:"Phenanthrene", formula:"C14H10", category:"organic"},
+  {name:"파이렌", en:"Pyrene", formula:"C16H10", category:"organic"},
+  {name:"헥사클로로벤젠", en:"Hexachlorobenzene", formula:"C6Cl6", category:"organic",
+    hazard:"잔류성이 강한 발암 의심물질입니다."},
+  {name:"클로로메테인", en:"Chloromethane", formula:"CH3Cl", category:"organic"},
+  {name:"브로모에테인", en:"Bromoethane", formula:"C2H5Br", category:"organic"},
+  {name:"1-브로모뷰테인", en:"1-Bromobutane", formula:"C4H9Br", category:"organic"},
+  {name:"2-브로모뷰테인", en:"2-Bromobutane", formula:"C4H9Br", category:"organic"},
+  {name:"1,2-다이클로로에테인", en:"1,2-Dichloroethane", formula:"C2H4Cl2", category:"organic",
+    hazard:"발암 의심물질입니다."},
+  {name:"1,1-다이클로로에테인", en:"1,1-Dichloroethane", formula:"C2H4Cl2", category:"organic"},
+  {name:"트라이클로로에틸렌", en:"Trichloroethylene", formula:"C2HCl3", category:"organic",
+    hazard:"발암 의심물질입니다."},
+  {name:"테트라클로로에틸렌", en:"Tetrachloroethylene", formula:"C2Cl4", category:"organic",
+    hazard:"발암 의심물질입니다."},
+  {name:"1,2-다이클로로벤젠", en:"1,2-Dichlorobenzene", formula:"C6H4Cl2", category:"organic"},
+  {name:"1,4-다이클로로벤젠", en:"1,4-Dichlorobenzene", formula:"C6H4Cl2", category:"organic"},
+  {name:"프로피오나이트릴", en:"Propionitrile", formula:"C3H5N", category:"organic",
+    hazard:"독성이 있습니다."},
+  {name:"다이메틸아세트아마이드(DMAc)", en:"Dimethylacetamide", formula:"C4H9NO", category:"organic"},
+  {name:"N-메틸-2-피롤리돈(NMP)", en:"N-Methyl-2-pyrrolidone", formula:"C5H9NO", category:"organic"},
+  {name:"설폴레인", en:"Sulfolane", formula:"C4H8O2S", category:"organic"},
+  {name:"폼아마이드", en:"Formamide", formula:"CH3NO", category:"organic"},
+  {name:"1,3-다이메틸-2-이미다졸리디논(DMI)", en:"1,3-Dimethyl-2-imidazolidinone", formula:"C5H10N2O", category:"organic"},
+  {name:"퀴놀린", en:"Quinoline", formula:"C9H7N", category:"organic"},
+  {name:"카테콜", en:"Catechol", formula:"C6H6O2", category:"organic"},
+  {name:"레조시놀", en:"Resorcinol", formula:"C6H6O2", category:"organic"},
+  {name:"하이드로퀴논", en:"Hydroquinone", formula:"C6H6O2", category:"organic"},
+  {name:"크레졸", en:"Cresol", formula:"C7H8O", category:"organic",
+    hazard:"부식성이 있습니다."},
+  {name:"티몰", en:"Thymol", formula:"C10H14O", category:"organic"},
+  {name:"멘톨", en:"Menthol", formula:"C10H20O", category:"organic"},
+  {name:"2-나프톨", en:"2-Naphthol", formula:"C10H8O", category:"organic"},
+  {name:"1-나프톨", en:"1-Naphthol", formula:"C10H8O", category:"organic"},
+  {name:"다이페닐에터", en:"Diphenyl ether", formula:"C12H10O", category:"organic"},
+  {name:"18-크라운-6", en:"18-Crown-6", formula:"C12H24O6", category:"organic"},
+  {name:"폴리에틸렌글리콜(PEG)", en:"Polyethylene glycol", formula:"(C2H4O)nH2O", category:"organic"},
+  {name:"폴리프로필렌글리콜", en:"Polypropylene glycol", formula:"(C3H6O)n", category:"organic"},
+  {name:"펜타에리트리톨", en:"Pentaerythritol", formula:"C5H12O4", category:"organic"},
+  {name:"소르비톨", en:"Sorbitol", formula:"C6H14O6", category:"organic"},
+  {name:"글리옥살", en:"Glyoxal", formula:"C2H2O2", category:"organic"},
+  {name:"글루타르알데하이드", en:"Glutaraldehyde", formula:"C5H8O2", category:"organic", tag:"bio",
+    special:"organic", hazard:"독성이 있고 자극성이 강합니다."},
+  {name:"푸르푸랄", en:"Furfural", formula:"C5H4O2", category:"organic"},
+  {name:"바닐린", en:"Vanillin", formula:"C8H8O3", category:"organic"},
+  {name:"살리실알데하이드", en:"Salicylaldehyde", formula:"C7H6O2", category:"organic"},
+  {name:"아세틸아세톤", en:"Acetylacetone", formula:"C5H8O2", category:"organic"},
+  {name:"프로피온산무수물", en:"Propionic anhydride", formula:"C6H10O3", category:"organic",
+    hazard:"부식성이 있습니다."},
+  {name:"말레산무수물", en:"Maleic anhydride", formula:"C4H2O3", category:"organic",
+    hazard:"자극성이 있습니다."},
+  {name:"프탈산무수물", en:"Phthalic anhydride", formula:"C8H4O3", category:"organic"},
+  {name:"석신산무수물", en:"Succinic anhydride", formula:"C4H4O3", category:"organic"},
+  {name:"아세틸클로라이드", en:"Acetyl chloride", formula:"C2H3ClO", category:"organic", disposalRoute:"special", tags:["waterReactive"],
+    hazard:"물과 격렬히 반응하며 부식성 연기를 냅니다."},
+  {name:"벤조일클로라이드", en:"Benzoyl chloride", formula:"C7H5ClO", category:"organic", disposalRoute:"special", tags:["waterReactive"],
+    hazard:"물과 반응하며 부식성 연기를 냅니다."},
+  {name:"옥살릴클로라이드", en:"Oxalyl chloride", formula:"C2Cl2O2", category:"organic", disposalRoute:"special", tags:["waterReactive"],
+    hazard:"물과 격렬히 반응하며 유독 가스를 냅니다."},
+  {name:"에틸옥살레이트", en:"Diethyl oxalate", formula:"C6H10O4", category:"organic"},
+  {name:"다이에틸말로네이트", en:"Diethyl malonate", formula:"C7H12O4", category:"organic"},
+  {name:"다이에틸석시네이트", en:"Diethyl succinate", formula:"C8H14O4", category:"organic"},
+  {name:"메틸벤조에이트", en:"Methyl benzoate", formula:"C8H8O2", category:"organic"},
+  {name:"에틸벤조에이트", en:"Ethyl benzoate", formula:"C9H10O2", category:"organic"},
+  {name:"메틸살리실레이트", en:"Methyl salicylate", formula:"C8H8O3", category:"organic"},
+  {name:"아세트아마이드", en:"Acetamide", formula:"C2H5NO", category:"organic"},
+  {name:"벤즈아마이드", en:"Benzamide", formula:"C7H7NO", category:"organic"},
+  {name:"메틸아민", en:"Methylamine", formula:"CH5N", category:"organic"},
+  {name:"에틸아민", en:"Ethylamine", formula:"C2H7N", category:"organic"},
+  {name:"프로필아민", en:"Propylamine", formula:"C3H9N", category:"organic"},
+  {name:"뷰틸아민", en:"Butylamine", formula:"C4H11N", category:"organic"},
+  {name:"다이메틸아민", en:"Dimethylamine", formula:"C2H7N", category:"organic"},
+  {name:"에틸렌다이아민", en:"Ethylenediamine", formula:"C2H8N2", category:"organic"},
+  {name:"헥사메틸렌다이아민", en:"Hexamethylenediamine", formula:"C6H16N2", category:"organic"},
+  {name:"벤질아민", en:"Benzylamine", formula:"C7H9N", category:"organic"},
+  {name:"나프틸아민", en:"Naphthylamine", formula:"C10H9N", category:"organic",
+    hazard:"발암물질입니다."},
+  {name:"o-톨루이딘", en:"o-Toluidine", formula:"C7H9N", category:"organic",
+    hazard:"발암 의심물질입니다."},
+  {name:"p-톨루이딘", en:"p-Toluidine", formula:"C7H9N", category:"organic",
+    hazard:"발암 의심물질입니다."},
+  {name:"나이트로벤젠", en:"Nitrobenzene", formula:"C6H5NO2", category:"organic",
+    hazard:"독성이 강하고 피부로 흡수됩니다."},
+  {name:"나이트로메테인", en:"Nitromethane", formula:"CH3NO2", category:"organic",
+    hazard:"충격에 민감할 수 있습니다."},
+  {name:"아조벤젠", en:"Azobenzene", formula:"C12H10N2", category:"organic"},
+  {name:"벤조나이트릴", en:"Benzonitrile", formula:"C7H5N", category:"organic"},
+  {name:"아크릴로나이트릴", en:"Acrylonitrile", formula:"C3H3N", category:"organic",
+    hazard:"발암 의심물질이며 인화성이 높습니다."},
+  {name:"아조비스아이소뷰티로나이트릴(AIBN)", en:"Azobisisobutyronitrile", formula:"C8H12N4", category:"organic",
+    hazard:"가열·마찰에 민감한 개시제입니다."},
+  {name:"하이드록실아민 염산염", en:"Hydroxylamine hydrochloride", formula:"NH2OH·HCl", category:"organic",
+    hazard:"불안정하여 가열 시 분해될 수 있습니다."},
+  {name:"에테인싸이올", en:"Ethanethiol", formula:"C2H6S", category:"organic",
+    hazard:"악취가 매우 강합니다."},
+  {name:"1-뷰테인싸이올", en:"1-Butanethiol", formula:"C4H10S", category:"organic",
+    hazard:"악취가 매우 강합니다."},
+  {name:"싸이오페놀", en:"Thiophenol", formula:"C6H6S", category:"organic",
+    hazard:"악취가 강하고 독성이 있습니다."},
+  {name:"2-머캅토에탄올", en:"2-Mercaptoethanol", formula:"C2H6OS", category:"organic", tag:"bio",
+    special:"organic", hazard:"독성이 있고 악취가 강합니다. 흄후드에서 다루세요."},
+  {name:"다이싸이오트레이톨(DTT)", en:"Dithiothreitol", formula:"C4H10O2S2", category:"organic", tag:"bio"},
+  {name:"다이싸이오에리트리톨", en:"Dithioerythritol", formula:"C4H10O2S2", category:"organic", tag:"bio"},
+  {name:"다이메틸설파이드", en:"Dimethyl sulfide", formula:"C2H6S", category:"organic",
+    hazard:"악취가 강합니다."},
+  {name:"다이메틸다이설파이드", en:"Dimethyl disulfide", formula:"C2H6S2", category:"organic",
+    hazard:"악취가 강합니다."},
+  {name:"다이페닐다이설파이드", en:"Diphenyl disulfide", formula:"C12H10S2", category:"organic"},
+  {name:"메테인설포닐클로라이드", en:"Methanesulfonyl chloride", formula:"CH3ClO2S", category:"organic",
+    hazard:"부식성이 있습니다."},
+  {name:"p-톨루엔설포닐클로라이드", en:"p-Toluenesulfonyl chloride", formula:"C7H7ClO2S", category:"organic"},
+  {name:"다이메틸메틸포스포네이트", en:"Dimethyl methylphosphonate", formula:"C3H9O3P", category:"organic"},
+  {name:"폴리에틸렌", en:"Polyethylene", formula:"(C2H4)n", category:"organic", state:"solid",
+    special:"고체 플라스틱입니다. 폐수보다는 고형 폐기물로 처리하세요."},
+  {name:"폴리프로필렌", en:"Polypropylene", formula:"(C3H6)n", category:"organic", state:"solid",
+    special:"고체 플라스틱입니다. 폐수보다는 고형 폐기물로 처리하세요."},
+  {name:"폴리스타이렌", en:"Polystyrene", formula:"(C8H8)n", category:"organic", state:"solid",
+    special:"고체 플라스틱입니다. 폐수보다는 고형 폐기물로 처리하세요."},
+  {name:"폴리염화비닐(PVC)", en:"Polyvinyl chloride", formula:"(C2H3Cl)n", category:"organic", state:"solid",
+    special:"고체 플라스틱입니다. 폐수보다는 고형 폐기물로 처리하세요."},
+  {name:"폴리메틸메타크릴레이트(PMMA)", en:"Polymethyl methacrylate", formula:"(C5H8O2)n", category:"organic", state:"solid",
+    special:"고체 플라스틱입니다. 폐수보다는 고형 폐기물로 처리하세요."},
+  {name:"폴리비닐피롤리돈(PVP)", en:"Polyvinylpyrrolidone", formula:"(C6H9NO)n", category:"organic", state:"solid"},
+  {name:"폴리아크릴아마이드", en:"Polyacrylamide", formula:"(C3H5NO)n", category:"organic", state:"solid",
+    hazard:"중합 전 아크릴아마이드는 신경독성이 있습니다."},
+  {name:"폴리아크릴산", en:"Polyacrylic acid", formula:"(C3H4O2)n", category:"organic", state:"solid"},
+  {name:"나일론 6", en:"Nylon 6", formula:"(C6H11NO)n", category:"organic", state:"solid",
+    special:"고체 섬유/수지입니다. 폐수보다는 고형 폐기물로 처리하세요."},
+  {name:"나일론 6,6", en:"Nylon 6,6", formula:"(C12H22N2O2)n", category:"organic", state:"solid",
+    special:"고체 섬유/수지입니다. 폐수보다는 고형 폐기물로 처리하세요."},
+  {name:"폴리에틸렌테레프탈레이트(PET)", en:"Polyethylene terephthalate", formula:"(C10H8O4)n", category:"organic", state:"solid",
+    special:"고체 플라스틱입니다. 폐수보다는 고형 폐기물로 처리하세요."},
+  {name:"에폭시 수지", en:"Epoxy resin", formula:"혼합 고분자", category:"organic"},
+  {name:"요소-폼알데하이드 수지", en:"Urea-formaldehyde resin", formula:"혼합 고분자", category:"organic"},
+  {name:"페놀-폼알데하이드 수지", en:"Phenol-formaldehyde resin", formula:"혼합 고분자", category:"organic"},
+  {name:"아크릴산", en:"Acrylic acid", formula:"C3H4O2", category:"organic", tags:["acidic"],
+    hazard:"부식성이 있습니다."},
+  {name:"메타크릴산", en:"Methacrylic acid", formula:"C4H6O2", category:"organic", tags:["acidic"]},
+  {name:"메틸메타크릴레이트", en:"Methyl methacrylate", formula:"C5H8O2", category:"organic"},
+  {name:"디메틸글리옥심", en:"Dimethylglyoxime", formula:"C4H8N2O2", category:"organic"},
+  {name:"8-하이드록시퀴놀린", en:"8-Hydroxyquinoline", formula:"C9H7NO", category:"organic"},
+  {name:"1,10-페난트롤린", en:"1,10-Phenanthroline", formula:"C12H8N2", category:"organic"},
+  {name:"2,2'-바이피리딘", en:"2,2'-Bipyridine", formula:"C10H8N2", category:"organic"},
+  {name:"ABTS", en:"ABTS", formula:"C18H18N4O6S4", category:"organic", tag:"bio"},
+  {name:"나이트릴로트라이아세트산(NTA)", en:"Nitrilotriacetic acid", formula:"C6H9NO6", category:"organic"},
+  {name:"옥신(8-하이드록시퀴놀린)", en:"Oxine", formula:"C9H7NO", category:"organic"},
+  {name:"다이티존", en:"Dithizone", formula:"C13H12N4S", category:"organic"},
+  {name:"쿠페론", en:"Cupferron", formula:"C6H9N3O2", category:"organic",
+    hazard:"발암 의심물질입니다."},
+  {name:"테트라페닐포스포늄 브로마이드", en:"Tetraphenylphosphonium bromide", formula:"C24H20BrP", category:"organic"},
+  {name:"테트라뷰틸암모늄 브로마이드", en:"Tetrabutylammonium bromide", formula:"C16H36BrN", category:"organic"},
+  {name:"세틸트라이메틸암모늄 브로마이드(CTAB)", en:"Cetyltrimethylammonium bromide", formula:"C19H42BrN", category:"organic"},
+  {name:"벤질트라이에틸암모늄 클로라이드", en:"Benzyltriethylammonium chloride", formula:"C13H22ClN", category:"organic"},
+  {name:"N-브로모석신이미드(NBS)", en:"N-Bromosuccinimide", formula:"C4H4BrNO2", category:"organic", tags:["oxidizer"],
+    hazard:"산화·브로민화 시약입니다."},
+  {name:"N-클로로석신이미드(NCS)", en:"N-Chlorosuccinimide", formula:"C4H4ClNO2", category:"organic"},
+  {name:"니코틴", en:"Nicotine", formula:"C10H14N2", category:"organic",
+    hazard:"독성이 있습니다."},
+  {name:"살리신", en:"Salicin", formula:"C13H18O7", category:"organic"},
+  {name:"퀴닌", en:"Quinine", formula:"C20H24N2O2", category:"organic"},
+  {name:"캡사이신", en:"Capsaicin", formula:"C18H27NO3", category:"organic",
+    hazard:"피부·점막 자극이 강합니다."},
+  {name:"쿠르쿠민", en:"Curcumin", formula:"C21H20O6", category:"organic"},
+  {name:"리모넨", en:"Limonene", formula:"C10H16", category:"organic"},
+  {name:"유제놀", en:"Eugenol", formula:"C10H12O2", category:"organic"},
+  {name:"시트랄", en:"Citral", formula:"C10H16O", category:"organic"},
+  {name:"시나말데하이드", en:"Cinnamaldehyde", formula:"C9H8O", category:"organic"},
+  {name:"리트머스", en:"Litmus", formula:"천연 색소 혼합물", category:"organic"},
+  {name:"메틸오렌지", en:"Methyl orange", formula:"C14H14N3NaO3S", category:"organic"},
+  {name:"브로모크레솔그린", en:"Bromocresol green", formula:"C21H14Br4O5S", category:"organic"},
+  {name:"브로모크레솔퍼플", en:"Bromocresol purple", formula:"C21H16Br2O5S", category:"organic"},
+  {name:"브로모페놀블루", en:"Bromophenol blue", formula:"C19H10Br4O5S", category:"organic"},
+  {name:"크레솔레드", en:"Cresol red", formula:"C21H18O5S", category:"organic"},
+  {name:"클로로페놀레드", en:"Chlorophenol red", formula:"C19H12Cl2O5S", category:"organic"},
+  {name:"알리자린옐로 R", en:"Alizarin Yellow R", formula:"C13H8N3NaO5", category:"organic"},
+  {name:"트로페올린 O", en:"Tropeolin O", formula:"C12H9N2NaO3S", category:"organic"},
+  {name:"메타닐옐로", en:"Metanil yellow", formula:"C18H14N3NaO3S", category:"organic"},
+  {name:"중성레드", en:"Neutral red", formula:"C15H17ClN4", category:"organic"},
+  {name:"양배추 지시약", en:"Red cabbage indicator", formula:"천연 색소 추출액", category:"organic"},
+  {name:"녹말 지시약", en:"Starch indicator", formula:"다당류", category:"organic"},
+  {name:"다이페닐아민설폰산나트륨", en:"Sodium diphenylamine sulfonate", formula:"C12H10NNaO3S", category:"organic"},
+  {name:"N-페닐안트라닐산", en:"N-Phenylanthranilic acid", formula:"C13H11NO2", category:"organic", tags:["acidic"]},
+  {name:"레사주린", en:"Resazurin", formula:"C12H7NO4", category:"organic", tag:"bio"},
+  {name:"2,6-다이클로로페놀인도페놀(DCPIP)", en:"DCPIP", formula:"C12H7Cl2NO2", category:"organic", tag:"bio"},
+  {name:"칼마자이트", en:"Calmagite", formula:"C17H14N2O5S", category:"organic"},
+  {name:"자일레놀오렌지", en:"Xylenol orange", formula:"C31H32N2O13S", category:"organic"},
+  {name:"파이로카테콜 바이올렛", en:"Pyrocatechol violet", formula:"C19H14O7S", category:"organic"},
+  {name:"PAN 지시약", en:"PAN indicator", formula:"C15H11N3O", category:"organic"},
+  {name:"PAR 지시약", en:"PAR indicator", formula:"C11H9N3O2", category:"organic"},
+  {name:"마그네슘 지시약", en:"Magneson", formula:"C12H9N3O4", category:"organic"},
+  {name:"아세트산카민", en:"Acetocarmine", formula:"염색시약", category:"organic", tag:"bio", tags:["acidic"]},
+  {name:"겐티아나 바이올렛", en:"Gentian violet", formula:"C25H30ClN3", category:"organic", tag:"bio"},
+  {name:"말라카이트그린", en:"Malachite green", formula:"C23H25ClN2", category:"organic", tag:"bio",
+    hazard:"발암 의심물질입니다."},
+  {name:"메틸그린", en:"Methyl green", formula:"C27H35Cl2N3", category:"organic", tag:"bio"},
+  {name:"야누스그린 B", en:"Janus green B", formula:"C30H31ClN6", category:"organic", tag:"bio"},
+  {name:"에오신 Y", en:"Eosin Y", formula:"C20H6Br4Na2O5", category:"organic", tag:"bio"},
+  {name:"헤마톡실린", en:"Hematoxylin", formula:"C16H14O6", category:"organic", tag:"bio"},
+  {name:"라이트 염색약", en:"Wright's stain", formula:"염색시약(메탄올 포함)", category:"organic", tag:"bio"},
+  {name:"메이-그륀발트 염색약", en:"May-Grünwald stain", formula:"염색시약(메탄올 포함)", category:"organic", tag:"bio"},
+  {name:"톨루이딘블루 O", en:"Toluidine blue O", formula:"C15H16ClN3S", category:"organic", tag:"bio"},
+  {name:"알시안블루", en:"Alcian blue", formula:"C56H68Cl4CuN16S4", category:"organic", tag:"bio"},
+  {name:"아닐린블루", en:"Aniline blue", formula:"염색시약", category:"organic", tag:"bio"},
+  {name:"코튼블루", en:"Cotton blue", formula:"염색시약", category:"organic", tag:"bio"},
+  {name:"락토페놀 코튼블루", en:"Lactophenol cotton blue", formula:"염색시약(페놀 포함)", category:"organic", tag:"bio",
+    hazard:"페놀이 포함되어 부식성이 있습니다."},
+  {name:"오일레드 O", en:"Oil red O", formula:"C26H24N4O", category:"organic", tag:"bio"},
+  {name:"수단 Ⅳ", en:"Sudan IV", formula:"C24H20N4O", category:"organic", tag:"bio"},
+  {name:"수단블랙 B", en:"Sudan black B", formula:"C29H24N6", category:"organic", tag:"bio"},
+  {name:"나일블루", en:"Nile blue", formula:"C20H20ClN3O", category:"organic", tag:"bio"},
+  {name:"나일레드", en:"Nile red", formula:"C20H18N2O2", category:"organic", tag:"bio"},
+  {name:"오렌지 G", en:"Orange G", formula:"C16H10N2Na2O7S2", category:"organic", tag:"bio"},
+  {name:"푹신", en:"Fuchsin", formula:"염색시약", category:"organic", tag:"bio"},
+  {name:"염기성 푹신", en:"Basic fuchsin", formula:"C20H20ClN3", category:"organic", tag:"bio"},
+  {name:"산성 푹신", en:"Acid fuchsin", formula:"C20H17N3Na2O9S3", category:"organic", tag:"bio"},
+  {name:"아크리딘오렌지", en:"Acridine orange", formula:"C17H19ClN3", category:"organic", tag:"bio",
+    hazard:"돌연변이 유발 가능성이 있습니다."},
+  {name:"에티듐브로마이드(EtBr)", en:"Ethidium bromide", formula:"C21H20BrN3", category:"organic", tag:"bio", disposalRoute:"special",
+    hazard:"강한 돌연변이 유발물질이며 발암 가능성이 의심됩니다. 일반 폐수나 하수구에 버리지 말고 기관의 EtBr 폐기 절차에 따라 별도 수거하세요."},
+  {name:"프로피듐 아이오다이드(PI)", en:"Propidium iodide", formula:"C27H34I2N4", category:"organic", tag:"bio",
+    hazard:"돌연변이 유발 가능성이 있습니다."},
+  {name:"Hoechst 33258", en:"Hoechst 33258", formula:"C25H24N6O", category:"organic", tag:"bio",
+    hazard:"돌연변이 유발 가능성이 있습니다."},
+  {name:"SYBR Green I", en:"SYBR Green I", formula:"형광 염색시약", category:"organic", tag:"bio",
+    hazard:"돌연변이 유발 가능성이 있어 EtBr에 준해 취급하세요."},
+  {name:"GelRed", en:"GelRed", formula:"형광 염색시약", category:"organic", tag:"bio"},
+  {name:"글리신", en:"Glycine", formula:"C2H5NO2", category:"organic"},
+  {name:"알라닌", en:"Alanine", formula:"C3H7NO2", category:"organic"},
+  {name:"발린", en:"Valine", formula:"C5H11NO2", category:"organic"},
+  {name:"류신", en:"Leucine", formula:"C6H13NO2", category:"organic"},
+  {name:"아이소류신", en:"Isoleucine", formula:"C6H13NO2", category:"organic"},
+  {name:"세린", en:"Serine", formula:"C3H7NO3", category:"organic"},
+  {name:"트레오닌", en:"Threonine", formula:"C4H9NO3", category:"organic"},
+  {name:"시스테인", en:"Cysteine", formula:"C3H7NO2S", category:"organic"},
+  {name:"메티오닌", en:"Methionine", formula:"C5H11NO2S", category:"organic"},
+  {name:"아스파트산", en:"Aspartic acid", formula:"C4H7NO4", category:"organic", tags:["acidic"]},
+  {name:"글루탐산", en:"Glutamic acid", formula:"C5H9NO4", category:"organic", tags:["acidic"]},
+  {name:"아스파라진", en:"Asparagine", formula:"C4H8N2O3", category:"organic"},
+  {name:"글루타민", en:"Glutamine", formula:"C5H10N2O3", category:"organic"},
+  {name:"라이신", en:"Lysine", formula:"C6H14N2O2", category:"organic"},
+  {name:"아르기닌", en:"Arginine", formula:"C6H14N4O2", category:"organic"},
+  {name:"D-만노스", en:"D-Mannose", formula:"C6H12O6", category:"organic"},
+  {name:"D-리보스", en:"D-Ribose", formula:"C5H10O5", category:"organic", tag:"bio"},
+  {name:"D-자일로스", en:"D-Xylose", formula:"C5H10O5", category:"organic"},
+  {name:"L-아라비노스", en:"L-Arabinose", formula:"C5H10O5", category:"organic"},
+  {name:"람노스", en:"Rhamnose", formula:"C6H12O5", category:"organic"},
+  {name:"락토스", en:"Lactose", formula:"C12H22O11", category:"organic"},
+  {name:"트레할로스", en:"Trehalose", formula:"C12H22O11", category:"organic"},
+  {name:"아데닌", en:"Adenine", formula:"C5H5N5", category:"organic", tag:"bio"},
+  {name:"구아닌", en:"Guanine", formula:"C5H5N5O", category:"organic", tag:"bio"},
+  {name:"사이토신", en:"Cytosine", formula:"C4H5N3O", category:"organic", tag:"bio"},
+  {name:"티민", en:"Thymine", formula:"C5H6N2O2", category:"organic", tag:"bio"},
+  {name:"유라실", en:"Uracil", formula:"C4H4N2O2", category:"organic", tag:"bio"},
+  {name:"아데노신", en:"Adenosine", formula:"C10H13N5O4", category:"organic", tag:"bio"},
+  {name:"구아노신", en:"Guanosine", formula:"C10H13N5O5", category:"organic", tag:"bio"},
+  {name:"사이티딘", en:"Cytidine", formula:"C9H13N3O5", category:"organic", tag:"bio"},
+  {name:"유리딘", en:"Uridine", formula:"C9H12N2O6", category:"organic", tag:"bio"},
+  {name:"티미딘", en:"Thymidine", formula:"C10H14N2O5", category:"organic", tag:"bio"},
+  {name:"ATP", en:"Adenosine triphosphate", formula:"C10H16N5O13P3", category:"organic", tag:"bio"},
+  {name:"ADP", en:"Adenosine diphosphate", formula:"C10H15N5O10P2", category:"organic", tag:"bio"},
+  {name:"알파아밀레이스", en:"Alpha-amylase", formula:"효소(단백질)", category:"organic", tag:"bio"},
+  {name:"펩신", en:"Pepsin", formula:"효소(단백질)", category:"organic", tag:"bio"},
+  {name:"파파인", en:"Papain", formula:"효소(단백질)", category:"organic", tag:"bio"},
+  {name:"브로멜라인", en:"Bromelain", formula:"효소(단백질)", category:"organic", tag:"bio"},
+  {name:"카탈레이스", en:"Catalase", formula:"효소(단백질)", category:"organic", tag:"bio"},
+  {name:"우레이스", en:"Urease", formula:"효소(단백질)", category:"organic", tag:"bio"},
+  {name:"락테이스", en:"Lactase", formula:"효소(단백질)", category:"organic", tag:"bio"},
+  {name:"리파아제", en:"Lipase", formula:"효소(단백질)", category:"organic", tag:"bio"},
+  {name:"트리톤 X-100", en:"Triton X-100", formula:"계면활성제", category:"organic", tag:"bio"},
+  {name:"Tween 20", en:"Tween 20", formula:"계면활성제", category:"organic", tag:"bio"},
+  {name:"Tween 80", en:"Tween 80", formula:"계면활성제", category:"organic", tag:"bio"},
+  {name:"NP-40", en:"NP-40", formula:"계면활성제", category:"organic", tag:"bio"},
+  {name:"CHAPS", en:"CHAPS", formula:"계면활성제", category:"organic", tag:"bio"},
+  {name:"세틸피리디늄 클로라이드", en:"Cetylpyridinium chloride", formula:"C21H38ClN", category:"organic"},
+  {name:"소듐데옥시콜레이트", en:"Sodium deoxycholate", formula:"C24H39NaO4", category:"organic", tag:"bio"},
+  {name:"그리스 시약", en:"Griess reagent", formula:"혼합시약(질산염 검출)", category:"organic"},
+  {name:"톨렌스 시약", en:"Tollens' reagent", formula:"은거울반응 시약", category:"inorganic", disposalRoute:"special", tags:["shockSensitiveOverTime"],
+    hazard:"오래 보관하면 충격에 민감한 폭발성 은 화합물이 생성될 수 있습니다. 조제 후 보관하지 말고 기관의 톨렌스 시약 폐기 절차에 따라 즉시 처리하세요."},
+  {name:"바포드 시약", en:"Barfoed's reagent", formula:"구리(Ⅱ) 아세트산 시약", category:"check",
+    special:"구리(Ⅱ) 이온과 묽은 아세트산이 포함된 혼합 시약입니다. 제품별 조성과 실제 pH를 확인한 뒤, 기관의 구리 함유 폐액 처리 기준에 따라 분류하세요. 확인 전에는 일반 폐수통에 넣지 마세요."},
+  {name:"몰리슈 시약(원액, α-나프톨 알코올용액)", en:"Molisch's reagent (stock solution)", formula:"알파-나프톨의 에탄올 용액", category:"organic", tags:["combustible"],
+    special:"시약 원액 자체에는 황산이 들어있지 않습니다. 황산은 당류 검출 시험 과정에서 별도로 추가합니다."},
+  {name:"셀리바노프 시약", en:"Seliwanoff's reagent", formula:"레조시놀+염산", category:"organic", tags:["acidic"]},
+  {name:"비알 시약", en:"Bial's reagent", formula:"오르시놀+염산", category:"organic", tags:["acidic"]},
+  {name:"시프 시약", en:"Schiff's reagent", formula:"염색시약(아황산 포함)", category:"organic"},
+  {name:"닌하이드린 시약", en:"Ninhydrin reagent", formula:"C9H6O4", category:"organic"},
+  {name:"폴린-시오칼토 시약", en:"Folin-Ciocalteu reagent", formula:"혼합시약", category:"inorganic", tag:"bio"},
+  {name:"폴린-로리 시약", en:"Folin-Lowry reagent", formula:"혼합시약", category:"organic", tag:"bio"},
+  {name:"네슬러 시약", en:"Nessler's reagent", formula:"K2HgI4 알칼리 용액", category:"inorganic", disposalRoute:"special", tags:["mercury"],
+    hazard:"수은이 포함되어 있어 지정폐기물로 분리 보관하세요."},
+  {name:"트리스-염산 완충용액", en:"Tris-HCl buffer", formula:"Tris 기반 완충액", category:"organic", tag:"bio"},
+  {name:"아세트산 완충용액", en:"Acetate buffer", formula:"아세트산+아세트산나트륨", category:"organic"},
+  {name:"시트르산 완충용액", en:"Citrate buffer", formula:"시트르산 기반 완충액", category:"organic"},
+  {name:"붕산염 완충용액", en:"Borate buffer", formula:"붕산염 기반 완충액", category:"inorganic"},
+  {name:"탄산염 완충용액", en:"Carbonate buffer", formula:"탄산염 기반 완충액", category:"inorganic"},
+  {name:"글리신 완충용액", en:"Glycine buffer", formula:"글리신 기반 완충액", category:"organic"},
+  {name:"HEPES 완충용액", en:"HEPES buffer", formula:"C8H18N2O4S", category:"organic", tag:"bio"},
+  {name:"MOPS 완충용액", en:"MOPS buffer", formula:"C7H15NO4S", category:"organic", tag:"bio"},
+  {name:"영양액체배지", en:"Nutrient broth", formula:"복합 배지", category:"organic", tag:"bio"},
+  {name:"TSA 배지", en:"Tryptic soy agar", formula:"복합 배지", category:"organic", tag:"bio"},
+  {name:"TSB 배지", en:"Tryptic soy broth", formula:"복합 배지", category:"organic", tag:"bio"},
+  {name:"EMB 한천배지", en:"Eosin methylene blue agar", formula:"복합 배지", category:"organic", tag:"bio"},
+  {name:"혈액한천배지", en:"Blood agar", formula:"복합 배지(혈액 포함)", category:"organic", tag:"bio"},
+  {name:"SDS-PAGE 샘플 완충액", en:"SDS-PAGE sample buffer", formula:"혼합시약", category:"organic", tag:"bio"},
+  {name:"단백질 로딩 완충액", en:"Protein loading buffer", formula:"혼합시약", category:"organic", tag:"bio"},
+  {name:"핵산 추출 완충액", en:"Nucleic acid extraction buffer", formula:"혼합시약", category:"organic", tag:"bio"},
+  {name:"인공 해수", en:"Artificial seawater", formula:"혼합 염류 용액", category:"inorganic"},
+  {name:"생리식염수", en:"Normal saline (0.9% NaCl)", formula:"NaCl 수용액", category:"inorganic", tag:"bio"},
+  {name:"석회수", en:"Limewater", formula:"Ca(OH)2 수용액", category:"alkali"},
+  {name:"브로민수", en:"Bromine water", formula:"Br2 수용액", category:"inorganic",
+    hazard:"부식성과 독성이 있습니다."},
+  {name:"염소수", en:"Chlorine water", formula:"Cl2 수용액", category:"inorganic",
+    hazard:"독성이 있습니다."},
+  {name:"pH 완충용액(각종: 1%, pH3, 5, 7, 9, 11 등)", en:"Buffer solutions", formula:"조성에 따라 다름", category:"check",
+    special:"구성 성분에 따라 분류가 달라집니다. 인산염·붕산염 등 무기 성분 위주면 무기계, Tris·구연산 등 유기 성분이 들어가면 유기계로 처리하세요. 시약병 라벨의 조성을 확인하는 것이 가장 정확합니다."},
+  {name:"차아염소산나트륨(락스)", en:"Sodium hypochlorite (bleach)", formula:"NaOCl", category:"inorganic", tags:["chlorineGasRisk","oxidizer"],
+    special:"가정용 표백제(락스)의 주성분입니다. 산과 섞이면 독성 염소 기체가 발생하고, 암모니아·요소가 포함된 세제/시약과도 섞이면 위험한 기체를 만듭니다.", hazard:"절대 산성 물질이나 암모니아 함유 물질과 섞지 마세요. 염소 기체 중독 위험이 있습니다."},
+  {name:"과염소산", en:"Perchloric acid", formula:"HClO4", category:"acid", disposalRoute:"special", tags:["acidic","oxidizer"],
+    hazard:"강한 산화성 산입니다. 고농도 과염소산을 사용하거나 가열·농축하는 작업은 세척 장치가 있는 과염소산 전용 후드가 필요합니다. 묽은 용액을 포함한 모든 사용은 기관의 과염소산 취급 절차를 확인하세요."},
+  {name:"질산암모늄", en:"Ammonium nitrate", formula:"NH4NO3", category:"inorganic", tags:["oxidizer"],
+    hazard:"산화제이며, 가연물·금속분말·산과 섞이거나 고온에 노출되면 위험할 수 있습니다."},
+  {name:"몰리슈 반응 폐액(시료+황산 포함)", en:"Molisch test waste (post-reaction)", formula:"알파-나프톨+에탄올+황산+시료 혼합물", category:"check", tag:"bio", tags:["acidic"],
+    special:"몰리슈 시험 후 남은 폐액입니다. 유기 성분과 진한 황산이 함께 포함된 혼합 폐액이므로 일반 유기 폐수통에 바로 넣지 말고, 학교 안전관리자 또는 기관의 폐기 절차를 확인하세요.", hazard:"진한 황산이 포함되어 부식성이 있고 유기물과 함께 있으므로 취급에 주의해야 합니다."},
+];
+
+// ---------- Wizard tree ----------
+const WIZARD_STEPS = {
+  start: {
+    q: "이 물질(용액)에 탄소가 포함된 유기 화합물인가요?\n(예: 알코올·당류·유지, 생물시약, 색소/지시약, 효소, 완충액 속 유기성분 등)",
+    opts: [
+      {label:"예", next:"result_organic"},
+      {label:"아니오", next:"q_acid"}
+    ]
+  },
+  q_acid: {
+    q: "무기산인가요? (염산·황산·질산·인산, 크로뮴산 계열 포함)",
+    opts: [
+      {label:"예", next:"result_acid"},
+      {label:"아니오", next:"q_alkali"}
+    ]
+  },
+  q_alkali: {
+    q: "알칼리(염기)성 물질인가요?",
+    opts: [
+      {label:"예 - 암모니아가 포함돼요", next:"result_organic_ammonia"},
+      {label:"예 - 암모니아는 아니에요", next:"result_alkali"},
+      {label:"아니오", next:"result_inorganic"}
+    ]
+  }
+};
+const WIZARD_RESULTS = {
+  result_organic: {cat:"organic", note:"탄소가 포함된 유기 화합물이므로 <b>유기계 폐수</b>로 분류합니다."},
+  result_acid: {cat:"acid", note:"무기산(크로뮴산 계열 포함)이므로 <b>산성 폐수</b>로 분류합니다."},
+  result_alkali: {cat:"alkali", note:"알칼리성 물질이므로 <b>알칼리 폐수</b>로 분류합니다."},
+  result_inorganic: {cat:"inorganic", note:"유기물도, 산도, 알칼리도 아니므로 <b>무기계 폐수</b>로 분류합니다."},
+  result_organic_ammonia: {cat:"organic", note:"암모니아가 포함된 폐수는 알칼리처럼 보여도 예외적으로 <b>유기계 폐수</b>로 분류합니다."}
+};
+
+const COMPAT = [
+  {name:"아세트산", list:["크롬산","질산","수산기를 지닌 화합물","에틸렌 글라이콜","과염소산","과산화물","과망가니즈산염"], aliases:["초산","빙초산","CH3COOH"]},
+  {name:"아세틸렌", list:["염소","브로민","구리","플루오린","은","수은"]},
+  {name:"알칼리 및 알칼리 토류 금속", list:["물","사염화 탄소 또는 그 외의 염화 탄화수소","이산화 탄소","할로겐"]},
+  {name:"무수 암모니아", list:["수은","염소","차아염소산 칼슘","아이오딘","브로민","불화 수소산"], aliases:["암모니아","암모니아수","NH3","NH4OH"]},
+  {name:"질산 암모늄", list:["산","금속 분말","가연성 액체","염소산염","아질산염","황","미세 유기 또는 연소성 물질"]},
+  {name:"아닐린", list:["질산","과산화 수소"]},
+  {name:"브로민", list:["염소와 동일"]},
+  {name:"뷰틸 리튬", list:["물"]},
+  {name:"활성 탄소", list:["차아염소산 칼슘","모든 산화제"]},
+  {name:"염소산염", list:["암모늄염","산","금속 분말","황","미세 유기 또는 연소성 물질"]},
+  {name:"염소산 칼륨", list:["가연성 물질","황","인","유기물","강산"], aliases:["KClO3","염소산포타슘"]},
+  {name:"크로뮴산(크롬산)", list:["아세트산","나프탈렌","캠포","글리세린","터펜틴","알코올","가연성 액체"], aliases:["크로뮴산","크롬산","다이크로뮴산","중크롬산","CrO3"]},
+  {name:"염소", list:["암모니아","아세틸렌","부타다이엔","부테인","메테인","프로페인(또는 그 외 석유가스)","수소","소듐 카바이드","터펜틴","벤젠","미세 금속"], aliases:["Cl2"]},
+  {name:"이산화 염소", list:["암모니아","메테인","포스핀","황화 수소"]},
+  {name:"구리", list:["아세틸렌","과산화수소"], aliases:["Cu"]},
+  {name:"큐멘 하이드로페록사이드", list:["유기 또는 무기산"]},
+  {name:"사이안화물(소듐, 포타슘)", list:["산"]},
+  {name:"가연성 액체", list:["질산 암모늄","크로뮴산","과산화수소","질산","과산화 소듐","할로겐"]},
+  {name:"탄화 수소", list:["플루오린","염소","브로민","크로뮴산","과산화 소듐"]},
+  {name:"사이안화 수소산", list:["질산","알칼리"]},
+  {name:"불화 수소산", list:["수용액 또는 무수 암모니아"]},
+  {name:"과산화 수소", list:["구리","크롬","철","대부분의 금속 또는 금속염","알코올","아세톤","유기화합물","아닐린","나이트로메테인","가연성 액체","기체 산화제"], aliases:["과산화수소","과산화수소수","옥시돌","H2O2"]},
+  {name:"황화 수소", list:["발연 질산","기체 산화제","수용액 또는 무수 암모니아","수소"]},
+  {name:"아이오딘", list:["아세틸렌","수용액 또는 무수 암모니아","수소"], aliases:["요오드","I2"]},
+  {name:"수은", list:["아세틸렌","풀민산","암모니아"], aliases:["Hg"]},
+  {name:"질산", list:["아세트산","아닐린","크로뮴산","사이안화 수소산","황화 수소","가연성 기체","가연성 액체"], aliases:["HNO3"]},
+  {name:"옥살산", list:["은","수은"]},
+  {name:"과염소산", list:["아세트산 무수물","비스무트 및 그 합금","알코올","종이","나무"]},
+  {name:"포타슘", list:["사염화 탄소","이산화 탄소","물"], aliases:["칼륨","K"]},
+  {name:"염소산 포타슘", list:["황산 및 다른 산"], aliases:["KClO3","염소산칼륨"]},
+  {name:"과염소산 포타슘", list:["황산 및 다른 산"], aliases:["과염소산칼륨"]},
+  {name:"과망간산 포타슘", list:["글리세린","에틸렌 글라이콜","벤즈알데하이드","황산"], aliases:["과망가니즈산칼륨","과망간산칼륨","KMnO4"]},
+  {name:"은", list:["아세틸렌","옥살산","타타르산","암모늄 화합물"], aliases:["Ag","질산은"]},
+  {name:"소듐", list:["사염화 탄소","이산화 탄소","물"], aliases:["나트륨","Na"]},
+  {name:"과산화 소듐", list:["에탄올 또는 메탄올","빙초산","아세트산 무수물","벤즈알데하이드","이황화 탄소","글리세린","에틸렌글라이콜","에틸 아세테이트","메틸 아세테이트","푸르푸랄"], aliases:["과산화나트륨"]},
+  {name:"황산", list:["염소산 포타슘","과염소산 포타슘","과망간산 포타슘(또는 소듐, 리튬)"], aliases:["H2SO4"]},
+  {name:"아세톤", list:["진한 질산과 황산의 혼합물"]},
+  {name:"아크롤레인", list:["산화제","산","알칼리","암모니아"]},
+  {name:"아자이드", list:["산"]},
+  {name:"칼슘 옥사이드", list:["물"], aliases:["생석회","CaO"]},
+  {name:"하이드라진", list:["산화제","과산화 수소","질산","금속 옥사이드","강산","다공성 물질"]},
+  {name:"염산", list:["대부분의 금속","알칼리 또는 활성 금속"], aliases:["HCl","염화수소"]},
+  {name:"모르폴린", list:["강산","강산화제"]},
+  {name:"질산염", list:["황산"]},
+  {name:"아질산염", list:["산"]},
+  {name:"유기 용매", list:["강산화제","산","강한 부식성 화합물"]},
+  {name:"산소", list:["기름","그리스","수소","가연성 액체","기체 및 고체"], aliases:["O2"]},
+  {name:"유기 과산화물", list:["유기 또는 무기산","마찰","열"]},
+  {name:"흰 인", list:["공기","산소","알칼리","환원제"]},
+  {name:"셀레나이드", list:["환원제"]},
+  {name:"마그네슘", list:["물(특히 뜨거운 물이나 수증기)","산","이산화 탄소(연소 중)","할로겐"], aliases:["마그네슘 리본","마그네슘 가루","Mg"]},
+  {name:"칼슘", list:["물","산"], aliases:["Ca"]},
+  {name:"리튬", list:["물","질소","공기 중 산소"], aliases:["Li"]},
+  {name:"수소", list:["산화제","할로겐","고온의 금속 산화물"], aliases:["H2","수소 기체"]},
+  {name:"에탄올", list:["강산화제(질산, 크로뮴산, 과망가니즈산칼륨 등)","알칼리 금속(나트륨, 칼륨 등)","과산화물"], aliases:["알코올","에틸알코올","C2H5OH"]},
+  {name:"황(황가루)", list:["산화제","가열된 금속","염소산염"], aliases:["황가루","황 분말","S"]},
+];
+
+// ================= STATE =================
+let activeFilter = "all";
+let selected = new Set();      // indices into ALL_CHEMICALS (built + custom)
+let customChemicals = [];      // loaded from shared storage
+let ALL_CHEMICALS = [...CHEMICALS];
+let wizardStep = "start";
+let wizardTrail = [];
+let wizardFinalCat = null;
+
+// ================= TABS =================
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("panel-"+btn.dataset.tab).classList.add("active");
+  });
+});
+
+// ================= FILTER PILLS =================
+const filterRow = document.getElementById("filterRow");
+const filterDefs = [{key:"all", label:"전체"}].concat(
+  Object.keys(CATS).map(k=>({key:k, label:CATS[k].label.replace(" 폐수","")}))
+);
+filterDefs.forEach(f=>{
+  const p = document.createElement("div");
+  p.className = "pill" + (f.key==="all" ? " on" : "");
+  const dotColor = f.key==="all" ? "#999" : CATS[f.key].hex;
+  p.innerHTML = `<span class="dot" style="background:${dotColor}"></span>${f.label}`;
+  p.addEventListener("click", ()=>{
+    activeFilter = f.key;
+    document.querySelectorAll(".pill").forEach(el=>el.classList.remove("on"));
+    p.classList.add("on");
+    renderGrid();
+  });
+  filterRow.appendChild(p);
+});
+
+// ================= SEARCH =================
+const chemSearch = document.getElementById("chemSearch");
+chemSearch.addEventListener("input", renderGrid);
+
+function norm(s){ return (s||"").toLowerCase().replace(/\s/g,""); }
+function matches(chem, query){
+  if(!query) return true;
+  const q = norm(query);
+  const hay = norm(chem.name + (chem.en||"") + (chem.formula||""));
+  return hay.includes(q);
+}
+
+// ================= RENDER CHEM GRID =================
+const chemGrid = document.getElementById("chemGrid");
+const resultCount = document.getElementById("resultCount");
+
+function groupKeyOf(c){
+  // 별도관리 대상은 원래 category와 무관하게 맨 뒤 그룹으로 몹니다.
+  return c.disposalRoute === "special" ? "special" : c.category;
+}
+
+function renderGrid(){
+  const q = chemSearch.value;
+  chemGrid.innerHTML = "";
+  const CATEGORY_SORT_ORDER = {organic:0, acid:1, alkali:2, inorganic:3, check:4, special:5};
+  const list = ALL_CHEMICALS
+    .map((c,i)=>({c,i}))
+    .filter(({c}) => (activeFilter==="all" || c.category===activeFilter) && matches(c,q))
+    .sort((a,b)=>{
+      const rankDiff = CATEGORY_SORT_ORDER[groupKeyOf(a.c)] - CATEGORY_SORT_ORDER[groupKeyOf(b.c)];
+      if(rankDiff !== 0) return rankDiff;
+      return a.c.name.localeCompare(b.c.name, 'ko');
+    });
+
+  resultCount.textContent = `${list.length}종 표시 중 (전체 ${ALL_CHEMICALS.length}종)`;
+  selectionResetBtn.style.display = selected.size>0 ? "block" : "none";
+
+  if(list.length===0){
+    chemGrid.innerHTML = '<div class="empty-msg">검색 결과가 없어요. "새 시약 판별" 탭에서 분류 마법사를 이용해 목록에 추가해보세요.</div>';
+    return;
+  }
+  let lastRenderedGroup = null;
+  list.forEach(({c, i})=>{
+    const cat = CATS[c.category];
+    const isSpecial = c.disposalRoute === "special";
+    const gKey = groupKeyOf(c);
+    if(activeFilter==="all" && gKey !== lastRenderedGroup){
+      lastRenderedGroup = gKey;
+      const header = document.createElement("div");
+      header.className = "chem-group-header";
+      const count = list.filter(x=>groupKeyOf(x.c)===gKey).length;
+      if(gKey === "special"){
+        header.style.color = "#8A2A22";
+        header.textContent = `⛔ 별도관리 시약 — 일반 4분류 대상 아님 (${count}종)`;
+      } else {
+        header.style.color = cat.hex;
+        header.textContent = `${cat.label} (${count}종)`;
+      }
+      chemGrid.appendChild(header);
+    }
+    const btn = document.createElement("button");
+    btn.className = "chem-chip" + (selected.has(i) ? " selected" : "");
+    btn.style.setProperty("--cat-color", isSpecial ? "#8A2A22" : cat.hex);
+    btn.style.setProperty("--cat-soft", isSpecial ? "var(--hazard-bg)" : cat.soft);
+    let badges = "";
+    if(isSpecial) badges += ' <span class="badge-mini badge-hazard">⛔ 별도관리</span>';
+    if(c.state==="solid") badges += ' <span class="badge-mini" style="background:#EEE;color:#555;">🧱 고체</span>';
+    if(c.state==="gas") badges += ' <span class="badge-mini" style="background:#EEE;color:#555;">💨 기체</span>';
+    if((c.special || c.hazard) && !isSpecial) badges += ' <span class="star" title="예외/주의 규칙 있음">⚠️</span>';
+    if(c.tag==="bio") badges += ' <span class="badge-mini badge-bio">생물시약</span>';
+    if(c.hazard && !isSpecial) badges += ` <span class="badge-mini badge-hazard">${hazardBadgeLabel(c)}</span>`;
+    if(c.isCustom) badges += ' <span class="badge-mini badge-custom">학교 추가</span>';
+    btn.innerHTML = `<div class="name">${c.name}${badges}</div><div class="formula">${c.formula||""}</div>`;
+    btn.addEventListener("click", ()=>{
+      if(selected.has(i)) selected.delete(i); else selected.add(i);
+      renderGrid();
+      renderBins();
+    });
+    chemGrid.appendChild(btn);
+  });
+}
+
+const selectionResetBtn = document.getElementById("selectionResetBtn");
+selectionResetBtn.addEventListener("click", ()=>{
+  selected.clear();
+  renderGrid();
+  renderBins();
+});
+
+// ================= HAZARD TAG REFERENCE =================
+const HAZARD_TAG_INFO = {
+  cyanide:      {label:"사이안화물", msg:"산성 물질과 만나면 치명적인 사이안화수소(HCN) 기체가 발생할 수 있습니다."},
+  sulfide:      {label:"황화물",     msg:"산성 물질과 만나면 유독한 황화수소(H2S) 기체가 발생할 수 있습니다."},
+  azide:        {label:"아자이드",   msg:"산이나 금속과 반응해 독성·폭발성 물질을 만들 수 있습니다."},
+  nitrite:      {label:"아질산염",   msg:"산성 물질과 만나면 질소산화물(NOx) 기체가 발생할 수 있습니다."},
+  mercury:      {label:"수은",       msg:"수은 함유 폐기물은 일반 폐수통이 아닌 지정된 수은 폐기물 경로로 처리해야 합니다."},
+  chromium6:    {label:"6가 크로뮴", msg:"독성이 강한 6가 크로뮴 화합물입니다. 세척수도 분리 수집하고 지정폐기물 여부를 확인하세요."},
+  heavyMetal:   {label:"고독성 중금속", msg:"카드뮴·납 등 고독성 중금속 화합물입니다. 지정폐기물 여부를 확인하세요."},
+  shockSensitiveOverTime: {label:"시간 경과 시 불안정", msg:"방치하면 충격에 민감한 물질을 만들 수 있어, 사용 직후 기관의 승인된 절차로 바로 처리해야 합니다."},
+  oxidizer:     {label:"강산화제",   msg:"가연물·유기물·환원제와 접촉하거나 충격·마찰을 받으면 발열·화재·폭발 위험이 있습니다."},
+  waterReactive:{label:"물반응성",   msg:"물과 접촉하면 격렬히 반응(발화·기체 발생)할 수 있습니다."},
+  chlorineGasRisk: {label:"염소가스 위험", msg:"산성 물질과 섞이면 유독한 염소 기체가, 암모니아 함유 물질과 섞이면 클로라민 등 유독 기체가 발생합니다."},
+  acidic:       {label:"산성",       msg:"수용액에서 산으로 작용합니다."},
+  ammonia:      {label:"암모니아",   msg:"차아염소산염 등과 섞이면 클로라민 같은 유독 기체가 발생할 수 있습니다."},
+  combustible:  {label:"가연성",     msg:"산화제와 접촉하면 발화·폭발 위험이 있습니다."},
+  reducingAgent:{label:"환원제",     msg:"산화제와 접촉하면 발열·발화 위험이 있습니다."}
+};
+
+function hasTag(c, tag){ return (c.tags||[]).includes(tag); }
+function isAcidic(c){ return hasTag(c, "acidic"); }
+function isBinEligible(c){
+  return c.state !== "solid" && c.state !== "gas" && c.disposalRoute !== "special" && c.category !== "check";
+}
+// 폐기 안내(special)와 위험 정보(hazard)를 항상 함께 보여줍니다 (하나만 고르지 않음).
+function getSafetyDetails(c){
+  const parts = [];
+  if(c.special) parts.push(`<b>폐기 안내:</b> ${c.special}`);
+  if(c.hazard) parts.push(`<b>위험 정보:</b> ${c.hazard}`);
+  if(parts.length===0) parts.push("전용 절차로 별도 관리하세요.");
+  return parts.join("<br>");
+}
+// hazard가 있다고 무조건 "고독성"이라 부르지 않고, 보유한 위험 태그에 맞는 라벨을 고릅니다.
+function hazardBadgeLabel(c){
+  if(hasTag(c,"oxidizer")) return "⚠ 산화성";
+  if(hasTag(c,"waterReactive")) return "⚠ 물반응성";
+  if(hasTag(c,"combustible")) return "⚠ 인화성";
+  if(hasTag(c,"cyanide") || hasTag(c,"sulfide") || hasTag(c,"azide") || hasTag(c,"mercury") || hasTag(c,"heavyMetal") || hasTag(c,"chromium6")) return "⚠ 고독성";
+  if(hasTag(c,"chlorineGasRisk")) return "⚠ 유독가스 위험";
+  return "⚠ 위험정보 있음";
+}
+
+// 치명적 위험 조합 스캔. 반드시 "서로 다른" 두 물질 사이에서만 성립하도록
+// 모든 검사에 other!==c 조건을 둡니다 (자기 자신과 반응하는 것으로 오판하지 않음).
+function criticalHazardScan(chems){
+  const alerts = [];
+
+  ["cyanide","sulfide","azide","nitrite","chlorineGasRisk"].forEach(tag=>{
+    chems.filter(c=>hasTag(c,tag)).forEach(c=>{
+      const acidPartner = chems.some(a => a!==c && isAcidic(a));
+      if(acidPartner){
+        alerts.push(`🛑 <b>${c.name}</b>(${HAZARD_TAG_INFO[tag].label})이(가) 산성 물질과 함께 있습니다. ${HAZARD_TAG_INFO[tag].msg} 절대 섞지 말고, 아직 섞지 않았다면 각각 분리 보관하세요.`);
+      }
+    });
+  });
+
+  chems.filter(c=>hasTag(c,"chlorineGasRisk")).forEach(c=>{
+    const ammoniaPartner = chems.some(a => a!==c && hasTag(a,"ammonia"));
+    if(ammoniaPartner){
+      alerts.push(`🛑 <b>${c.name}</b>(염소가스 위험)이(가) 암모니아 함유 물질과 함께 있습니다. 클로라민 등 유독 기체가 발생할 수 있습니다. 절대 섞지 말고, 아직 섞지 않았다면 각각 분리 보관하세요.`);
+    }
+  });
+
+  // 산화제 + 가연성/환원성 물질. category:"organic"은 폐수 분류용 속성일 뿐 가연성 판정
+  // 기준이 아니므로 사용하지 않습니다 (과산화수소+카탈레이스처럼 정상적인 학교 실험을
+  // 오경고하지 않기 위함). combustible/reducingAgent 태그가 있는 경우만 검사합니다.
+  chems.filter(c=>hasTag(c,"oxidizer")).forEach(c=>{
+    const fuelPartners = chems.filter(a => a!==c && (hasTag(a,"combustible") || hasTag(a,"reducingAgent")));
+    if(fuelPartners.length){
+      const fuelNames = fuelPartners.map(a=>a.name).join(", ");
+      alerts.push(`🛑 산화제 <b>${c.name}</b>와(과) 가연성·환원성 물질(${fuelNames})이 함께 있습니다. ${HAZARD_TAG_INFO.oxidizer.msg} 절대 섞지 말고, 기관 안전관리자·SDS 기준에 따라 각각 별도로 처리하세요.`);
+    }
+  });
+
+  // 물반응성 물질은 상대가 실제 "물/수용액"인지 이름만으로 판정할 방법이 없어서,
+  // 자동 "혼합 위험" 경고는 내지 않습니다. 대신 이미 disposalRoute:"special"로
+  // 4분류에서 제외되고, 별도관리 안내(hazardZone)에서 물반응성 사실을 항상 보여줍니다.
+  // (예: 비수계 유기용매와 짝지어졌다고 해서 "물과 반응"이라 단정하면 오경고가 납니다.)
+
+  return alerts;
+}
+
+function specialRouteItems(chems){
+  return chems.filter(c=>c.disposalRoute==="special");
+}
+
+// 이미 섞인 위험 폐액에 대한 공통 대응 문구. "환기시키러 옮기기"나 "직접 중화하기" 같이
+// 사용자가 위험한 행동을 하도록 유도하지 않습니다.
+const ALREADY_MIXED_SAFETY_NOTICE = "아직 섞지 않았다면 절대 한 용기에 넣지 마세요. 이미 혼합했다면 용기를 열거나 흔들거나 이동하거나 직접 분리·중화하지 말고 사람을 접근시키지 마세요. 즉시 담당 교사 또는 기관 안전관리자에게 알리세요. 유독기체 발생이나 노출이 의심되면 실험실에서 대피하고 기관의 비상 대응 절차에 따르세요.";
+
+// 표시 우선순위: 1) 치명적 위험 2) 별도관리 3) 고체·기체 4) 확인 필요 5) 일반 4분류
+function computeTier(allItems, hasUnresolvedPlaceholder){
+  const critical = criticalHazardScan(allItems);
+  if(critical.length) return {tier:1, critical};
+  const special = specialRouteItems(allItems);
+  if(special.length) return {tier:2, special};
+  const nonLiquid = allItems.filter(c=>c.state==="solid" || c.state==="gas");
+  if(nonLiquid.length) return {tier:3, nonLiquid};
+  const checkItems = allItems.filter(c=>c.category==="check");
+  if(checkItems.length || hasUnresolvedPlaceholder) return {tier:4, checkItems};
+  return {tier:5};
+}
+
+// ================= MIXTURE LOGIC =================
+function determineMixtureCategory(chems){
+  const cats = chems.map(c=>c.category);
+  const hasOrganic = cats.includes("organic");
+  const hasAcid = cats.includes("acid");
+  const hasAlkali = cats.includes("alkali");
+  const hasOxidizer = chems.some(c=>hasTag(c,"oxidizer"));
+  const notes = [];
+  let result;
+
+  if(hasOrganic){
+    result = {cat:"organic", reason:"혼합액에 <b>유기물(탄소 화합물)</b>이 하나라도 포함되어 있으면, 전체 혼합 폐수를 유기계 폐수로 처리하는 것이 일반적인 기준입니다."};
+    if(hasAcid || hasAlkali){
+      notes.push("산성 또는 알칼리성 성분이 함께 남아 있다면 유기계 폐수통에 넣기 전에 중화가 필요할 수 있습니다. 중화 여부와 방법은 학교 안전관리자·기관 SOP가 승인한 절차를 따르세요.");
+    }
+  } else if(hasAcid && hasAlkali){
+    if(hasOxidizer){
+      result = {cat:"inorganic", reason:"무기산과 무기 알칼리가 섞여 있지만, 산화제 성분도 함께 있어 단순 중화가 위험할 수 있습니다."};
+      notes.push("스스로 섞어서 중화하지 말고, 학교 안전관리자·기관 SOP가 승인한 절차에 따라 처리하세요.");
+    } else {
+      result = {cat:"inorganic", reason:"무기산과 무기 알칼리만 섞여 있다면, 중화를 거쳐 무기계 폐수로 함께 처리할 수 있는 경우가 많습니다."};
+      notes.push("중화는 학교 안전관리자·기관 SOP가 승인한 절차로 진행하세요. 진행한다면 pH 시험지로 중성(pH 6~8)을 확인하고, 발열에 주의하며 소량씩 천천히 섞습니다.");
+    }
+  } else if(hasAcid){
+    result = {cat:"acid", reason:"무기산만 포함되어 있으므로 <b>산성 폐수</b>로 처리합니다."};
+  } else if(hasAlkali){
+    result = {cat:"alkali", reason:"알칼리 성분만 포함되어 있으므로 <b>알칼리 폐수</b>로 처리합니다."};
+  } else {
+    result = {cat:"inorganic", reason:"유기물·산·알칼리가 모두 없으므로 <b>무기계 폐수</b>로 처리합니다."};
+  }
+  result.notes = notes;
+  return result;
+}
+
+function normCompat(s){
+  return (s||"")
+    .replace(/포타슘/g,"칼륨")
+    .replace(/소듐/g,"나트륨")
+    .toLowerCase()
+    .replace(/[()]/g,"")
+    .replace(/\s/g,"");
+}
+function chemKeys(c){
+  return [normCompat(c.name), normCompat(c.formula||"")].filter(k=>k.length>1);
+}
+const COMPAT_GENERIC = ["산","염기","알칼리","금속","가연성액체","가연성기체","산화제","환원제","할로겐",
+  "유기용매","유기화합물","다공성물질","마찰","열","공기","물","유기또는무기산","강산","강산화제",
+  "강한부식성화합물","기체및고체","기체산화제","미세유기또는연소성물질","금속분말","대부분의금속",
+  "알칼리또는활성금속","활성금속"];
+
+function crossCheckIncompatibilities(chems){
+  const alerts = new Set();
+  for(const entry of COMPAT){
+    const keys = [entry.name, ...(entry.aliases||[])].map(normCompat);
+    const matchedPrimary = chems.filter(c=>
+      chemKeys(c).some(n => keys.some(cKey => cKey.length>1 && (n.includes(cKey) || cKey.includes(n))))
+    );
+    if(matchedPrimary.length===0) continue;
+    for(const bad of entry.list){
+      const bKey = normCompat(bad);
+      if(COMPAT_GENERIC.includes(bKey)) continue;
+      const matchedBad = chems.filter(c=>
+        chemKeys(c).some(n => bKey.length>1 && (n.includes(bKey) || bKey.includes(n)))
+      );
+      matchedBad.forEach(b=>{
+        matchedPrimary.forEach(p=>{
+          if(p.name!==b.name){
+            const pair = [p.name,b.name].sort().join(" + ");
+            alerts.add(`<b>${pair}</b> — 함께 섞으면 위험할 수 있어요 (근거: '${entry.name}' 항목 참고)`);
+          }
+        });
+      });
+    }
+  }
+  return [...alerts];
+}
+
+// ---- dedicated mixture tab ----
+let mixList = [];
+
+const mixInput = document.getElementById("mixInput");
+const mixSuggest = document.getElementById("mixSuggest");
+const mixAddBtn = document.getElementById("mixAddBtn");
+const mixListArea = document.getElementById("mixListArea");
+const mixClassifyBtn = document.getElementById("mixClassifyBtn");
+const mixResetBtn = document.getElementById("mixResetBtn");
+const mixOutput = document.getElementById("mixOutput");
+
+function findExactChemical(name){
+  const n = norm(name);
+  return ALL_CHEMICALS.find(c=> norm(c.name)===n || norm(c.en||"")===n);
+}
+
+function renderMixSuggest(){
+  const q = mixInput.value.trim();
+  if(!q){ mixSuggest.innerHTML = ""; return; }
+  const list = ALL_CHEMICALS.filter(c=>matches(c,q)).slice(0,6);
+  if(list.length===0){
+    mixSuggest.innerHTML = '<p class="empty-msg" style="padding:4px 2px;">일치하는 시약이 없어요. 이름을 확인하거나 "새 시약 판별" 탭을 이용해보세요.</p>';
+    return;
+  }
+  mixSuggest.innerHTML = `<div class="compat-list" style="max-height:180px;">${list.map(c=>`<div class="compat-item" data-name="${c.name}"><b>${c.name}</b> <span style="color:var(--ink-soft);font-size:11.5px;">${c.formula||""}</span></div>`).join("")}</div>`;
+  mixSuggest.querySelectorAll(".compat-item").forEach(el=>{
+    el.addEventListener("click", ()=>{ mixInput.value = el.dataset.name; mixSuggest.innerHTML = ""; });
+  });
+}
+mixInput.addEventListener("input", renderMixSuggest);
+mixInput.addEventListener("keydown", (e)=>{ if(e.key==="Enter"){ e.preventDefault(); addToMixList(); } });
+
+function addToMixList(){
+  const raw = mixInput.value.trim();
+  if(!raw) return;
+  const found = findExactChemical(raw);
+  if(found){
+    mixList.push(found);
+  } else {
+    mixList.push({name:raw, formula:"", category:"check", unresolved:true,
+      special:"목록에 없는 시약이에요. '새 시약 판별' 탭의 분류 마법사로 정확히 확인한 뒤 다시 추가해보세요."});
+  }
+  mixInput.value = "";
+  mixSuggest.innerHTML = "";
+  mixOutput.innerHTML = "";
+  renderMixList();
+}
+mixAddBtn.addEventListener("click", addToMixList);
+
+function renderMixList(){
+  if(mixList.length===0){
+    mixListArea.innerHTML = '<p class="empty-msg">아직 추가된 시약이 없어요.</p>';
+    return;
+  }
+  mixListArea.innerHTML = mixList.map((c,idx)=>{
+    const cat = CATS[c.category];
+    const isSpecial = c.disposalRoute === "special";
+    const dotColor = isSpecial ? "#8A2A22" : cat.hex;
+    let tagBadges = "";
+    if(isSpecial) tagBadges += ' <span class="badge-mini badge-hazard">⛔별도관리</span>';
+    if(c.state==="solid") tagBadges += ' <span class="badge-mini" style="background:#EEE;color:#555;">🧱고체</span>';
+    if(c.state==="gas") tagBadges += ' <span class="badge-mini" style="background:#EEE;color:#555;">💨기체</span>';
+    return `
+      <div class="custom-item">
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${dotColor};margin-right:6px;"></span><b>${c.name}</b>${c.unresolved ? ' <span class="badge-mini" style="background:var(--check-soft);color:var(--check);">미확인</span>' : ''}${tagBadges}</span>
+        <button class="custom-del" data-idx="${idx}">제거</button>
+      </div>`;
+  }).join("");
+  mixListArea.querySelectorAll(".custom-del").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      mixList.splice(parseInt(btn.dataset.idx,10),1);
+      mixOutput.innerHTML = "";
+      renderMixList();
+    });
+  });
+}
+
+mixResetBtn.addEventListener("click", ()=>{
+  mixList = [];
+  mixOutput.innerHTML = "";
+  renderMixList();
+});
+
+mixClassifyBtn.addEventListener("click", ()=>{
+  if(mixList.length===0){
+    mixOutput.innerHTML = '<div class="mix-empty">먼저 시약을 1개 이상 추가해주세요.</div>';
+    return;
+  }
+  const hasUnresolved = mixList.some(c=>c.unresolved);
+  const resolvedAll = mixList.filter(c=>!c.unresolved);
+  const binEligible = resolvedAll.filter(isBinEligible);
+  const nonLiquid = resolvedAll.filter(c=>c.state==="solid" || c.state==="gas");
+  const special = specialRouteItems(resolvedAll);
+  const checkOnly = resolvedAll.filter(c=>c.category==="check" && c.disposalRoute!=="special" && c.state!=="solid" && c.state!=="gas");
+  const criticalAlerts = criticalHazardScan(resolvedAll);
+  const conflicts = crossCheckIncompatibilities(resolvedAll);
+  const tier = computeTier(resolvedAll, hasUnresolved).tier;
+
+  let html = "";
+
+  if(criticalAlerts.length){
+    html += `
+      <div class="conflict-box">
+        <div class="w-title">🛑 치명적인 위험이 있는 조합이에요</div>
+        <ul>${criticalAlerts.map(a=>`<li>${a}</li>`).join("")}</ul>
+        <p style="margin:8px 0 0;">${ALREADY_MIXED_SAFETY_NOTICE}</p>
+      </div>`;
+  }
+
+  if(conflicts.length){
+    html += `
+      <div class="conflict-box">
+        <div class="w-title">🚫 이 조합은 애초에 함께 섞으면 위험해요</div>
+        <ul>${conflicts.map(c=>`<li>${c}</li>`).join("")}</ul>
+        <p style="margin:8px 0 0;">${ALREADY_MIXED_SAFETY_NOTICE}</p>
+      </div>`;
+  }
+
+  if(special.length){
+    html += `
+      <div class="hazard-box">
+        <div class="w-title">⛔ 이 물질은 4개 폐수통 중 하나로 안내하지 않습니다</div>
+        <ul>${special.map(c=>{
+          const tagLabels = (c.tags||[]).map(t=>HAZARD_TAG_INFO[t]?.label).filter(Boolean).join(", ");
+          return `<li><b>${c.name}</b>${tagLabels ? ` (${tagLabels})` : ""}<br>${getSafetyDetails(c)}</li>`;
+        }).join("")}</ul>
+        <p style="margin:8px 0 0;">위 물질은 산·알칼리·유기·무기 폐수통 어디에도 넣지 말고, 학교 안전관리자·기관 EHS 절차에 따라 개별적으로 수거·위탁 처리하세요.</p>
+      </div>`;
+  }
+
+  if(nonLiquid.length){
+    html += `
+      <div class="check-list">
+        <div class="ct-title">🧱 고체·기체 상태 물질 포함</div>
+        <ul style="margin:0;padding-left:18px;">
+          ${nonLiquid.map(c=>`<li><b>${c.name}</b> (${c.state==="solid"?"고체":"기체"}): ${c.state==="solid" ? "액체 폐수통이 아닌 고형 화학폐기물로 별도 수거하세요." : "폐수통 대상이 아닙니다. 가스는 별도 절차(용기 반납·환기 등)를 따르세요."}</li>`).join("")}
+        </ul>
+      </div>`;
+  }
+
+  if(checkOnly.length){
+    html += `
+      <div class="check-list">
+        <div class="ct-title">🔍 조성 확인이 필요한 물질 포함</div>
+        <ul style="margin:0;padding-left:18px;">
+          ${checkOnly.map(c=>`<li><b>${c.name}</b>: ${c.special||"조성과 실제 pH를 확인한 뒤 분류해주세요."}</li>`).join("")}
+        </ul>
+      </div>`;
+  }
+  if(hasUnresolved){
+    html += `<div class="check-list"><div class="ct-title">🔍 목록에 없는 시약 포함</div>확인 전까지는 4분류 추천에 포함하지 않습니다. '새 시약 판별' 탭에서 분류 마법사를 이용해 정확히 확인한 뒤 다시 추가해주세요.</div>`;
+  }
+
+  if(tier===5 && binEligible.length){
+    const result = determineMixtureCategory(binEligible);
+    const cat = CATS[result.cat];
+    html += `
+      <div class="mix-card" style="border-color:${cat.hex}66;background:${cat.soft};">
+        <div class="mix-head" style="color:${cat.hex}">➡ 추천: ${cat.label}</div>
+        <p>${result.reason}</p>
+        ${(result.notes||[]).map(n=>`<p class="mix-sub">💡 ${n}</p>`).join("")}
+        <p class="mix-sub">※ 이 판정은 시약 이름만으로 계산한 일반적인 기준입니다. 실제 폐액의 농도·pH·반응 생성물·오염 여부에 따라 달라질 수 있으니, 최종 판단은 담당 교사·기관 안전관리자가 확인해주세요.</p>
+      </div>`;
+  } else if(tier!==5 && binEligible.length===0 && resolvedAll.length>0){
+    html += `<p class="mix-sub" style="padding:0 2px;">선택한 시약 중 일반 4분류 대상이 없습니다.</p>`;
+  }
+
+  const hazardsOnly = mixList.filter(c=>c.hazard && c.disposalRoute!=="special");
+  if(hazardsOnly.length){
+    html += `<div class="hazard-box"><div class="w-title">⚠️ 선택한 시약의 위험 정보</div><ul>${hazardsOnly.map(c=>`<li><b>${c.name}</b> (${hazardBadgeLabel(c)}): ${c.hazard}</li>`).join("")}</ul></div>`;
+  }
+
+  const bioItems = mixList.filter(c=>c.tag==="bio");
+  if(bioItems.length){
+    html += `<div class="warn-box"><div class="w-title">⚠️ 생물·분자생물 시약 포함</div><p style="margin:0;">${bioItems.map(c=>c.name).join(", ")}이(가) 포함되어 있어요. 학교 규정에 따라 일반 유기 폐수와 별도 수거가 필요할 수 있으니 담당 교사와 확인하세요.</p></div>`;
+  }
+
+  const specials = mixList.filter(c=>c.special && !c.unresolved && c.disposalRoute!=="special" && c.category!=="check");
+  if(specials.length){
+    html += `<div class="warn-box"><div class="w-title">📌 개별 시약 예외 규칙</div><ul>${specials.map(c=>`<li><b>${c.name}</b>: ${c.special}</li>`).join("")}</ul></div>`;
+  }
+
+  mixOutput.innerHTML = html;
+});
+
+// ================= RENDER BINS =================
+const binsRow = document.getElementById("binsRow");
+const criticalZone = document.getElementById("criticalZone");
+const warnZone = document.getElementById("warnZone");
+const hazardZone = document.getElementById("hazardZone");
+const checkZone = document.getElementById("checkZone");
+
+function renderBins(){
+  const allSelected = [...selected].map(i=>ALL_CHEMICALS[i]);
+  const eligible = allSelected.filter(isBinEligible);
+  const byCat = {organic:[], acid:[], alkali:[], inorganic:[]};
+  eligible.forEach(c=>{ byCat[c.category].push(c); });
+
+  if(allSelected.length>0 && eligible.length===0){
+    binsRow.innerHTML = `<p class="empty-msg" style="grid-column:1/-1;">선택한 시약 중 일반 4분류 대상이 없습니다.</p>`;
+  } else {
+    binsRow.innerHTML = "";
+    BIN_ORDER.forEach(key=>{
+      const cat = CATS[key];
+      const items = byCat[key];
+      const card = document.createElement("div");
+      card.className = "bin-card";
+      const fillPct = Math.min(items.length * 20, 100);
+      card.innerHTML = `
+        <div class="jug">
+          <div class="cap"></div>
+          <div class="body"><div class="fill" style="height:${fillPct}%; background:${cat.hex}"></div></div>
+        </div>
+        <div class="bin-label" style="color:${cat.hex}">${cat.label}</div>
+        <div class="bin-count">${items.length}개 선택됨</div>
+        <div class="bin-items">${items.map(i=>i.name).join(", ")}</div>
+      `;
+      binsRow.appendChild(card);
+    });
+  }
+
+  // ---- 우선순위 1: 치명적 위험 ----
+  const criticalAlerts = criticalHazardScan(allSelected);
+  criticalZone.innerHTML = criticalAlerts.length ? `
+    <div class="conflict-box">
+      <div class="w-title">🛑 치명적인 위험이 있는 조합이에요</div>
+      <ul>${criticalAlerts.map(a=>`<li>${a}</li>`).join("")}</ul>
+      <p style="margin:8px 0 0;">${ALREADY_MIXED_SAFETY_NOTICE}</p>
+    </div>` : "";
+
+  // ---- 우선순위 2: 별도관리 대상 ----
+  const specialItems = allSelected.filter(c=>c.disposalRoute==="special");
+  hazardZone.innerHTML = specialItems.length ? `
+    <div class="hazard-box">
+      <div class="w-title">⛔ 별도관리 필요 (4분류 폐수통 대상 아님)</div>
+      <ul>${specialItems.map(c=>{
+        const tagLabels = (c.tags||[]).map(t=>HAZARD_TAG_INFO[t]?.label).filter(Boolean).join(", ");
+        return `<li><b>${c.name}</b>${tagLabels ? ` (${tagLabels})` : ""}<br>${getSafetyDetails(c)}</li>`;
+      }).join("")}</ul>
+    </div>` : "";
+
+  // ---- 우선순위 3/4: 고체·기체 / 조성 확인 필요 ----
+  const nonLiquid = allSelected.filter(c=>(c.state==="solid" || c.state==="gas") && c.disposalRoute!=="special");
+  const checkOnly = allSelected.filter(c=>c.category==="check" && c.disposalRoute!=="special" && c.state!=="solid" && c.state!=="gas");
+  let checkHtml = "";
+  if(nonLiquid.length>0){
+    checkHtml += `
+      <div class="check-list">
+        <div class="ct-title">🧱 고체·기체 상태 (폐수통 대상 아님)</div>
+        <ul style="margin:0;padding-left:18px;">
+          ${nonLiquid.map(c=>`<li><b>${c.name}</b> (${c.state==="solid"?"고체":"기체"}): ${c.state==="solid" ? "액체 폐수통 대신 고형 화학폐기물로 별도 수거하세요." : "폐수통 대상이 아닙니다."}</li>`).join("")}
+        </ul>
+      </div>`;
+  }
+  if(checkOnly.length>0){
+    checkHtml += `
+      <div class="check-list">
+        <div class="ct-title">🔍 조성 확인이 필요한 항목</div>
+        <ul style="margin:0;padding-left:18px;">
+          ${checkOnly.map(c=>`<li><b>${c.name}</b>: ${c.special||"조성과 실제 pH를 확인한 뒤 분류해주세요."}</li>`).join("")}
+        </ul>
+      </div>`;
+  }
+  checkZone.innerHTML = checkHtml;
+
+  // ---- 일반(별도관리 아닌) 시약의 상세 위험 정보 ----
+  // 벤젠·페놀·폼알데하이드·브로민·다이에틸에터처럼 4분류 대상이지만 hazard가 있는
+  // 시약도, 별도관리 안내와 구분해서 각각 표시합니다.
+  const generalHazardItems = allSelected.filter(c=>c.hazard && c.disposalRoute!=="special");
+  if(generalHazardItems.length){
+    hazardZone.innerHTML += `
+      <div class="hazard-box">
+        <div class="w-title">⚠️ 선택한 시약의 위험 정보</div>
+        <ul>${generalHazardItems.map(c=>`<li><b>${c.name}</b> (${hazardBadgeLabel(c)}): ${c.hazard}</li>`).join("")}</ul>
+      </div>`;
+  }
+
+  // ---- 일반 경고 ----
+  const warnings = [];
+  eligible.forEach(c=>{
+    if(c.special) warnings.push(`<b>${c.name}</b>: ${c.special}`);
+  });
+  const hasAcid = byCat.acid.length>0;
+  const hasAlkali = byCat.alkali.length>0;
+  const noHigherTierIssue = criticalAlerts.length===0 && specialItems.length===0;
+  if(hasAcid && hasAlkali && noHigherTierIssue){
+    warnings.push("선택한 목록에 <b>무기산과 무기염기가 모두</b> 있습니다. 중화를 거쳐 무기 폐액으로 함께 처리할 수 있는 경우가 많지만, 진행 방법은 학교 안전관리자·기관 SOP가 승인한 절차를 따르세요.");
+  }
+  const hasBio = eligible.some(c=>c.tag==="bio");
+  if(hasBio){
+    warnings.push("생물·분자생물 시약(효소, PCR 시약, 염색시약 등)은 학교 규정에 따라 일반 유기 폐수와 별도로 수거하는 경우가 많습니다. 담당 교사와 확인하세요.");
+  }
+  if(allSelected.length>1 && (criticalAlerts.length>0 || specialItems.length>0)){
+    warnings.push("아래(또는 위) 폐수통 표시는 각 시약을 <b>서로 섞지 않고 개별적으로</b> 처리할 때만 유효합니다. 이미 한 용기에 혼합된 폐액이라면 '혼합 시약 분류' 탭에서 다시 판정하세요.");
+  }
+  warnZone.innerHTML = warnings.length ? `
+    <div class="warn-box">
+      <div class="w-title">⚠️ 확인이 필요해요</div>
+      <ul>${warnings.map(w=>`<li>${w}</li>`).join("")}</ul>
+    </div>` : "";
+}
+
+// ================= ACCORDION =================
+const accHead = document.getElementById("accHead");
+const accBody = document.getElementById("accBody");
+accHead.addEventListener("click", ()=>{
+  accBody.classList.toggle("open");
+  accHead.querySelector(".acc-chevron").classList.toggle("open");
+});
+
+// ================= WIZARD =================
+const wizardBody = document.getElementById("wizardBody");
+const addFormCard = document.getElementById("addFormCard");
+const newChemCategory = document.getElementById("newChemCategory");
+BIN_ORDER.forEach(k=>{
+  const opt = document.createElement("option");
+  opt.value = k; opt.textContent = CATS[k].label;
+  newChemCategory.appendChild(opt);
+});
+
+function renderWizard(){
+  if(wizardFinalCat){
+    const cat = CATS[wizardFinalCat.cat];
+    wizardBody.innerHTML = `
+      <div class="wizard-trail">${wizardTrail.join(" → ")}</div>
+      <div class="wizard-result" style="background:${cat.soft};border:1.5px solid ${cat.hex}55;">
+        <h4 style="color:${cat.hex}">➡ ${cat.label}</h4>
+        <p style="margin:0;font-size:13.5px;">${wizardFinalCat.note}</p>
+      </div>
+      <button class="wizard-restart" id="wizardRestart">처음부터 다시 판별하기</button>
+    `;
+    document.getElementById("wizardRestart").addEventListener("click", ()=>{
+      wizardStep="start"; wizardTrail=[]; wizardFinalCat=null;
+      renderWizard();
+      addFormCard.style.display="none";
+    });
+    newChemCategory.value = wizardFinalCat.cat;
+    addFormCard.style.display = "block";
+    return;
+  }
+  const step = WIZARD_STEPS[wizardStep];
+  wizardBody.innerHTML = `
+    ${wizardTrail.length ? `<div class="wizard-trail">${wizardTrail.join(" → ")}</div>` : ""}
+    <div class="wizard-q">${step.q.replace(/\n/g,"<br><span style='font-weight:400;color:var(--ink-soft);font-size:12.5px;'>").concat("</span>")}</div>
+    <div class="wizard-opts" id="wizardOpts"></div>
+  `;
+  const optsWrap = document.getElementById("wizardOpts");
+  step.opts.forEach(o=>{
+    const b = document.createElement("button");
+    b.className = "wizard-opt";
+    b.textContent = o.label;
+    b.addEventListener("click", ()=>{
+      wizardTrail.push(o.label);
+      if(WIZARD_RESULTS[o.next]){
+        wizardFinalCat = WIZARD_RESULTS[o.next];
+      } else {
+        wizardStep = o.next;
+      }
+      renderWizard();
+    });
+    optsWrap.appendChild(b);
+  });
+  addFormCard.style.display = "none";
+}
+
+// ---- add chemical (local-only storage; no server, no sharing) ----
+const addChemBtn = document.getElementById("addChemBtn");
+const addStatus = document.getElementById("addStatus");
+const customChemList = document.getElementById("customChemList");
+const LOCAL_KEY = "waste_classifier_custom_chemicals_v1";
+let localStorageWorks = false;
+
+function tryLoadLocalStorage(){
+  try{
+    const raw = window.localStorage.getItem(LOCAL_KEY);
+    localStorageWorks = true; // getItem succeeded without throwing
+    if(raw){
+      customChemicals = JSON.parse(raw);
+    }
+  }catch(e){
+    localStorageWorks = false; // blocked (e.g. inside a chat preview sandbox)
+  }
+}
+
+function trySaveLocalStorage(){
+  if(!localStorageWorks) return false;
+  try{
+    window.localStorage.setItem(LOCAL_KEY, JSON.stringify(customChemicals));
+    return true;
+  }catch(e){
+    localStorageWorks = false;
+    return false;
+  }
+}
+
+function loadCustomChemicals(){
+  tryLoadLocalStorage();
+  rebuildAllChemicals();
+  renderCustomList();
+}
+
+function rebuildAllChemicals(){
+  const withFlag = customChemicals.map(c=>({...c, isCustom:true}));
+  ALL_CHEMICALS = [...CHEMICALS, ...withFlag];
+  renderGrid();
+  renderBins();
+}
+
+function renderCustomList(){
+  const hint = localStorageWorks
+    ? " (이 PC의 이 브라우저에 계속 저장돼요 — 다른 사람과는 공유되지 않아요)"
+    : " (지금 화면에서는 저장이 안 돼요 — 파일을 다운로드해서 직접 열면 저장돼요)";
+  if(customChemicals.length===0){
+    customChemList.innerHTML = `<p class="empty-msg">아직 추가된 시약이 없어요.${hint}</p>`;
+    return;
+  }
+  customChemList.innerHTML = customChemicals.map((c,idx)=>`
+    <div class="custom-item">
+      <span><b>${c.name}</b> <span style="color:var(--ink-soft);font-family:'JetBrains Mono',monospace;font-size:11.5px;">${c.formula||""}</span> · ${CATS[c.category].label}</span>
+      <button class="custom-del" data-idx="${idx}">삭제</button>
+    </div>
+  `).join("");
+  customChemList.querySelectorAll(".custom-del").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const idx = parseInt(btn.dataset.idx,10);
+      customChemicals.splice(idx,1);
+      trySaveLocalStorage();
+      rebuildAllChemicals();
+      renderCustomList();
+    });
+  });
+}
+
+addChemBtn.addEventListener("click", ()=>{
+  const name = document.getElementById("newChemName").value.trim();
+  const formula = document.getElementById("newChemFormula").value.trim();
+  const category = newChemCategory.value;
+  if(!name){
+    addStatus.textContent = "시약 이름을 입력해주세요.";
+    return;
+  }
+  customChemicals.push({name, formula, category});
+  const saved = trySaveLocalStorage();
+  addStatus.textContent = saved
+    ? "✅ 이 브라우저에 저장됐어요. 다음에 이 파일을 다시 열어도 남아있어요. (이 PC에서만, 공유는 안 돼요)"
+    : "✅ 이번 화면에 추가됐어요. (다운로드한 파일을 직접 열면 다음에도 저장돼요. 지금은 미리보기라 저장이 안 될 수 있어요)";
+  document.getElementById("newChemName").value = "";
+  document.getElementById("newChemFormula").value = "";
+  rebuildAllChemicals();
+  renderCustomList();
+});
+
+// ---- export / import (share the local list as plain text, no server) ----
+const exportBtn = document.getElementById("exportBtn");
+const importToggleBtn = document.getElementById("importToggleBtn");
+const exportArea = document.getElementById("exportArea");
+const importArea = document.getElementById("importArea");
+const exportText = document.getElementById("exportText");
+const copyExportBtn = document.getElementById("copyExportBtn");
+const exportStatus = document.getElementById("exportStatus");
+const importText = document.getElementById("importText");
+const importBtn = document.getElementById("importBtn");
+const importStatus = document.getElementById("importStatus");
+
+exportBtn.addEventListener("click", ()=>{
+  importArea.style.display = "none";
+  if(customChemicals.length===0){
+    exportArea.style.display = "block";
+    exportText.value = "";
+    exportStatus.textContent = "아직 내보낼 시약이 없어요. 먼저 시약을 추가해주세요.";
+    return;
+  }
+  exportText.value = JSON.stringify(customChemicals, null, 0);
+  exportStatus.textContent = "";
+  exportArea.style.display = "block";
+});
+
+copyExportBtn.addEventListener("click", async ()=>{
+  exportText.select();
+  try{
+    await navigator.clipboard.writeText(exportText.value);
+    exportStatus.textContent = "✅ 복사됐어요! 이제 붙여넣기(Ctrl+V) 해서 보내주세요.";
+  }catch(e){
+    exportStatus.textContent = "자동 복사가 막혀 있어요. 텍스트가 선택되어 있으니 Ctrl+C(맥은 Cmd+C)로 직접 복사해주세요.";
+  }
+});
+
+importToggleBtn.addEventListener("click", ()=>{
+  exportArea.style.display = "none";
+  importArea.style.display = importArea.style.display==="block" ? "none" : "block";
+  importStatus.textContent = "";
+});
+
+importBtn.addEventListener("click", ()=>{
+  const raw = importText.value.trim();
+  if(!raw){
+    importStatus.textContent = "붙여넣을 내용이 없어요.";
+    return;
+  }
+  let incoming;
+  try{
+    incoming = JSON.parse(raw);
+    if(!Array.isArray(incoming)) throw new Error("배열 형식이 아니에요");
+  }catch(e){
+    importStatus.textContent = "가져오기에 실패했어요. 내보내기 텍스트를 그대로, 잘리지 않게 붙여넣었는지 확인해주세요.";
+    return;
+  }
+  const existingNames = new Set(customChemicals.map(c=>norm(c.name)));
+  let added = 0, skipped = 0, invalid = 0;
+  incoming.forEach(item=>{
+    if(!item || typeof item.name!=="string" || !item.name.trim() || !CATS[item.category] || item.category==="check"){
+      invalid++;
+      return;
+    }
+    const key = norm(item.name);
+    if(existingNames.has(key)){
+      skipped++;
+      return;
+    }
+    customChemicals.push({name:item.name.trim(), formula:item.formula||"", category:item.category});
+    existingNames.add(key);
+    added++;
+  });
+  trySaveLocalStorage();
+  rebuildAllChemicals();
+  renderCustomList();
+  importText.value = "";
+  importStatus.textContent = `✅ ${added}개 추가됨${skipped?`, ${skipped}개는 이미 있어서 건너뜀`:""}${invalid?`, ${invalid}개는 형식이 맞지 않아 무시됨`:""}.`;
+});
+
+// ================= COMPAT TAB =================
+const compatSearch = document.getElementById("compatSearch");
+const compatArea = document.getElementById("compatArea");
+
+const HANGUL_LEADS = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+const HANGUL_LEAD_TO_BASE = {"ㄲ":"ㄱ","ㄸ":"ㄷ","ㅃ":"ㅂ","ㅆ":"ㅅ","ㅉ":"ㅈ"};
+const COMPAT_LETTER_ORDER = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ","#"];
+
+function getGroupLetter(name){
+  const ch = (name||"").codePointAt(0) || 0;
+  if(ch>=0xAC00 && ch<=0xD7A3){
+    const leadIdx = Math.floor((ch-0xAC00)/588);
+    const lead = HANGUL_LEADS[leadIdx];
+    return HANGUL_LEAD_TO_BASE[lead] || lead;
+  }
+  return "#";
+}
+
+let compatLetterFilter = null;
+
+function renderCompatList(query){
+  const q = norm(query);
+  let list = COMPAT;
+
+  if(q){
+    compatLetterFilter = null;
+    list = COMPAT.filter(c=>{
+      const hay = [c.name, ...(c.aliases||[])].map(norm);
+      return hay.some(h=>h.includes(q));
+    });
+  } else if(compatLetterFilter){
+    list = COMPAT.filter(c=>getGroupLetter(c.name)===compatLetterFilter);
+  }
+  list = [...list].sort((a,b)=>a.name.localeCompare(b.name,'ko'));
+
+  const availableLetters = [...new Set(COMPAT.map(c=>getGroupLetter(c.name)))];
+  const indexBar = `<div class="filter-row" style="margin-bottom:12px;">
+    <div class="pill${(!compatLetterFilter && !q) ? ' on':''}" data-letter="all">전체</div>
+    ${COMPAT_LETTER_ORDER.filter(l=>availableLetters.includes(l)).map(l=>`<div class="pill${compatLetterFilter===l ? ' on':''}" data-letter="${l}">${l}</div>`).join("")}
+  </div>`;
+
+  let bodyHtml;
+  if(list.length===0){
+    bodyHtml = '<div class="empty-msg">일치하는 물질이 없어요.</div>';
+  } else if(q && list.length===1){
+    const c = list[0];
+    bodyHtml = `
+      <div class="compat-result">
+        <h3>${c.name}</h3>
+        <p style="font-size:13px;color:var(--ink-soft);margin:0 0 10px;">아래 물질과 함께 섞거나 접촉하지 않도록 주의하세요.</p>
+        <div>${c.list.map(x=>`<span class="compat-chip">${x}</span>`).join("")}</div>
+      </div>`;
+  } else {
+    bodyHtml = `<div class="compat-list">${list.map(c=>`<div class="compat-item" data-name="${c.name}"><b>${c.name}</b></div>`).join("")}</div>`;
+  }
+
+  compatArea.innerHTML = indexBar + bodyHtml;
+
+  compatArea.querySelectorAll("[data-letter]").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      compatLetterFilter = el.dataset.letter==="all" ? null : el.dataset.letter;
+      compatSearch.value = "";
+      renderCompatList("");
+    });
+  });
+  compatArea.querySelectorAll(".compat-item").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      compatSearch.value = el.dataset.name;
+      renderCompatList(el.dataset.name);
+    });
+  });
+}
+compatSearch.addEventListener("input", ()=>renderCompatList(compatSearch.value));
+
+// ================= INIT =================
+renderGrid();
+renderBins();
+renderWizard();
+renderCompatList("");
+loadCustomChemicals();
+</script>
+</body>
+</html>
